@@ -8,7 +8,7 @@ const { AudioModule } = NativeModules;
 
 
 
-export default class Numbers extends Component {
+export default class PhoneNumpad extends Component {
   state = {
     code: Array(10).fill('-'),
     codeNumbers: [],

@@ -76,7 +76,7 @@ function init(bundle, parent, options = {}) {
 
   // Render the fixed phone numpad to a flat surface
   r360.renderToSurface(
-    r360.createRoot("Numbers", { width, height }),
+    r360.createRoot("PhoneNumpad", { width, height }),
     numpadSurface
   );
 

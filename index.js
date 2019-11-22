@@ -16,7 +16,7 @@ import Hole from "./components/Hole";
 import Phone from "./components/Phone";
 import EventEmitter from "EventEmitter";
 import BigPoster from "./components/BigPoster";
-import Numbers from './components/Numbers';
+import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
 import useSocket from './src/hooks/useWebSocket'
@@ -114,7 +114,7 @@ AppRegistry.registerComponent("BigPoster", () => BigPoster)
 AppRegistry.registerComponent("PosterBedroom", () => PosterBedroom);
 AppRegistry.registerComponent("Hole", () => Hole);
 AppRegistry.registerComponent("Phone", () => Phone);
-AppRegistry.registerComponent("Numbers", () => Numbers);
+AppRegistry.registerComponent("PhoneNumpad", () => PhoneNumpad);
 AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
