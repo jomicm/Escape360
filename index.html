@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>TestEscape360</title>
+    <style>
+      .body,
+      .wrapper {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow-y: hidden;
+      }
+      .body {
+        z-index: 1
+      }
+      .wrapper {
+        z-index: 2;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body class="body">
+    <!-- Attachment point for your app -->
+    <div class="wrapper" id="container"></div>
+    <script src="./client.bundle?platform=vr"></script>
+    <script>
+      // Initialize the React 360 application
+      React360.init(
+        'index.bundle?platform=vr&dev=true',
+        document.getElementById('container'),
+        {
+          assetRoot: 'static_assets/',
+        }
+      );
+    </script>
+  </body>
+</html>
+
