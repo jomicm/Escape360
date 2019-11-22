@@ -52,10 +52,6 @@ export default class PhoneNumpad extends Component {
     if (sender === 'call') {
       if (this.state.codeNumbers.join('') === phoneNum) {
         this.createPhoneCode();
-        // console.log('winner')
-        //   setTimeout(() => {
-        //     this.setState({show: false});
-        //   }, 2000);
       } else {
         console.log('wrong answer motherfuckeeeeeer')
       }
