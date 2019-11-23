@@ -29,12 +29,13 @@ wss.on('connection', (client) => {
       if (!game[commText].players) {
         console.log('>> Player 1 has joined!');
         game[commText].players = [client.id];
-        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:0}));
+        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:{id:0, puzzleAnswers:game[commText]['puzzleAnswers']}}));
         console.log('Puzzle Answers 1 > ', game[commText]['puzzleAnswers']);
       } else if (!game[commText].players.includes(client.id) && game[commText].players.length < 2) {
         console.log('>> Player 2 has joined!');
         game[commText].players.push(client.id);
-        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:1}));
+        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:{id:1, puzzleAnswers:game[commText]['puzzleAnswers']}}));
+        // client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:1}));
         console.log('Puzzle Answers 2 > ', game[commText]['puzzleAnswers']);
       } else {
         console.log('>> Room is full! or same user');

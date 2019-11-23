@@ -1,7 +1,8 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
-import dataStore from '../index';
-import { phoneNumBasement } from '../consts/puzzleAnswers';
+import { dataStore, puzzleAnswers } from '../index';
+const { phoneNumBasement } = puzzleAnswers;
+// import { phoneNumBasement } from '../consts/puzzleAnswers';
 
 class Poster extends Component {
   state = {

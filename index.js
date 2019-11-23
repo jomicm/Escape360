@@ -21,8 +21,9 @@ import BigPoster from "./components/BigPoster";
 import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
-import useSocket from './src/hooks/useWebSocket'
-
+import useSocket from './src/hooks/useWebSocket';
+// import puzzleAnswers from './consts/puzzleAnswers';
+let puzzleAnswers;
 const dataStore = new EventEmitter();
 // const BrowserInfo = NativeModules.BrowserInfo();
 // const deviceInfo = NativeModules.DeviceInfo;
@@ -47,12 +48,16 @@ class Rooms extends React.Component {
       console.log('Comando recibido: ', comm);
       switch (comm.serCommName) {
         case 'joined':
-          console.log('Comando recibido: joined as: ', comm.serCommText);
-          if (comm.serCommText === 1) { 
-            dataStore.emit('ropeClick', true);
-          } else if (comm.serCommText === -1) {
+          console.log('Comando recibido: joined as: ', comm.serCommText.id);
+          if (comm.serCommText.id === -1) {
             Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
+            break;
           }
+          if (comm.serCommText.id === 1) { 
+            dataStore.emit('ropeClick', true);
+          } 
+          // puzzleAnswers = comm.serCommText.puzzleAnswers;
+          console.log('pA', comm.serCommText)
           break;
       }
     },
@@ -158,4 +163,4 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
-export default dataStore
+export { dataStore, puzzleAnswers};

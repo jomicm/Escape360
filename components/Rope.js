@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
-import dataStore from '../index';
+import { dataStore } from '../index';
 
 class Rope extends Component {
   state = {
