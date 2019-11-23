@@ -27,8 +27,6 @@ class Inventory extends Component {
   };
   _onInventoryButton = (item) => {
     inventoryViewer.selectedItem = item;
-    console.log('inventoryViewer', inventoryViewer);
-    // dataStore.emit('inventoryItemSelected', item);
   }
   _onBedroomGetSafeItemsToInventory = () => {
     this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})

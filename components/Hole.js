@@ -13,7 +13,6 @@ class Hole extends Component {
   componentWillMount() {
     console.log('Mounting!');
     dataStore.addListener('ropeClick', this._onRopeClick);
-    dataStore.addListener('inventoryItemSelected', this._onInventoryItemSelected)
   }
   _onHoleClick = (show) => {
     if (this.state.canIGoThrough) {
@@ -37,9 +36,6 @@ class Hole extends Component {
   _onRopeClick = (show) => {
     this.setState({show: true})
   }
-  // _onInventoryItemSelected = (item) => {
-  //   this.setState({selectedItem: item})
-  // }
   render(){
   return (
     <VrButton onClick={() => this._onHoleClick(true)}>
