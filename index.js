@@ -22,15 +22,15 @@ import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
 import useSocket from './src/hooks/useWebSocket';
-// import puzzleAnswers from './consts/puzzleAnswers';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
+import inventoryViewer from './src/helpers/inventoryViewer';
 // const BrowserInfo = NativeModules.BrowserInfo();
 // const deviceInfo = NativeModules.DeviceInfo;
 
 // The root react component of the subtitle surface
-let ws;
+// let ws;
 class Rooms extends React.Component {
   state = {
     rightNumber: 8005551234,
@@ -62,9 +62,15 @@ class Rooms extends React.Component {
           console.log('puzzleAnswers', puzzleAnswers);
           console.log('pA', comm.serCommText)
           break;
+        case 'shareState':
+          console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
+          dataStore.emit('ropeSet', true);
+          console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
+          break;
       }
     },
     ws: null,
+    gameId: '4242'
     // send: null
   };
   
@@ -74,6 +80,7 @@ class Rooms extends React.Component {
     dataStore.addListener('posterBedroomClick', this._onPosterBedroomClick);
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
+    dataStore.addListener('ropeSet', this._onRopeSet);
     // const onMessageHandler =  e => {
     //   const res = JSON.parse(e.data);
     //   // setMessages([...messages, res]);
@@ -83,7 +90,7 @@ class Rooms extends React.Component {
     console.log('Trying to connect!')
     
     setTimeout(() => {
-      this.state.ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
+      this.state.ws.send(JSON.stringify( {commName:"join", commText:this.state.gameId}));
       console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
     }, 500);
     // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
@@ -110,6 +117,10 @@ class Rooms extends React.Component {
   _onPosterBedroomClick = (show) => {
     console.log('Show is ' + show);
     this.setState({message: show, show: !this.state.show});
+  };
+  _onRopeSet = (show) => {
+    console.log('Show is ' + show);
+    this.state.ws.send(JSON.stringify( {commName:"shareState", commText:{gameId:this.state.gameId, _onRopeSet: show}}));
   };
   _onRopeClick = (show) => {
     console.log('From Rope method')
@@ -166,6 +177,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
- export { dataStore, getPuzzleAnswers };
+ export { dataStore, getPuzzleAnswers, inventoryViewer };
 // export default { dataStore };
 // export { dataStore, puzzleAnswers};

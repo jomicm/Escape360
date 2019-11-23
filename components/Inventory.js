@@ -3,7 +3,9 @@
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton} from "react-360";
 // import dataStore from '../index';
-import { dataStore } from '../index';
+import { dataStore, inventoryViewer } from '../index';
+
+
 
 class Inventory extends Component {
   state = {
@@ -24,7 +26,9 @@ class Inventory extends Component {
     this.setState({inventoryShow: this.state.inventoryShow === true ? false : true});
   };
   _onInventoryButton = (item) => {
-    dataStore.emit('inventoryItemSelected', item)
+    inventoryViewer.selectedItem = item;
+    console.log('inventoryViewer', inventoryViewer);
+    // dataStore.emit('inventoryItemSelected', item);
   }
   _onBedroomGetSafeItemsToInventory = () => {
     this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})

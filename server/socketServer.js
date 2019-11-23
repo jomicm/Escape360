@@ -5,8 +5,8 @@ const puzzleAnswers = require('./consts/puzzleAnswers');
 
 // obj = {};
 
-const games = ['1452'];
-const players = [];
+// const games = ['1452'];
+// const players = [];
 const game = {};
 
 console.log('Before connecting');
@@ -44,12 +44,21 @@ wss.on('connection', (client) => {
 
       // game[commText].players ? game[commText].players.push(client.id) : game[commText].players = [client.id];
       console.log('game', game);
+    } else if (received.commName && received.commName === 'shareState' && received.commText) {
+      console.log('>>> SHARE STATE', received);
+      console.log('>>> share state id> ', client.id);
+      const { commText } = received;
+      console.log('commText', commText);
+      console.log('game[commText]', game[received.commText.gameId]);
+      const otherPlayer = game[received.commText.gameId].players.filter(x => x !== client.id)[0];
+      console.log('otherPlayer', otherPlayer);
+      wss.clients.forEach(c => {
+        if (c.id === otherPlayer) {
+          console.log('Hole clicked to > ', c.id);
+          c.send(JSON.stringify({serCommName: 'shareState', serCommText: 'clickHole'}));
+        }
+      });
     }
-    // wss.clients.forEach(client => {
-    //   if (client.readyState === WebSocket.OPEN) {
-    //     client.send(message);
-    //   }
-    // });
   });
   const firstMsg = { msg: 'Hi there from server' };
   client.send(JSON.stringify(firstMsg));

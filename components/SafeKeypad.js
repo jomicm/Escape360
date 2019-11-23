@@ -3,10 +3,10 @@ import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from 'r
 import Back from './Back'
 // import { dataStore, puzzleAnswers } from '../index';
 // import dataStore from '../index';
-import { dataStore } from '../index';
+// import { dataStore } from '../index';
+import { dataStore, getPuzzleAnswers } from '../index';
 
-// const { phoneCode } = puzzleAnswers;
-import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
+
 const { AudioModule } = NativeModules;
 
 
@@ -24,9 +24,9 @@ export default class SafeKeypad extends Component {
     codeNumbers.push(c);
     if (codeNumbers.length === this.state.len) {
       console.log('codeNumbers.join()', codeNumbers.join(''));
-      console.log('phoneCode', phoneCode);
+      // console.log('phoneCode', phoneCode);
       
-      if (codeNumbers.join('') === phoneCode.join('')) {
+      if (codeNumbers.join('') === getPuzzleAnswers().phoneCode.join('')) {
         console.log('the code is correct')
         dataStore.emit('correctBedroomSafeCode', true);
         dataStore.removeListener('bedroomSafeClick', this._onBedroomSafeClick);
@@ -51,7 +51,7 @@ export default class SafeKeypad extends Component {
     this.setState({show: true})
   }
   componentWillMount() {
-    console.log('Mounting phoneeee!', phoneCode);
+    // console.log('Mounting phoneeee!', getPuzzleAnswers().phoneCode);
     dataStore.addListener('bedroomSafeClick', this._onBedroomSafeClick);
   }
   render() {
