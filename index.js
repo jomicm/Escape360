@@ -71,7 +71,7 @@ class Rooms extends React.Component {
     //   // setMessages([...messages, res]);
     // };
     // ws = useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler);
-    this.setState({ ws: useSocket('ws://172.46.0.135:8080', this.state.onMessageHandler) });
+    this.setState({ ws: useSocket('ws://localhost:8080', this.state.onMessageHandler) });
     console.log('Trying to connect!')
     
     setTimeout(() => {
