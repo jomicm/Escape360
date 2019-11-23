@@ -1,6 +1,6 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, VrButton } from 'react-360';
-import { dataStore } from '../index';
+import dataStore from '../index';
 
 class BedroomSafe extends Component {
   state = {

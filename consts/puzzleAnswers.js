@@ -3,7 +3,7 @@
 // const getPhoneNum = getCode(7, 10, 0);
 // module.exports = {
 //   phoneNum: `800${getPhoneNum.join('')}`,
-//   import { dataStore }: `(800) ${getPhoneNum.join('').slice(0, 3)} - ####`,
+//   import dataStore: `(800) ${getPhoneNum.join('').slice(0, 3)} - ####`,
 //   phoneNumBedroom: `(###) ### - ${getPhoneNum.join('').slice(3, 7)}`,
 //   phoneCode: getCode(4),
 // };

@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, NativeModules } from 'react-360';
-import { dataStore } from '../index';
+import dataStore from '../index';
 const { AudioModule } = NativeModules;
 
 class Hole extends Component {
