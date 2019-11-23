@@ -26,6 +26,7 @@ class BedroomSafe extends Component {
   }
   _onBedroomGetSafeItems = (show) => {
     this.setState({showItems: false})
+    
   }
   componentWillMount() {
     console.log('Mounting!');

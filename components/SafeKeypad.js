@@ -32,6 +32,7 @@ export default class SafeKeypad extends Component {
           this.setState({show: false})
           setTimeout(() => {
             dataStore.emit('bedroomGetSafeItems', true);
+            dataStore.emit('bedroomGetSafeItemsToInventory', true);
           }, 2000);
         }, 900);
       } else {

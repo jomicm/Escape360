@@ -14,6 +14,7 @@ import Poster from "./components/Poster";
 import PosterBedroom from "./components/PosterBedroom";
 import Rope from "./components/Rope";
 import Hole from "./components/Hole";
+import Inventory from "./components/Inventory";
 import Phone from "./components/Phone";
 import EventEmitter from "EventEmitter";
 import BigPoster from "./components/BigPoster";
@@ -150,6 +151,7 @@ AppRegistry.registerComponent("Poster", () => Poster);
 AppRegistry.registerComponent("BigPoster", () => BigPoster)
 AppRegistry.registerComponent("PosterBedroom", () => PosterBedroom);
 AppRegistry.registerComponent("Hole", () => Hole);
+AppRegistry.registerComponent("Inventory", () => Inventory);
 AppRegistry.registerComponent("Phone", () => Phone);
 AppRegistry.registerComponent("PhoneNumpad", () => PhoneNumpad);
 AppRegistry.registerComponent('Rooms', () => Rooms);

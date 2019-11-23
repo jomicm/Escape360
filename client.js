@@ -10,12 +10,12 @@ function init(bundle, parent, options = {}) {
   const numpadSurface = new Surface(width, height, Surface.SurfaceShape.Flat);
   numpadSurface.setRadius(3.4);
 
-  const safeKeypadSurface = new Surface(
-    width,
-    height,
-    Surface.SurfaceShape.Flat
-  );
+  const safeKeypadSurface = new Surface(width, height, Surface.SurfaceShape.Flat);
   safeKeypadSurface.setRadius(3.4);
+
+  const inventorySurface = new Surface(width, height, Surface.SurfaceShape.Flat);
+  inventorySurface.setRadius(8);
+
   const r360 = new ReactInstance(bundle, parent, {
     fullScreen: true,
     frame: () => {
@@ -23,6 +23,7 @@ function init(bundle, parent, options = {}) {
       bigPosterSurface.recenter(cameraQuat, "all");
       numpadSurface.recenter(cameraQuat, "all");
       safeKeypadSurface.recenter(cameraQuat, "all");
+      inventorySurface.recenter(cameraQuat, "all");
     },
     ...options
   });
@@ -84,6 +85,12 @@ function init(bundle, parent, options = {}) {
   r360.renderToSurface(
     r360.createRoot("SafeKeypad", { width, height }),
     safeKeypadSurface
+  );
+
+  // Render the inventory to a flat surface
+  r360.renderToSurface(
+    r360.createRoot("Inventory", { width, height }),
+    inventorySurface
   );
 
   // Load the initial environment
