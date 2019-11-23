@@ -8,7 +8,7 @@ class Inventory extends Component {
   state = {
     inventoryShow: false, 
     inventoryItems: {
-      'bunny': {q: 0, image: 'bunny.png', name:'bunny'},
+      'bunny': {q: 1, image: 'bunny.png', name:'bunny'},
     }
   };
 
