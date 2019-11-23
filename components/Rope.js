@@ -4,7 +4,7 @@ import dataStore from '../index';
 
 class Rope extends Component {
   state = {
-    show: true
+    show: false
   }
   _onRopeClick = (show) => {
     dataStore.emit('ropeClick', show)
@@ -12,6 +12,10 @@ class Rope extends Component {
   }
   _onRopeClickE = (show) => {
     this.setState({show: false})
+  }
+  _onRopeSet = (show) => {
+    this.setState({show: true})
+    console.log('rope set')
   }
   _onHoleClick = (show) => {
     // dataStore.emit('ropeClick', show)
@@ -21,7 +25,7 @@ class Rope extends Component {
     console.log('Mounting!');
     dataStore.addListener('holeClick', this._onHoleClick);
     dataStore.addListener('ropeClick', this._onRopeClickE);
-
+    dataStore.addListener('ropeSet', this._onRopeSet);
   }
   render(){
   return (

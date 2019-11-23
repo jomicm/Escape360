@@ -22,6 +22,7 @@ class Hole extends Component {
       if (this.state.selectedItem === 'rope') {
         this.setState({canIGoThrough: true})
         dataStore.emit('itemUsed', 'rope')
+        dataStore.emit('ropeSet', show)
       } else {
         AudioModule.playOneShot({
           source: asset('beep-error.mp3'),

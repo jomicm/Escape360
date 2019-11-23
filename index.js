@@ -71,13 +71,13 @@ class Rooms extends React.Component {
     //   // setMessages([...messages, res]);
     // };
     // ws = useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler);
-    this.setState({ ws: useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler) });
+    this.setState({ ws: useSocket('ws://172.46.0.135:8080', this.state.onMessageHandler) });
     console.log('Trying to connect!')
     
     setTimeout(() => {
       this.state.ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
       console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
-    }, 100);
+    }, 500);
     // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
     // this.setState({ send });
     // useSocket('ws://172.46.3.245:8080', onMessageHandler)
