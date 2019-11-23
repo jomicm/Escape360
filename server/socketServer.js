@@ -7,7 +7,7 @@ const puzzleAnswers = require('./consts/puzzleAnswers');
 
 const games = ['1452'];
 const players = [];
-const game = {}
+const game = {};
 
 console.log('Before connecting');
 wss.on('connection', (client) => {

@@ -3,10 +3,11 @@ import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from 'r
 import Back from './Back'
 // import { dataStore, puzzleAnswers } from '../index';
 // import dataStore from '../index';
-import { dataStore } from '../index';
+import { dataStore, getPuzzleAnswers  } from '../index';
 
 
-import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
+// import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
+
 // const { phoneNum, phoneCode } = puzzleAnswers;
 const { AudioModule } = NativeModules;
 
@@ -21,7 +22,7 @@ export default class PhoneNumpad extends Component {
   }
   createPhoneCode = (num) => {
     let first = 500;
-    phoneCode.map((x, ix) => {
+    getPuzzleAnswers().phoneCode.map((x, ix) => {
       setTimeout(() => {
         for (let i = 0; i < x; i++) {
           setTimeout(() => {
@@ -36,7 +37,7 @@ export default class PhoneNumpad extends Component {
       }, first);
       first += (500 * x) + 700;
     });
-    console.log('pC', phoneCode.join(''))
+    console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
   setCode = (c) => {
     console.log('c', c);
@@ -53,7 +54,9 @@ export default class PhoneNumpad extends Component {
   }
   _onActionButton = sender => {
     if (sender === 'call') {
-      if (this.state.codeNumbers.join('') === phoneNum) {
+      console.log('this.state.codeNumbers.join', this.state.codeNumbers.join(''));
+      console.log('getPuzzleAnswers().phoneNum', getPuzzleAnswers().phoneNum);
+      if (this.state.codeNumbers.join('') === getPuzzleAnswers().phoneNum) {
         this.createPhoneCode();
       } else {
         console.log('wrong answer motherfuckeeeeeer')

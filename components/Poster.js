@@ -1,20 +1,14 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
-// import { dataStore, puzzleAnswers } from '../index';
-// import dataStore from '../index';
-import { dataStore } from '../index';
-
-
-// const { phoneNumBasement } = puzzleAnswers;
-import { phoneNumBasement } from '../consts/puzzleAnswers';
+import { dataStore, getPuzzleAnswers } from '../index';
 
 class Poster extends Component {
   state = {
-    show: true
+    show: true,
   }
 
   _onPosterClick = (show) => {
-    console.log('From Poster method')
+    const phoneNumBasement = getPuzzleAnswers().phoneNumBasement;
     dataStore.emit('posterClick', phoneNumBasement);
   }
   _onRopeClick = (show) => {
@@ -25,7 +19,11 @@ class Poster extends Component {
     this.setState({show: true})
   }
   componentWillMount() {
-    console.log('Mounting!');
+    
+    // this.setState({ phoneNumBasement })
+    // console.log('puzzleAnswers! >>>>>>>>>>> ', phoneNumBasement);
+
+    console.log('Mounting from poster.js!');
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
   }

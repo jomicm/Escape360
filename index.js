@@ -23,7 +23,8 @@ import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
 import useSocket from './src/hooks/useWebSocket';
 // import puzzleAnswers from './consts/puzzleAnswers';
-let puzzleAnswers;
+let puzzleAnswers;// = {phoneNumBasement:'5564'};
+const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
 // const BrowserInfo = NativeModules.BrowserInfo();
 // const deviceInfo = NativeModules.DeviceInfo;
@@ -57,7 +58,8 @@ class Rooms extends React.Component {
           if (comm.serCommText.id === 1) { 
             dataStore.emit('ropeClick', true);
           } 
-          // puzzleAnswers = comm.serCommText.puzzleAnswers;
+          puzzleAnswers = comm.serCommText.puzzleAnswers;
+          console.log('puzzleAnswers', puzzleAnswers);
           console.log('pA', comm.serCommText)
           break;
       }
@@ -164,6 +166,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
- export { dataStore, puzzleAnswers };
+ export { dataStore, getPuzzleAnswers };
 // export default { dataStore };
 // export { dataStore, puzzleAnswers};
