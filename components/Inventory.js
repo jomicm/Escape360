@@ -7,18 +7,25 @@ import dataStore from '../index';
 class Inventory extends Component {
   state = {
     inventoryShow: false, 
-    inventoryItems: { 
-      1: 'bunny.png',
-      2: 'bunny.png'
+    inventoryItems: {
+      'bunny': {q: 1, image: 'bunny.png', name:'bunny'},
     }
   };
+
+  componentWillMount() {
+    console.log('Mounting! inventory.js');
+    dataStore.addListener('bedroomGetSafeItemsToInventory', this._onBedroomGetSafeItemsToInventory);
+  }
 
   handleClick = () => {
     console.log('backpack clicked')
     this.setState({inventoryShow: this.state.inventoryShow === true ? false : true});
   };
-  _onActionButton = () => {
+  _onInventoryButton = (item) => {
     console.log('inventory item clicked')
+  }
+  _onBedroomGetSafeItemsToInventory = () => {
+    this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})
   }
   render() {
     return (
@@ -31,8 +38,8 @@ class Inventory extends Component {
         </VrButton>
         {this.state.inventoryShow && 
         Object.values(this.state.inventoryItems).map((x, ix) =>
-        <VrButton key={'item' + ix} onClick={() => this._onActionButton()}>
-          <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x)}/>
+        <VrButton key={'item' + ix} onClick={() => this._onInventoryButton(Object.keys(x.name))}>
+          <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x.image)}/>
         </VrButton>
         )}
       </View>
@@ -58,10 +65,11 @@ const styles = StyleSheet.create({
     padding:25,
     paddingLeft:40,
     paddingRight:40, 
-    marginLeft:10, 
-    marginRight:10,
-    borderColor: "#639dda",
-    borderWidth: 2
+    marginLeft:15, 
+    marginRight:15,
+    borderColor: "grey",
+    borderWidth: 2,
+    backgroundColor: 'black',
   },
   textSize: {
     fontSize: 50
