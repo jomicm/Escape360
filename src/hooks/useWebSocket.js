@@ -1,35 +1,34 @@
-import {useEffect, useRef} from 'react';
+// import {useEffect, useRef} from 'react';
 
 const useWebSocket = (url, onMessageHandler) => {
-  const socket = useRef();
-  const savedMessageHandler = useRef();
-  
-  useEffect(() => {
-    savedMessageHandler.current = onMessageHandler;
-    return () => {};
-  }, [onMessageHandler]);
-
-  useEffect(() => {
-    socket.current = new WebSocket(url);
+    const socket = new WebSocket(url);
     console.log('connected from useSocket');
     const onMessageListener = (event) => {
       console.log('event', event);
-      savedMessageHandler.current(event);
-      // onMessageHandler(event);
+      // savedMessageHandler.current(event);
+      onMessageHandler(event);
     }
-    socket.current.onmessage = onMessageListener
-    socket.current.onopen = () => console.log('Connected to ', url)
-    socket.current.onclose = () => console.log('Closed');
-    return () => {
-      socket.current.close()
-    };
-  }, [url])
+    socket.onmessage = onMessageListener
+    socket.onopen = () => console.log('Connected to ', url)
+    socket.onclose = () => console.log('Closed');
+    // return () => {
+    //   socket.current.close()
+    // };
+  // }, [url])
 
   const send = message => {
-    if (socket.current.readyState === 1)
-      socket.current.send(message);
-  }
-  return { send };
+    console.log('socket.readyState', socket.readyState);
+    if (socket.readyState === 1) {
+      socket.send(message);
+      console.log('message', message);
+    }
+  };
+
+  const remove = message => {
+    console.log('socket.readyState', socket.readyState);
+    socket.close();
+  }; 
+  return { send, remove };
 };
 
 export default useWebSocket;

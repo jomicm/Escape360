@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import r360, { BrowserVideoPlayer, ReactInstance } from 'react-360-web';
 import {
   asset,
   AppRegistry,
@@ -7,7 +8,7 @@ import {
   View,
   Image,
   Environment,
-  VrButton
+  VrButton,
 } from "react-360";
 import Poster from "./components/Poster";
 import PosterBedroom from "./components/PosterBedroom";
@@ -22,22 +23,40 @@ import SafeKeypad from './components/SafeKeypad';
 import useSocket from './src/hooks/useWebSocket'
 
 const dataStore = new EventEmitter();
-
-function Test() {
-  const [messages, setMessages] = useState([]);
-  return (
-    <View>
-      <Text>This is just a sample component</Text>
-    </View>
-  )
-}
+// const BrowserInfo = NativeModules.BrowserInfo();
+// const deviceInfo = NativeModules.DeviceInfo;
 
 // The root react component of the subtitle surface
+let ws;
 class Rooms extends React.Component {
   state = {
     rightNumber: 8005551234,
     index: 0,
     show: false,
+    onMessageHandler: e => {
+      // console.log('e', JSON.parse(e.data));
+      const res = JSON.parse(e.data);
+      if (res.serCommName) {
+        this.state.onServerCommandReceived(res);
+      }
+      // console.log('STATE > res ', res);
+      // setMessages([...messages, res]);
+    },
+    onServerCommandReceived: comm => {  
+      console.log('Comando recibido: ', comm);
+      switch (comm.serCommName) {
+        case 'joined':
+          console.log('Comando recibido: joined as: ', comm.serCommText);
+          if (comm.serCommText === 1) { 
+            dataStore.emit('ropeClick', true);
+          } else if (comm.serCommText === -1) {
+            Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
+          }
+          break;
+      }
+    },
+    ws: null,
+    // send: null
   };
   
   componentWillMount() {
@@ -48,9 +67,19 @@ class Rooms extends React.Component {
     dataStore.addListener('holeClick', this._onHoleClick);
     // const onMessageHandler =  e => {
     //   const res = JSON.parse(e.data);
-    //   setMessages([...messages, res]);
+    //   // setMessages([...messages, res]);
     // };
-    // const { send } = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+    // ws = useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler);
+    this.setState({ ws: useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler) });
+    console.log('Trying to connect!')
+    
+    setTimeout(() => {
+      this.state.ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
+      console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
+    }, 100);
+    // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+    // this.setState({ send });
+    // useSocket('ws://172.46.3.245:8080', onMessageHandler)
   }
   componentWillUnmount() {
     console.log('Unmounting!');
@@ -58,8 +87,15 @@ class Rooms extends React.Component {
     dataStore.removeListener('ropeClick', this._onRopeClick);
     dataStore.removeListener('holeClick', this._onHoleClick);
   }
+  componentDidMount() {
+    // BrowserInfo.getBatteryLevel(level => {
+    //   console.log({batteryLevel: level});
+    // });
+  }
   _onPosterClick = (show) => {
-    console.log('Show is ' + show);
+    // ws.send(JSON.stringify( {name:"Zombie Bunny", message:"Don't kill me Mr Robot!"}));
+    // ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
+    // ws.newRoom('This is a new Room!');
     this.setState({show: !this.state.show});
   };
   _onPosterBedroomClick = (show) => {
@@ -76,6 +112,7 @@ class Rooms extends React.Component {
   }
 
   render() {
+    // this.state.ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
     return (
       <View style={styles.subtitle}>
         {/* {this.state.show && <BigPoster message={this.state.message} width={this.props.width} height={this.props.height} onPoster={this._onPosterClick}/>} */}

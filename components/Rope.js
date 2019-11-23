@@ -10,6 +10,9 @@ class Rope extends Component {
     dataStore.emit('ropeClick', show)
     this.setState({show: false})
   }
+  _onRopeClickE = (show) => {
+    this.setState({show: false})
+  }
   _onHoleClick = (show) => {
     // dataStore.emit('ropeClick', show)
     this.setState({show: true})
@@ -17,6 +20,8 @@ class Rope extends Component {
   componentWillMount() {
     console.log('Mounting!');
     dataStore.addListener('holeClick', this._onHoleClick);
+    dataStore.addListener('ropeClick', this._onRopeClickE);
+
   }
   render(){
   return (
