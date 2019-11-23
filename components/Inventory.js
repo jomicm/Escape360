@@ -8,13 +8,14 @@ class Inventory extends Component {
   state = {
     inventoryShow: false, 
     inventoryItems: {
-      'bunny': {q: 1, image: 'bunny.png', name:'bunny'},
+      'bunny': {q: 0, image: 'bunny.png', name:'bunny'},
     }
   };
 
   componentWillMount() {
     console.log('Mounting! inventory.js');
     dataStore.addListener('bedroomGetSafeItemsToInventory', this._onBedroomGetSafeItemsToInventory);
+    dataStore.addListener('itemUsed', this._onItemUsed);
   }
 
   handleClick = () => {
@@ -22,10 +23,17 @@ class Inventory extends Component {
     this.setState({inventoryShow: this.state.inventoryShow === true ? false : true});
   };
   _onInventoryButton = (item) => {
-    console.log('inventory item clicked')
+    dataStore.emit('inventoryItemSelected', item)
   }
   _onBedroomGetSafeItemsToInventory = () => {
     this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})
+  }
+  _onItemUsed = (item, num) => {
+    console.log(`this was used ${item} ${num}`);
+    let inventoryItems = {...this.state.inventoryItems}
+    inventoryItems[item].q -= num
+    this.setState({inventoryItems})
+
   }
   render() {
     return (
@@ -37,11 +45,11 @@ class Inventory extends Component {
           />
         </VrButton>
         {this.state.inventoryShow && 
-        Object.values(this.state.inventoryItems).map((x, ix) =>
-        <VrButton key={'item' + ix} onClick={() => this._onInventoryButton(Object.keys(x.name))}>
-          <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x.image)}/>
+        Object.values(this.state.inventoryItems).map((x, ix) => (
+        <VrButton key={'item' + ix} onClick={() => this._onInventoryButton(x.name)}>
+          { !x.q ? <View/> : <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x.image)}/>}
         </VrButton>
-        )}
+        ))}
       </View>
     );
   }
