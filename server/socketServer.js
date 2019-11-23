@@ -39,7 +39,7 @@ wss.on('connection', (client) => {
         console.log('Puzzle Answers 2 > ', game[commText]['puzzleAnswers']);
       } else {
         console.log('>> Room is full! or same user');
-        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:-1}));
+        client.send(JSON.stringify({clientId:client.id, serCommName:'joined', serCommText:{id:-1}}));
       }
 
       // game[commText].players ? game[commText].players.push(client.id) : game[commText].players = [client.id];

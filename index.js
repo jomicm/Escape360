@@ -50,6 +50,7 @@ class Rooms extends React.Component {
         case 'joined':
           console.log('Comando recibido: joined as: ', comm.serCommText.id);
           if (comm.serCommText.id === -1) {
+            console.log('Get out!')
             Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
             break;
           }
