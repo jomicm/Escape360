@@ -2,7 +2,8 @@
 
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton} from "react-360";
-import dataStore from '../index';
+// import dataStore from '../index';
+import { dataStore } from '../index';
 
 class Inventory extends Component {
   state = {

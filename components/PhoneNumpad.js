@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from 'react-360';
 import Back from './Back'
 // import { dataStore, puzzleAnswers } from '../index';
-import dataStore from '../index';
+// import dataStore from '../index';
+import { dataStore } from '../index';
+
 
 import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
 // const { phoneNum, phoneCode } = puzzleAnswers;

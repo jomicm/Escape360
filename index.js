@@ -164,6 +164,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
- export default dataStore;
-//module.exports = { dataStore };
+ export { dataStore, puzzleAnswers };
+// export default { dataStore };
 // export { dataStore, puzzleAnswers};

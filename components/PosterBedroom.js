@@ -1,7 +1,9 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
 // import { dataStore , puzzleAnswers} from '../index';
-import dataStore from '../index';
+// import dataStore from '../index';
+import { dataStore } from '../index';
+
 // const { phoneNumBedroom } = puzzleAnswers;
 import { phoneNumBedroom } from '../consts/puzzleAnswers';
 
