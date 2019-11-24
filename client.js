@@ -38,7 +38,7 @@ function init(bundle, parent, options = {}) {
   bedroomSafeSurface.setRadius(5);
   r360.renderToSurface(r360.createRoot("BedroomSafe", {}), bedroomSafeSurface);
 
-  // Poster Surface in Bedroom
+  // Bedroom Poster Surface
   const bedroomPosterSurface = new Surface(300, 600, Surface.SurfaceShape.Flat);
   bedroomPosterSurface.setAngle(Math.PI - 0.58, -0.1, 0);
   bedroomPosterSurface.setRadius(5);
@@ -68,6 +68,10 @@ function init(bundle, parent, options = {}) {
   myPhoneSurface.setAngle(1.99, -0.58, -0.13);
   r360.renderToSurface(r360.createRoot("Phone", {}), myPhoneSurface);
 
+  // Bathroom door in bedroom
+  const myBathroomDoorSurface = new Surface(230, 680, Surface.SurfaceShape.Flat);
+  myBathroomDoorSurface.setAngle(-Math.PI/3 - 0.36, 0.08, 0);
+  r360.renderToSurface(r360.createRoot("BathroomDoor", {}), myBathroomDoorSurface);
 
   // Render the fixed poster to a flat surface
   r360.renderToSurface(
@@ -95,7 +99,7 @@ function init(bundle, parent, options = {}) {
 
   // Load the initial environment
   // r360._cameraPosition = [0, 0, 0];
-  r360.compositor.setBackground(r360.getAssetURL("360_basement.jpg"));
+  r360.compositor.setBackground(r360.getAssetURL("360_bedroom.jpg"));
 }
 
 window.React360 = { init };

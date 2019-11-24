@@ -21,6 +21,7 @@ import BigPoster from "./components/BigPoster";
 import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
+import BathroomDoor from './components/BathroomDoor';
 import useSocket from './src/hooks/useWebSocket';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -28,7 +29,7 @@ const dataStore = new EventEmitter();
 import inventoryViewer from './src/helpers/inventoryViewer';
 import { _componentsMgmt } from './src/helpers/componentsMgmt';
 import registerComponent from './src/helpers/registerComponent';
-import initialRoomState from './src/helpers/roomsMgmt';
+import initialRoomState from './src/helpers/initialPlayerMgmt';
 
 const onServerCommandReceived = comm => {  
   console.log('Comando recibido: ', comm);
@@ -36,24 +37,18 @@ const onServerCommandReceived = comm => {
     case 'joined':
       console.log('Comando recibido: joined as: ', comm.serCommText.id);
       if (comm.serCommText.id === -1) {
-        console.log('Get out!')
+        console.log('Largate hijo de puta!')
         Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
         break;
       }
       if (comm.serCommText.id === 1) { 
-        // dataStore.emit('ropeClick', true);
         Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
       } 
       initialRoomState(comm.serCommText.id);
       puzzleAnswers = comm.serCommText.puzzleAnswers;
-      console.log('puzzleAnswers', puzzleAnswers);
-      console.log('pA', comm.serCommText)
       break;
     case 'shareState':
-      console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
-      // dataStore.emit('ropeSet', true);
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
-      console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
       break;
   }
 };
@@ -81,44 +76,8 @@ class Rooms extends React.Component {
     rightNumber: 8005551234,
     index: 0,
     show: false,
-    // onMessageHandler: e => {
-    //   // console.log('e', JSON.parse(e.data));
-    //   const res = JSON.parse(e.data);
-    //   if (res.serCommName) {
-    //     this.state.onServerCommandReceived(res);
-    //   }
-    //   // console.log('STATE > res ', res);
-    //   // setMessages([...messages, res]);
-    // },
-    // onServerCommandReceived: comm => {  
-    //   console.log('Comando recibido: ', comm);
-    //   switch (comm.serCommName) {
-    //     case 'joined':
-    //       console.log('Comando recibido: joined as: ', comm.serCommText.id);
-    //       if (comm.serCommText.id === -1) {
-    //         console.log('Get out!')
-    //         Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
-    //         break;
-    //       }
-    //       if (comm.serCommText.id === 1) { 
-    //         // dataStore.emit('ropeClick', true);
-    //         Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
-    //       } 
-    //       initialRoomState(comm.serCommText.id);
-    //       puzzleAnswers = comm.serCommText.puzzleAnswers;
-    //       console.log('puzzleAnswers', puzzleAnswers);
-    //       console.log('pA', comm.serCommText)
-    //       break;
-    //     case 'shareState':
-    //       console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
-    //       dataStore.emit('ropeSet', true);
-    //       console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
-    //       break;
-    //   }
-    // },
     ws: null,
     gameId: '4242'
-    // send: null
   };
   
   componentWillMount() {
@@ -127,22 +86,7 @@ class Rooms extends React.Component {
     dataStore.addListener('posterBedroomClick', this._onPosterBedroomClick);
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
-    // dataStore.addListener('ropeSet', this._onRopeSet);
-    // const onMessageHandler =  e => {
-    //   const res = JSON.parse(e.data);
-    //   // setMessages([...messages, res]);
-    // };
-    // ws = useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler);
-    //this.setState({ ws: useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler) });
     console.log('Trying to connect!')
-    
-    // setTimeout(() => {
-    //   this.state.ws.send(JSON.stringify( {commName:"join", commText:this.state.gameId}));
-    //   // console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
-    // }, 1000);
-    // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
-    // this.setState({ send });
-    // useSocket('ws://172.46.3.245:8080', onMessageHandler)
   }
   componentWillUnmount() {
     console.log('Unmounting!');
@@ -151,9 +95,6 @@ class Rooms extends React.Component {
     dataStore.removeListener('holeClick', this._onHoleClick);
   }
   componentDidMount() {
-    // BrowserInfo.getBatteryLevel(level => {
-    //   console.log({batteryLevel: level});
-    // });
   }
   _onPosterClick = (show) => {
     // ws.send(JSON.stringify( {name:"Zombie Bunny", message:"Don't kill me Mr Robot!"}));
@@ -179,11 +120,8 @@ class Rooms extends React.Component {
   }
 
   render() {
-    // this.state.ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
     return (
       <View style={styles.subtitle}>
-        {/* {this.state.show && <BigPoster message={this.state.message} width={this.props.width} height={this.props.height} onPoster={this._onPosterClick}/>} */}
-        {/* <Test /> */}
       </View>
     );
   }
@@ -223,7 +161,6 @@ AppRegistry.registerComponent("PhoneNumpad", () => PhoneNumpad);
 AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
+AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 
  export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
-// export default { dataStore };
-// export { dataStore, puzzleAnswers};
