@@ -17,10 +17,10 @@ class Hole extends Component {
   }
   _onHoleClick = (show) => {
     if (this.state.canIGoThrough) {
-      dataStore.emit('holeClick', show)
-      this.setState({show: false})
+      // dataStore.emit('holeClick', show)
+      //this.setState({show: false})
+      dataStore.emit('globalListener', {name: 'hole', action:'goThrough'});
     } else {
-      
       if (componentsMgmt.inventory.state.selectedItem === 'rope') {
         this.setState({canIGoThrough: true});
         dataStore.emit('itemUsed', 'rope');

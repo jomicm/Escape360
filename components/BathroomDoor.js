@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
-import { asset, View, VrButton, StyleSheet, NativeModule, AudioModule } from 'react-360'
+import { asset, View, VrButton, StyleSheet, NativeModules } from 'react-360'
+const { AudioModule } = NativeModules;
 import { dataStore, componentsMgmt } from '../index';
 
 export default class BathroomDoor extends Component {
   state = {
-    show: true,
-    canIGoThrough: false
+    show: false,
+    canIGoThrough: true
+  }
+  componentDidMount() {
+    componentsMgmt.bathroomDoor.state = this.state;
+    componentsMgmt.bathroomDoor.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.bathroomDoor.state = this.state;
+    }
   }
   _onBathroomDoorClick = (show) => {
     if (this.state.canIGoThrough) {
-      dataStore.emit('holeClick', show)
-      this.setState({show: false})
+      // dataStore.emit('holeClick', show)
+      // this.setState({show: false})
+      dataStore.emit('globalListener', {name: 'bathroomDoor', action:'click'});
     } else {
       if (componentsMgmt.inventory.state.selectedItem === 'bathroomKey') {
         this.setState({canIGoThrough: true});
@@ -29,9 +38,9 @@ export default class BathroomDoor extends Component {
   render() {
     return (
       <View >
-        <VrButton onClick={this._onBathroomDoorClick}>
+        {this.state.show && <VrButton onClick={this._onBathroomDoorClick}>
           <View style={styles.container}/>
-        </VrButton>
+        </VrButton>}
       </View>
     )
   }

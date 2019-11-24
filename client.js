@@ -99,7 +99,7 @@ function init(bundle, parent, options = {}) {
 
   // Load the initial environment
   // r360._cameraPosition = [0, 0, 0];
-  r360.compositor.setBackground(r360.getAssetURL("360_bedroom.jpg"));
+  r360.compositor.setBackground(r360.getAssetURL("360_basement.jpg"));
 }
 
 window.React360 = { init };

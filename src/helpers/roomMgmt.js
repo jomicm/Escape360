@@ -1,12 +1,36 @@
 import { componentsMgmt } from '../../index'
+import { Environment, asset } from 'react-360'
 
 export default function changeRoom(room) {
+console.log('room', room);
 
-  const initial = {
-    //  EASY TEST: REMOVE ROPE AT PRODUCTION. DO NOT TOUCH AGAIN.
-    // 0: ['basementPoster', 'rope'],
-    0: ['basementPoster'],
-    1: ['hole', 'bedroomPoster', 'phone', 'bedroomSafe']
+  const rooms = {
+    basement: {
+      components: ['inventory', 'basementPoster', 'rope'],
+      environment: '360_basement.jpg'
+    },
+    bedroom: {
+      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor'],
+      environment: '360_bedroom.jpg'
+    },
+    bathroom: {
+      components: ['inventory', ],
+      environment: '360_bathroom.jpg'
+    },
+    livingroom: {
+      components: ['inventory', ],
+      environment: '360_living.png'
+    },
+    freedom: {
+      components: ['inventory', ],
+      environment: ''
+    }
   }
-  initial[player].map(x => componentsMgmt[x].setState('show', true) )
+  Object.keys(componentsMgmt).map(c => componentsMgmt[c].setState('show', false))
+  Environment.setBackgroundImage(asset(rooms[room].environment), {format: '2D', transition: 1000});
+  setTimeout(() => {
+    rooms[room].components.map(room => componentsMgmt[room].setState('show', true))
+  }, 1000)
+
+
 }

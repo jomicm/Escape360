@@ -31,6 +31,7 @@ import { _componentsMgmt } from './src/helpers/componentsMgmt';
 import registerComponent from './src/helpers/registerComponent';
 import initialRoomState from './src/helpers/initialPlayerMgmt';
 
+
 const onServerCommandReceived = comm => {  
   console.log('Comando recibido: ', comm);
   switch (comm.serCommName) {
@@ -79,46 +80,6 @@ class Rooms extends React.Component {
     ws: null,
     gameId: '4242'
   };
-  
-  componentWillMount() {
-    console.log('Mounting Main!');
-    dataStore.addListener('posterClick', this._onPosterClick);
-    dataStore.addListener('posterBedroomClick', this._onPosterBedroomClick);
-    dataStore.addListener('ropeClick', this._onRopeClick);
-    dataStore.addListener('holeClick', this._onHoleClick);
-    console.log('Trying to connect!')
-  }
-  componentWillUnmount() {
-    console.log('Unmounting!');
-    dataStore.removeListener('posterClick', this._onPosterClick);
-    dataStore.removeListener('ropeClick', this._onRopeClick);
-    dataStore.removeListener('holeClick', this._onHoleClick);
-  }
-  componentDidMount() {
-  }
-  _onPosterClick = (show) => {
-    // ws.send(JSON.stringify( {name:"Zombie Bunny", message:"Don't kill me Mr Robot!"}));
-    // ws.send(JSON.stringify( {commName:"join", commText:"4242"}));
-    // ws.newRoom('This is a new Room!');
-    this.setState({show: !this.state.show});
-  };
-  _onPosterBedroomClick = (show) => {
-    console.log('Show is ' + show);
-    this.setState({message: show, show: !this.state.show});
-  };
-  _onRopeSet = (show) => {
-    console.log('Show is ' + show);
-    this.state.ws.send(JSON.stringify( {commName:"shareState", commText:{gameId:this.state.gameId, _onRopeSet: show}}));
-  };
-  _onRopeClick = (show) => {
-    console.log('From Rope method')
-    Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
-  }
-  _onHoleClick = (show) => {
-    console.log('From Rope method')
-    Environment.setBackgroundImage(asset('360_basement.jpg'), {format: '2D', transition: 1000});
-  }
-
   render() {
     return (
       <View style={styles.subtitle}>

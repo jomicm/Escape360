@@ -1,8 +1,10 @@
+import changeRoom from './roomMgmt';
+
 // State changes of all components of the game
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor'];
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
 
@@ -17,7 +19,8 @@ const _componentsMgmt = (dataStore, ws) => {
     switch (name) {
     // BASEMENT COMPONENTS
     case 'rope':
-      components.hole.setState('show', true);
+      //components.hole.setState('show', true);
+      changeRoom('bedroom');
       break;
     case 'basementPoster':
       components.bigPoster.setState('show', true);
@@ -46,8 +49,10 @@ const _componentsMgmt = (dataStore, ws) => {
         sendCommand('rope', 'show', true);
         sendCommand('hole', 'canIGoThrough', true);
         break;
+      } else if (action === 'goThrough') {
+        changeRoom('basement');
       }
-      components.hole.setState('show', true);
+      // components.hole.setState('show', true);
       break;
     case 'bedroomSafe':
       components.safeKeypad.setState('show', true);
@@ -59,6 +64,9 @@ const _componentsMgmt = (dataStore, ws) => {
       sendCommand('bedroomSafe', 'available', false);
       components.bedroomSafe.setState('showItems', true);
       components.bedroomSafe.setState('available', false);
+      break;
+    case 'bathroomDoor':
+      changeRoom('bathroom');
       break;
     case 'all':
       components[content.name].setState(content.key, content.value);
