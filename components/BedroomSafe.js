@@ -1,6 +1,6 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, VrButton } from 'react-360';
-import { dataStore } from '../index';
+import { dataStore, componentsMgmt } from '../index';
 
 class BedroomSafe extends Component {
   state = {
@@ -11,8 +11,8 @@ class BedroomSafe extends Component {
   }
 
   _onBedroomSafeClick = (show) => {
-    dataStore.emit('bedroomSafeClick', show)
-
+    // dataStore.emit('bedroomSafeClick', show)
+    dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
   _onRopeClick = (show) => {
     this.setState({show: true})
@@ -34,6 +34,13 @@ class BedroomSafe extends Component {
     dataStore.addListener('holeClick', this._onHoleClick);
     dataStore.addListener('correctBedroomSafeCode', this._onCorrectBedroomSafeCode);
     dataStore.addListener('bedroomGetSafeItems', this._onBedroomGetSafeItems);
+  }
+  componentDidMount() {
+    componentsMgmt.bedroomSafe.state = this.state;
+    componentsMgmt.bedroomSafe.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.bedroomSafe.state = this.state;
+    }
   }
   render() {
   return (

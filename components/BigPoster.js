@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton } from "react-360";
-import { dataStore } from '../index';
+import { dataStore, componentsMgmt, registerComponent } from '../index';
 
 class BigPoster extends Component {
   state = {
@@ -13,14 +13,18 @@ class BigPoster extends Component {
 
   handleClick = () => {
     this.setState({show: false});
+    dataStore.emit('globalListener', {name: 'bigPoster', action:'click'});
   };
-  _onPosterClick = (msg) => {
-    let message = this.state.fixedMessage + '\n\n' + msg;
-    this.setState({show: true, message});
-  }
-  componentWillMount() {
-    console.log('Mounting!');
-    dataStore.addListener('posterClick', this._onPosterClick);
+  componentDidMount() {
+    console.log('>>>>>>>>>>> componentsMgmt', componentsMgmt);
+    // registerComponent(componentsMgmt, 'bigPoster', this.state, this.setState);
+    //registerComponent(componentsMgmt, 'bigPoster', this);
+
+    componentsMgmt.bigPoster.state = this.state;
+    componentsMgmt.bigPoster.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.bigPoster.state = this.state;
+    }
   }
   render() {
     return (

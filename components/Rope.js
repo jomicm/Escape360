@@ -1,15 +1,16 @@
 import React, { useState, Component } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
 // import dataStore from '../index';
-import { dataStore } from '../index';
+import { dataStore, componentsMgmt } from '../index';
 
 
 class Rope extends Component {
   state = {
-    show: false
+    show: true
   }
   _onRopeClick = (show) => {
     dataStore.emit('ropeClick', show)
+    dataStore.emit('globalListener', {name: 'rope', action:'click'});
     this.setState({show: false})
   }
   _onRopeClickE = (show) => {
@@ -28,6 +29,9 @@ class Rope extends Component {
     dataStore.addListener('holeClick', this._onHoleClick);
     dataStore.addListener('ropeClick', this._onRopeClickE);
     dataStore.addListener('ropeSet', this._onRopeSet);
+  }
+  componentDidMount() {
+    componentsMgmt.rope.state = this.state;
   }
   render(){
   return (

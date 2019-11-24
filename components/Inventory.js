@@ -3,12 +3,14 @@
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton} from "react-360";
 // import dataStore from '../index';
-import { dataStore, inventoryViewer } from '../index';
+import { dataStore, inventoryViewer, componentsMgmt } from '../index';
 
 
 
 class Inventory extends Component {
   state = {
+    show: true,
+    selectedItem: '',
     inventoryShow: false, 
     inventoryItems: {
       'bunny': {q: 1, image: 'bunny.png', name:'bunny'},
@@ -20,13 +22,22 @@ class Inventory extends Component {
     dataStore.addListener('bedroomGetSafeItemsToInventory', this._onBedroomGetSafeItemsToInventory);
     dataStore.addListener('itemUsed', this._onItemUsed);
   }
+  componentDidMount() {
+    componentsMgmt.inventory.state = this.state;
+    componentsMgmt.inventory.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.inventory.state = this.state;
+    }
+  }
 
   handleClick = () => {
     console.log('backpack clicked')
     this.setState({inventoryShow: this.state.inventoryShow === true ? false : true});
   };
-  _onInventoryButton = (item) => {
-    inventoryViewer.selectedItem = item;
+  _onInventoryButton = async(item) => {
+    // inventoryViewer.selectedItem = item;
+    await this.setState({selectedItem: item});
+    componentsMgmt.inventory.state = this.state;
   }
   _onBedroomGetSafeItemsToInventory = () => {
     this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})
@@ -39,22 +50,26 @@ class Inventory extends Component {
 
   }
   render() {
-    return (
-      <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
-        <VrButton onClick={this.handleClick}>
-          <Image
-            style={[styles.backpack, {top: -(this.props.height / 3.3)}]}
-            source={asset("backpack.png")}
-          />
-        </VrButton>
-        {this.state.inventoryShow && 
-        Object.values(this.state.inventoryItems).map((x, ix) => (
-        <VrButton key={'item' + ix} onClick={() => this._onInventoryButton(x.name)}>
-          { !x.q ? <View/> : <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x.image)}/>}
-        </VrButton>
-        ))}
-      </View>
-    );
+    if (!this.state.show) {
+      return <View />
+    } else {
+      return (
+        <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
+          <VrButton onClick={this.handleClick}>
+            <Image
+              style={[styles.backpack, {top: -(this.props.height / 3.3)}]}
+              source={asset("backpack.png")}
+            />
+          </VrButton>
+          {this.state.inventoryShow && 
+          Object.values(this.state.inventoryItems).map((x, ix) => (
+          <VrButton key={'item' + ix} onClick={() => this._onInventoryButton(x.name)}>
+            { !x.q ? <View/> : <Image style={[styles.backpack, styles.text, {top: -(this.props.height / 3.3), height: 100, width: 100}]} source={asset(x.image)}/>}
+          </VrButton>
+          ))}
+        </View>
+      );
+    }
   }
 }
 

@@ -4,7 +4,7 @@ import Back from './Back'
 // import { dataStore, puzzleAnswers } from '../index';
 // import dataStore from '../index';
 // import { dataStore } from '../index';
-import { dataStore, getPuzzleAnswers } from '../index';
+import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 
 const { AudioModule } = NativeModules;
@@ -33,7 +33,8 @@ export default class SafeKeypad extends Component {
         
         AudioModule.playOneShot({ source: asset('safe_opens.wav'), volume: 1 });
         setTimeout(() => {
-          this.setState({show: false})
+          // this.setState({show: false})
+          this.onHandleClick();
           setTimeout(() => {
             dataStore.emit('bedroomGetSafeItems', true);
             dataStore.emit('bedroomGetSafeItemsToInventory', true);
@@ -54,6 +55,17 @@ export default class SafeKeypad extends Component {
     // console.log('Mounting phoneeee!', getPuzzleAnswers().phoneCode);
     dataStore.addListener('bedroomSafeClick', this._onBedroomSafeClick);
   }
+  componentDidMount() {
+    componentsMgmt.safeKeypad.state = this.state;
+    componentsMgmt.safeKeypad.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.safeKeypad.state = this.state;
+    }
+  }
+  onHandleClick = () => {
+    this.setState({show: false})
+    dataStore.emit('globalListener', {name: 'phoneNumpad', action:'click'});
+  }
   render() {
     if (this.state.show) {
       return (
@@ -62,7 +74,7 @@ export default class SafeKeypad extends Component {
             { this.state.code.map((n, ix) => this.state.codeNumbers[ix] !== undefined ? this.state.codeNumbers[ix] + ' ' : n + ' ' ).join('')}
           </Text>
             {[1, 4, 7].map((x, ix) => <NumRow key={'num' + ix} initial={x} setCode={this.setCode} cols={3}/>)}
-            <Back onClick={() => this.setState({show: false})}/>
+            <Back onClick={this.onHandleClick}/>
         </View>
       )
     } else {

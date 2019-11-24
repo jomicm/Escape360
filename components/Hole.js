@@ -1,26 +1,35 @@
 import React, { useState, Component } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, NativeModules } from 'react-360';
-// import dataStore from '../index';
-import { dataStore, inventoryViewer } from '../index';
+import { dataStore, inventoryViewer, componentsMgmt } from '../index';
 const { AudioModule } = NativeModules;
 
 class Hole extends Component {
   state = {
     show: false,
-    // selectedItem: '',
     canIGoThrough: false
   }
   componentWillMount() {
     console.log('Mounting!');
-    dataStore.addListener('ropeClick', this._onRopeClick);
+    // dataStore.addListener('ropeClick', this._onRopeClick);
+
+  }
+  componentDidMount() {
+    componentsMgmt.hole.state = this.state;
+    componentsMgmt.hole.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.hole.state = this.state;
+    }
   }
   _onHoleClick = (show) => {
+    //componentsMgmt.inventory.state.selectedItem
+    console.log('componentsMgmt.inventory.state.selectedItem', componentsMgmt.inventory);
     if (this.state.canIGoThrough) {
       dataStore.emit('holeClick', show)
       this.setState({show: false})
     } else {
+      
       // if (this.state.selectedItem === 'rope') {
-      if (inventoryViewer.selectedItem === 'rope') {
+      if (componentsMgmt.inventory.state.selectedItem === 'rope') {
         this.setState({canIGoThrough: true});
         dataStore.emit('itemUsed', 'rope');
         dataStore.emit('ropeSet', show);

@@ -26,6 +26,10 @@ let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
 import inventoryViewer from './src/helpers/inventoryViewer';
+import { _componentsMgmt } from './src/helpers/componentsMgmt';
+const componentsMgmt = _componentsMgmt(dataStore);
+import registerComponent from './src/helpers/registerComponent';
+
 // const BrowserInfo = NativeModules.BrowserInfo();
 // const deviceInfo = NativeModules.DeviceInfo;
 
@@ -91,7 +95,7 @@ class Rooms extends React.Component {
     
     setTimeout(() => {
       this.state.ws.send(JSON.stringify( {commName:"join", commText:this.state.gameId}));
-      console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
+      // console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
     }, 500);
     // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
     // this.setState({ send });
@@ -177,6 +181,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
- export { dataStore, getPuzzleAnswers, inventoryViewer };
+ export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent };
 // export default { dataStore };
 // export { dataStore, puzzleAnswers};
