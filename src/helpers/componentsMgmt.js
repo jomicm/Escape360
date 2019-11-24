@@ -2,7 +2,7 @@
 
 const _componentsMgmt = (dataStore) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad'];
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
 
@@ -24,6 +24,7 @@ const _componentsMgmt = (dataStore) => {
     case 'bedroomPoster':
       components.bigPoster.setState('show', true);
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
+      components.inventory.setState('show', false);
       break;
     case 'bigPoster':
       components.inventory.setState('show', true);

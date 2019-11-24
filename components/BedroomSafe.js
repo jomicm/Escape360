@@ -7,7 +7,7 @@ class BedroomSafe extends Component {
     show: false,
     image: ['safe_closed.png', 'safe_opened.png'],
     index: 0,
-    showItems: true
+    showItems: false
   }
 
   _onBedroomSafeClick = (show) => {

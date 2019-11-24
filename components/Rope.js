@@ -6,7 +6,7 @@ import { dataStore, componentsMgmt } from '../index';
 
 class Rope extends Component {
   state = {
-    show: true
+    show: false
   }
   _onRopeClick = (show) => {
     dataStore.emit('ropeClick', show)
@@ -32,6 +32,10 @@ class Rope extends Component {
   }
   componentDidMount() {
     componentsMgmt.rope.state = this.state;
+    componentsMgmt.rope.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.rope.state = this.state;
+    }
   }
   render(){
   return (

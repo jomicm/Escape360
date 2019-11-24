@@ -4,7 +4,7 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class Poster extends Component {
   state = {
-    show: true,
+    show: false,
   }
 
   _onPosterClick = (show) => {
