@@ -2,40 +2,15 @@
 
 const _componentsMgmt = (dataStore) => {
   console.log('dataStore', dataStore);
-  const components = {
-    hole: {
-      name: "hole",
-    },
-    rope: {
-      name: "rope",
-    },
-    basementPoster: {
-      name: "basement poster",
-    },
-    bigPoster: {
-      name: "big poster",
-    },
-    phone: {
-      name: "phone",
-    },
-    phoneNumpad: {
-      name: "phone numpad",
-    },
-    inventory: {
-      name: "inventory",
-    },
-    bedroomSafe: {
-      name: "bedroom safe",
-    },
-    safeKeypad: {
-      name: 'safe keypad',
-    }
-  };
-  // dataStore.addListener('ropeClick', components.hole._onRopeClick);
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad'];
+  const components = {};
+  componentsArray.map(c => components[c] = {name: c});
+
   dataStore.addListener('globalListener', async(data) => {
 
     const { name, action, content } = data;
     switch (name) {
+    // BASEMENT COMPONENTS
     case 'rope':
       components.hole.setState('show', true);
       break;
@@ -44,6 +19,8 @@ const _componentsMgmt = (dataStore) => {
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
       components.inventory.setState('show', false);
       break;
+
+    // BEDROOM COMPONENTS
     case 'bedroomPoster':
       components.bigPoster.setState('show', true);
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);

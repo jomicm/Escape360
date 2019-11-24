@@ -1,17 +1,12 @@
 import React, { useState, Component } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, NativeModules } from 'react-360';
-import { dataStore, inventoryViewer, componentsMgmt } from '../index';
+import { dataStore, inventoryViewer, componentsMgmt, registerComponent } from '../index';
 const { AudioModule } = NativeModules;
 
 class Hole extends Component {
   state = {
     show: false,
     canIGoThrough: false
-  }
-  componentWillMount() {
-    console.log('Mounting!');
-    // dataStore.addListener('ropeClick', this._onRopeClick);
-
   }
   componentDidMount() {
     componentsMgmt.hole.state = this.state;
@@ -21,14 +16,11 @@ class Hole extends Component {
     }
   }
   _onHoleClick = (show) => {
-    //componentsMgmt.inventory.state.selectedItem
-    console.log('componentsMgmt.inventory.state.selectedItem', componentsMgmt.inventory);
     if (this.state.canIGoThrough) {
       dataStore.emit('holeClick', show)
       this.setState({show: false})
     } else {
       
-      // if (this.state.selectedItem === 'rope') {
       if (componentsMgmt.inventory.state.selectedItem === 'rope') {
         this.setState({canIGoThrough: true});
         dataStore.emit('itemUsed', 'rope');
