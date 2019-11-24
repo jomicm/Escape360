@@ -6,7 +6,7 @@ import { dataStore, componentsMgmt } from '../index';
 export default class BathroomDoor extends Component {
   state = {
     show: false,
-    canIGoThrough: true
+    canIGoThrough: false
   }
   componentDidMount() {
     componentsMgmt.bathroomDoor.state = this.state;

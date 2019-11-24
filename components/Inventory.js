@@ -40,7 +40,7 @@ class Inventory extends Component {
     componentsMgmt.inventory.state = this.state;
   }
   _onBedroomGetSafeItemsToInventory = () => {
-    this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroom-key': {q: 1, image:'key.webp', name: 'bathroom-key'}}})
+    this.setState({inventoryItems: {...this.state.inventoryItems, 'rope': {q: 1, image: 'bundle-rope.png', name: 'rope'}, 'bathroomKey': {q: 1, image:'key.webp', name: 'bathroomKey'}}})
   }
   _onItemUsed = (item, num) => {
     console.log(`this was used ${item} ${num}`);
