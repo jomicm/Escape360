@@ -10,7 +10,7 @@ class Rope extends Component {
   }
   _onRopeClick = (show) => {
     // dataStore.emit('ropeClick', show)
-    dataStore.emit('globalListener', {name: 'rope', action:'click'});
+    dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: 'bedroom'});
     this.setState({show: false})
   }
   _onRopeClickE = (show) => {

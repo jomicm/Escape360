@@ -4,7 +4,7 @@ import changeRoom from './roomMgmt';
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor'];
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
 
@@ -18,10 +18,10 @@ const _componentsMgmt = (dataStore, ws) => {
     const { name, action, content } = data;
     switch (name) {
     // BASEMENT COMPONENTS
-    case 'rope':
-      //components.hole.setState('show', true);
-      changeRoom('bedroom');
-      break;
+    // case 'rope':
+    //   //components.hole.setState('show', true);
+    //   changeRoom('bedroom');
+    //   break;
     case 'basementPoster':
       components.bigPoster.setState('show', true);
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
@@ -49,9 +49,10 @@ const _componentsMgmt = (dataStore, ws) => {
         sendCommand('rope', 'show', true);
         sendCommand('hole', 'canIGoThrough', true);
         break;
-      } else if (action === 'goThrough') {
-        changeRoom('basement');
       }
+      // } else if (action === 'goThrough') {
+      //   changeRoom('basement');
+      // }
       // components.hole.setState('show', true);
       break;
     case 'bedroomSafe':
@@ -65,11 +66,14 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bedroomSafe.setState('showItems', true);
       components.bedroomSafe.setState('available', false);
       break;
-    case 'bathroomDoor':
-      changeRoom('bathroom');
-      break;
-    case 'livingroomDoor':
-        changeRoom('livingroom');
+    // case 'bathroomDoor':
+    //   changeRoom('bathroom');
+    //   break;
+    // case 'livingroomDoor':
+    //     changeRoom('livingroom');
+    //     break;
+    case 'changeEnvironment':
+        changeRoom(content);
         break;
     case 'all':
       components[content.name].setState(content.key, content.value);

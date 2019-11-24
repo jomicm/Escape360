@@ -10,15 +10,15 @@ console.log('room', room);
       environment: '360_basement.jpg'
     },
     bedroom: {
-      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor'],
+      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor'],
       environment: '360_bedroom.jpg'
     },
     bathroom: {
-      components: ['inventory', ],
+      components: ['inventory', 'goBackDoor'],
       environment: '360_bathroom.jpg'
     },
     livingroom: {
-      components: ['inventory', ],
+      components: ['inventory', 'goBackDoor'],
       environment: '360_living.png'
     },
     freedom: {

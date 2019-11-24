@@ -77,14 +77,19 @@ function init(bundle, parent, options = {}) {
   const myBathroomDoorSurface = new Surface(230, 150, Surface.SurfaceShape.Flat);
   myBathroomDoorSurface.setAngle(-Math.PI/3 - 0.37, -0.02, 0);
   // r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'bathroomDoor', selectedItem: 'bathroomKey'}), myBathroomDoorSurface);
-  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'bathroomDoor', selectedItem: 'bathroomKey' }), myBathroomDoorSurface);
+  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'bathroomDoor', selectedItem: 'bathroomKey', room: 'bathroom' }), myBathroomDoorSurface);
 
 
   // Livingroom door in bedroom
   const myLivingroomDoorSurface = new Surface(300, 160, Surface.SurfaceShape.Flat);
   myLivingroomDoorSurface.setAngle(-Math.PI/2 -0.85, -0.05, 0);
-  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'livingroomDoor', selectedItem: 'bathroomKey' }), myLivingroomDoorSurface);
+  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'livingroomDoor', selectedItem: 'bathroomKey', room: 'livingroom' }), myLivingroomDoorSurface);
 
+  // go back door to bedroom from bathroom
+  const myGoBackDoorSurface = new Surface(300, 180, Surface.SurfaceShape.Flat);
+  myGoBackDoorSurface.setAngle(-Math.PI + 0.8, -0.25, 0);
+  r360.renderToSurface(r360.createRoot("GoBackDoor", { component: 'goBackDoor', room: 'bedroom' }), myGoBackDoorSurface);
+  
   // Render the fixed poster to a flat surface
   r360.renderToSurface(
     r360.createRoot("BigPoster", { width, height, message: 'Some msg' }),
@@ -111,7 +116,7 @@ function init(bundle, parent, options = {}) {
 
   // Load the initial environment
   // r360._cameraPosition = [0, 0, 0];
-  r360.compositor.setBackground(r360.getAssetURL("360_bedroom.jpg"));
+  r360.compositor.setBackground(r360.getAssetURL("360_basement.jpg"));
 }
 
 window.React360 = { init };

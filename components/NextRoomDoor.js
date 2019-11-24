@@ -6,7 +6,7 @@ import { dataStore, componentsMgmt } from '../index';
 // props > component, selectedItem
 export default class NextRoomDoor extends Component {
   state = {
-    show: true,
+    show: false,
     canIGoThrough: false
   }
   componentDidMount() {
@@ -19,13 +19,17 @@ export default class NextRoomDoor extends Component {
   _onNextRoomDoorClick = (show) => {
     console.log('this.props.component>?>>>', this.props.component)
     if (this.state.canIGoThrough) {
-      dataStore.emit('globalListener', {name: this.props.component, action:'click'});
+      // dataStore.emit('globalListener', {name: this.props.component, action:'click'});
+      dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
+
     } else {
       if (componentsMgmt.inventory.state.selectedItem === this.props.selectedItem) {
         this.setState({canIGoThrough: true});
         dataStore.emit('itemUsed', this.props.selectedItem);
         // dataStore.emit('ropeSet', show);
-        dataStore.emit('globalListener', {name: this.props.component, action:'click'});
+        // dataStore.emit('globalListener', {name: this.props.component, action:'click'});
+        dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
+
       } else {
         AudioModule.playOneShot({
           source: asset('beep-error.mp3'),
