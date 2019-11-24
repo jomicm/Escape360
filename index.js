@@ -27,55 +27,96 @@ const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
 import inventoryViewer from './src/helpers/inventoryViewer';
 import { _componentsMgmt } from './src/helpers/componentsMgmt';
-const componentsMgmt = _componentsMgmt(dataStore);
 import registerComponent from './src/helpers/registerComponent';
 import initialRoomState from './src/helpers/roomsMgmt';
 
-// const BrowserInfo = NativeModules.BrowserInfo();
-// const deviceInfo = NativeModules.DeviceInfo;
+const onServerCommandReceived = comm => {  
+  console.log('Comando recibido: ', comm);
+  switch (comm.serCommName) {
+    case 'joined':
+      console.log('Comando recibido: joined as: ', comm.serCommText.id);
+      if (comm.serCommText.id === -1) {
+        console.log('Get out!')
+        Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
+        break;
+      }
+      if (comm.serCommText.id === 1) { 
+        // dataStore.emit('ropeClick', true);
+        Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
+      } 
+      initialRoomState(comm.serCommText.id);
+      puzzleAnswers = comm.serCommText.puzzleAnswers;
+      console.log('puzzleAnswers', puzzleAnswers);
+      console.log('pA', comm.serCommText)
+      break;
+    case 'shareState':
+      console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
+      // dataStore.emit('ropeSet', true);
+      dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
+
+      console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
+      break;
+  }
+};
+const onMessageHandler = e => {
+  // console.log('e', JSON.parse(e.data));
+  const res = JSON.parse(e.data);
+  if (res.serCommName) {
+    onServerCommandReceived(res);
+  }
+  // console.log('STATE > res ', res);
+  // setMessages([...messages, res]);
+};
+
+const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+const componentsMgmt = _componentsMgmt(dataStore, ws);
+
+
+setTimeout(() => {
+  ws.send(JSON.stringify( {commName:"join", commText:'4242'}));
+}, 500);
 
 // The root react component of the subtitle surface
-// let ws;
 class Rooms extends React.Component {
   state = {
     rightNumber: 8005551234,
     index: 0,
     show: false,
-    onMessageHandler: e => {
-      // console.log('e', JSON.parse(e.data));
-      const res = JSON.parse(e.data);
-      if (res.serCommName) {
-        this.state.onServerCommandReceived(res);
-      }
-      // console.log('STATE > res ', res);
-      // setMessages([...messages, res]);
-    },
-    onServerCommandReceived: comm => {  
-      console.log('Comando recibido: ', comm);
-      switch (comm.serCommName) {
-        case 'joined':
-          console.log('Comando recibido: joined as: ', comm.serCommText.id);
-          if (comm.serCommText.id === -1) {
-            console.log('Get out!')
-            Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
-            break;
-          }
-          if (comm.serCommText.id === 1) { 
-            // dataStore.emit('ropeClick', true);
-            Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
-          } 
-          initialRoomState(comm.serCommText.id);
-          puzzleAnswers = comm.serCommText.puzzleAnswers;
-          console.log('puzzleAnswers', puzzleAnswers);
-          console.log('pA', comm.serCommText)
-          break;
-        case 'shareState':
-          console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
-          dataStore.emit('ropeSet', true);
-          console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
-          break;
-      }
-    },
+    // onMessageHandler: e => {
+    //   // console.log('e', JSON.parse(e.data));
+    //   const res = JSON.parse(e.data);
+    //   if (res.serCommName) {
+    //     this.state.onServerCommandReceived(res);
+    //   }
+    //   // console.log('STATE > res ', res);
+    //   // setMessages([...messages, res]);
+    // },
+    // onServerCommandReceived: comm => {  
+    //   console.log('Comando recibido: ', comm);
+    //   switch (comm.serCommName) {
+    //     case 'joined':
+    //       console.log('Comando recibido: joined as: ', comm.serCommText.id);
+    //       if (comm.serCommText.id === -1) {
+    //         console.log('Get out!')
+    //         Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
+    //         break;
+    //       }
+    //       if (comm.serCommText.id === 1) { 
+    //         // dataStore.emit('ropeClick', true);
+    //         Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
+    //       } 
+    //       initialRoomState(comm.serCommText.id);
+    //       puzzleAnswers = comm.serCommText.puzzleAnswers;
+    //       console.log('puzzleAnswers', puzzleAnswers);
+    //       console.log('pA', comm.serCommText)
+    //       break;
+    //     case 'shareState':
+    //       console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
+    //       dataStore.emit('ropeSet', true);
+    //       console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
+    //       break;
+    //   }
+    // },
     ws: null,
     gameId: '4242'
     // send: null
@@ -93,13 +134,13 @@ class Rooms extends React.Component {
     //   // setMessages([...messages, res]);
     // };
     // ws = useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler);
-    this.setState({ ws: useSocket('ws://172.46.0.135:8080', this.state.onMessageHandler) });
+    //this.setState({ ws: useSocket('ws://172.46.3.245:8080', this.state.onMessageHandler) });
     console.log('Trying to connect!')
     
-    setTimeout(() => {
-      this.state.ws.send(JSON.stringify( {commName:"join", commText:this.state.gameId}));
-      // console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
-    }, 1000);
+    // setTimeout(() => {
+    //   this.state.ws.send(JSON.stringify( {commName:"join", commText:this.state.gameId}));
+    //   // console.log('>>>>>>>>>> BrowserInfo', ReactInstance);
+    // }, 1000);
     // send = useSocket('ws://172.46.3.245:8080', onMessageHandler)
     // this.setState({ send });
     // useSocket('ws://172.46.3.245:8080', onMessageHandler)
@@ -184,6 +225,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 
- export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent };
+ export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
 // export default { dataStore };
 // export { dataStore, puzzleAnswers};

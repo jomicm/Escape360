@@ -55,7 +55,7 @@ wss.on('connection', (client) => {
       wss.clients.forEach(c => {
         if (c.id === otherPlayer) {
           console.log('Hole clicked to > ', c.id);
-          c.send(JSON.stringify({serCommName: 'shareState', serCommText: 'clickHole'}));
+          c.send(JSON.stringify({serCommName: 'shareState', serCommText: received.commText.prop}));
         }
       });
     }

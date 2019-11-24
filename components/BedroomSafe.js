@@ -7,12 +7,13 @@ class BedroomSafe extends Component {
     show: false,
     image: ['safe_closed.png', 'safe_opened.png'],
     index: 0,
-    showItems: false
+    showItems: false,
+    available: true,
   }
 
   _onBedroomSafeClick = (show) => {
     // dataStore.emit('bedroomSafeClick', show)
-    dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
+    if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
   _onRopeClick = (show) => {
     this.setState({show: true})
