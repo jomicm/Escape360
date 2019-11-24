@@ -5,7 +5,8 @@ const _componentsMgmt = (dataStore, ws) => {
   const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad'];
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
-  
+
+
   // Change gameId to be dynamic
   const sendCommand = (name, key, value) => {
     ws.send(JSON.stringify({commName:"shareState", commText:{gameId:'4242', prop: {name, key, value}}}));
@@ -43,7 +44,7 @@ const _componentsMgmt = (dataStore, ws) => {
     case 'hole':
       if (action === 'showRope') {
         sendCommand('rope', 'show', true);
-        sendCommand('hole', 'canIGoThrough', true)
+        sendCommand('hole', 'canIGoThrough', true);
         break;
       }
       components.hole.setState('show', true);
