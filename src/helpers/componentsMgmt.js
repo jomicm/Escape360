@@ -1,4 +1,4 @@
-// Show state of all components of the game
+// State changes of all components of the game
 
 const _componentsMgmt = (dataStore) => {
   console.log('dataStore', dataStore);
