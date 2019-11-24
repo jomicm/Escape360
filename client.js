@@ -69,9 +69,21 @@ function init(bundle, parent, options = {}) {
   r360.renderToSurface(r360.createRoot("Phone", {}), myPhoneSurface);
 
   // Bathroom door in bedroom
+  // const myBathroomDoorSurface = new Surface(230, 150, Surface.SurfaceShape.Flat);
+  // myBathroomDoorSurface.setAngle(-Math.PI/3 - 0.37, -0.02, 0);
+  // r360.renderToSurface(r360.createRoot("BathroomDoor", {}), myBathroomDoorSurface);
+
+  // Bathroom door in bedroom
   const myBathroomDoorSurface = new Surface(230, 150, Surface.SurfaceShape.Flat);
   myBathroomDoorSurface.setAngle(-Math.PI/3 - 0.37, -0.02, 0);
-  r360.renderToSurface(r360.createRoot("BathroomDoor", {}), myBathroomDoorSurface);
+  // r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'bathroomDoor', selectedItem: 'bathroomKey'}), myBathroomDoorSurface);
+  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'bathroomDoor', selectedItem: 'bathroomKey' }), myBathroomDoorSurface);
+
+
+  // Livingroom door in bedroom
+  const myLivingroomDoorSurface = new Surface(300, 160, Surface.SurfaceShape.Flat);
+  myLivingroomDoorSurface.setAngle(-Math.PI/2 -0.85, -0.05, 0);
+  r360.renderToSurface(r360.createRoot("NextRoomDoor", { component: 'livingroomDoor', selectedItem: 'bathroomKey' }), myLivingroomDoorSurface);
 
   // Render the fixed poster to a flat surface
   r360.renderToSurface(

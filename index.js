@@ -22,6 +22,7 @@ import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
 import BathroomDoor from './components/BathroomDoor';
+import NextRoomDoor from './components/NextRoomDoor';
 import useSocket from './src/hooks/useWebSocket';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -123,5 +124,6 @@ AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
+AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);
 
  export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

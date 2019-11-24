@@ -4,7 +4,7 @@ import changeRoom from './roomMgmt';
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor'];
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
 
@@ -68,6 +68,9 @@ const _componentsMgmt = (dataStore, ws) => {
     case 'bathroomDoor':
       changeRoom('bathroom');
       break;
+    case 'livingroomDoor':
+        changeRoom('livingroom');
+        break;
     case 'all':
       components[content.name].setState(content.key, content.value);
       break;
