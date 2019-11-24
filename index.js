@@ -53,7 +53,6 @@ const onServerCommandReceived = comm => {
       console.log('#### DESDE el server a punto de mostra la rope 1 !!!!')
       // dataStore.emit('ropeSet', true);
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
-
       console.log('#### DESDE el server a punto de mostra la rope 2 !!!!')
       break;
   }
@@ -128,7 +127,7 @@ class Rooms extends React.Component {
     dataStore.addListener('posterBedroomClick', this._onPosterBedroomClick);
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
-    dataStore.addListener('ropeSet', this._onRopeSet);
+    // dataStore.addListener('ropeSet', this._onRopeSet);
     // const onMessageHandler =  e => {
     //   const res = JSON.parse(e.data);
     //   // setMessages([...messages, res]);

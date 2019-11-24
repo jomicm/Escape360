@@ -41,6 +41,11 @@ const _componentsMgmt = (dataStore, ws) => {
       components.inventory.setState('show', true);
       break;
     case 'hole':
+      if (action === 'showRope') {
+        sendCommand('rope', 'show', true);
+        sendCommand('hole', 'canIGoThrough', true)
+        break;
+      }
       components.hole.setState('show', true);
       break;
     case 'bedroomSafe':
@@ -49,7 +54,8 @@ const _componentsMgmt = (dataStore, ws) => {
       break;
     case 'safeKeypad':
       components.bedroomSafe.setState('index', content);
-      sendCommand('bedroomSafe' ,'index', content);
+      sendCommand('bedroomSafe', 'index', content);
+      sendCommand('bedroomSafe', 'available', false);
       components.bedroomSafe.setState('showItems', true);
       components.bedroomSafe.setState('available', false);
       break;
