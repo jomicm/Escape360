@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { asset, View, VrButton, StyleSheet, NativeModules } from 'react-360'
 const { AudioModule } = NativeModules;
-import { dataStore, componentsMgmt } from '../index';
+import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtFixed extends Component {
   state = {
@@ -21,7 +21,7 @@ export default class AbstractArtFixed extends Component {
 
   render() {
     return (
-      <View >
+      <View style={{backgroundColor:'rgba(255,255,255,0.0)'}}>
         {this.state.show && <VrButton onClick={this._onGoBackDoorClick}>
           <View style={styles.container}/>
         </VrButton>}
@@ -33,7 +33,16 @@ export default class AbstractArtFixed extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(59, 198, 140, 0.5)',
-    width: 400,
-    height: 320
+    top:10,
+    width: 220,
+    height: 320,
+    flex: 1,
+    // transform: [
+    //   { perspective: 2500 },
+    //   { translateX:  0 },
+    //   { rotateY: '15deg'},
+    //   { rotateX: '0deg'},
+    //   { rotateZ: '5deg'},
+    // ],
   }
 })

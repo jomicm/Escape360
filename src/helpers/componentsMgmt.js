@@ -1,10 +1,11 @@
 import changeRoom from './roomMgmt';
+import { dataStore, componentsMgmt, registerComponent, getPuzzleAnswers } from '../../index';
 
 // State changes of all components of the game
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'abstractArtFixed', 'abstractArtDynamic', 'bigAbstractArt'];
   // abstractArtFixed
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
@@ -19,16 +20,11 @@ const _componentsMgmt = (dataStore, ws) => {
     const { name, action, content } = data;
     switch (name) {
     // BASEMENT COMPONENTS
-    // case 'rope':
-    //   //components.hole.setState('show', true);
-    //   changeRoom('bedroom');
-    //   break;
     case 'basementPoster':
       components.bigPoster.setState('show', true);
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
       components.inventory.setState('show', false);
       break;
-
     // BEDROOM COMPONENTS
     case 'bedroomPoster':
       components.bigPoster.setState('show', true);
@@ -46,15 +42,8 @@ const _componentsMgmt = (dataStore, ws) => {
       components.inventory.setState('show', true);
       break;
     case 'hole':
-      if (action === 'showRope') {
-        sendCommand('rope', 'show', true);
-        sendCommand('hole', 'canIGoThrough', true);
-        break;
-      }
-      // } else if (action === 'goThrough') {
-      //   changeRoom('basement');
-      // }
-      // components.hole.setState('show', true);
+      sendCommand('rope', 'show', true);
+      sendCommand('hole', 'canIGoThrough', true);
       break;
     case 'bedroomSafe':
       components.safeKeypad.setState('show', true);
@@ -67,12 +56,15 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bedroomSafe.setState('showItems', true);
       components.bedroomSafe.setState('available', false);
       break;
-    // case 'bathroomDoor':
-    //   changeRoom('bathroom');
-    //   break;
-    // case 'livingroomDoor':
-    //     changeRoom('livingroom');
-    //     break;
+    case 'abstractArtDynamic':
+      components.bigAbstractArt.setState('show', true);
+      components.inventory.setState('show', false);
+      components.bigAbstractArt.setState('coords', getPuzzleAnswers().puzzleAbstractArt);
+      break;
+    // BATHROOM COMPONENTS
+    case 'abstractArtDynamic':
+      break;
+    // GENERAL COMPONENTS
     case 'changeEnvironment':
         changeRoom(content);
         break;
