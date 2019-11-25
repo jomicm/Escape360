@@ -6,7 +6,7 @@ class SimonFixed extends Component {
   state = {
     show: false,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
-    // simonCode: []
+    simonCode: []
   }
 
   componentDidMount = () => {
@@ -18,17 +18,19 @@ class SimonFixed extends Component {
   }
 
   onClick = async() => {
-    // simonCode = [0, 1, 2, 3, 4, 4]
     console.log('@@@@@@@@@@@@@@@@', getPuzzleAnswers())
-    let getPuzzleAnswer = {...getPuzzleAnswers()}
-    let simonCode = [...getPuzzleAnswer.simonCode];
-    let simonCopy = [...simonCode];
+    await this.setState({simonCode: getPuzzleAnswers().simonCode})
+    //let getPuzzleAnswer = {...getPuzzleAnswers()}
+    // let simonCode = [...getPuzzleAnswer.simonCode];
+    let simonCopy = [...this.state.simonCode];
+    console.log(simonCode);
+    // let simonCopy = [...simonCode];
+    console.log(simonCopy)
     let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {
+      console.log('entered recursion', simonCopy)
       if (!this.state.show) return;
-      if (simonCopy.length === 0) {
-        simonCopy = [...simonCode]
-      }
+      if (simonCopy.length === 0) simonCopy = [...this.state.simonCode] //simonCode;
       setTimeout(() => {
         if (simonCopy[0] === 4) {
           Object.keys(opacity).map(o => {
@@ -41,6 +43,7 @@ class SimonFixed extends Component {
             Object.keys(opacity).map(o => {
               opacity[o] = 0.3
               this.setState({opacity})
+              console.log('EEEEEE before splice reset code', simonCopy);
             });
           }, 700);
         } else {
@@ -54,9 +57,11 @@ class SimonFixed extends Component {
               opacity[o] = 0.3
               this.setState({opacity})
             });
+            console.log('before splice regular code', simonCopy);
           }, 700);
         }
         simonCopy = simonCopy.splice(1, simonCopy.length);
+        console.log('after splice', simonCopy)
         runSimon(opacity)
       }, 1400);
     }
