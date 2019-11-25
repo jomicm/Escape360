@@ -22,6 +22,7 @@ import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
 import SimonFixed from './components/SimonFixed';
+import SimonDynamic from './components/SimonDynamic';
 import BathroomDoor from './components/BathroomDoor';
 import NextRoomDoor from './components/NextRoomDoor';
 import GoBackDoor from './components/GoBackDoor';
@@ -67,7 +68,7 @@ const onMessageHandler = e => {
   // setMessages([...messages, res]);
 };
 
-const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 
@@ -126,6 +127,7 @@ AppRegistry.registerComponent("PhoneNumpad", () => PhoneNumpad);
 AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
+AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);

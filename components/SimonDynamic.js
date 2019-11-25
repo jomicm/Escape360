@@ -2,70 +2,33 @@ import React, { Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, View } from 'react-360';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
-class SimonFixed extends Component {
+class SimonDynamic extends Component {
   state = {
-    show: false,
+    show: true,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
-    simonCode: []
+    simonCode: [],
+    colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
+    solved: false
   }
 
   componentDidMount = () => {
-    componentsMgmt.simonFixed.state = this.state;
-    componentsMgmt.simonFixed.setState = async(key, val) => { 
+    componentsMgmt.simonDynamic.state = this.state;
+    componentsMgmt.simonDynamic.setState = async(key, val) => { 
       await this.setState({[key]: val});
-      componentsMgmt.simonFixed.state = this.state;
+      componentsMgmt.simonDynamic.state = this.state;
     }
   }
-
-  onClick = async() => {
-    console.log('@@@@@@@@@@@@@@@@', getPuzzleAnswers())
-    await this.setState({simonCode: getPuzzleAnswers().simonCode})
-    //let getPuzzleAnswer = {...getPuzzleAnswers()}
-    // let simonCode = [...getPuzzleAnswer.simonCode];
-    let simonCopy = [...this.state.simonCode];
-    console.log(simonCode);
-    // let simonCopy = [...simonCode];
-    console.log(simonCopy)
-    let opacity = {...this.state.opacity};
-    const runSimon = (opacity) => {
-      console.log('entered recursion', simonCopy)
-      if (!this.state.show) return;
-      if (simonCopy.length === 0) simonCopy = [...this.state.simonCode] //simonCode;
-      setTimeout(() => {
-        if (simonCopy[0] === 4) {
-          Object.keys(opacity).map(o => {
-            opacity = {...this.state.opacity};
-            opacity[o] = 1;
-            this.setState({opacity})
-          });
-          setTimeout(() => {
-            opacity = {...this.state.opacity }
-            Object.keys(opacity).map(o => {
-              opacity[o] = 0.3
-              this.setState({opacity})
-              console.log('EEEEEE before splice reset code', simonCopy);
-            });
-          }, 700);
-        } else {
-          opacity = {...this.state.opacity }
-          opacity[simonCopy[0]] = 1
-          this.setState({opacity});
-          setTimeout(() => {
-            opacity = {...this.state.opacity }
-
-            Object.keys(opacity).map(o => {
-              opacity[o] = 0.3
-              this.setState({opacity})
-            });
-            console.log('before splice regular code', simonCopy);
-          }, 700);
-        }
-        simonCopy = simonCopy.splice(1, simonCopy.length);
-        console.log('after splice', simonCopy)
-        runSimon(opacity)
-      }, 1400);
-    }
-    runSimon(opacity)
+  
+  handlePress = (id) => {
+    // let opacity = {...this.state.opacity}
+    // opacity[id] = 1;
+    this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 1}}));
+    setTimeout(() => {
+      // opacity[id] = 0.3;
+      // this.setState({opacity});
+      this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 0.3}}));
+    }, 200)
+    console.log('onreleasseee...uuugh id===>', id)
   }
 
   render() {
@@ -73,13 +36,17 @@ class SimonFixed extends Component {
     return (
       <View>
         {this.state.show && <View style={styles.container}>
-          <VrButton onClick={this.onClick}>
-            <View style={styles.blackCircle}></View>
-            <View style={[styles.quarter, styles.green, { opacity: this.state.opacity[0] }]}></View>
-            <View style={[styles.quarter, styles.red, { opacity: this.state.opacity[1] }]}></View>
-            <View style={[styles.quarter, styles.blue, { opacity: this.state.opacity[2] }]}></View>
-            <View style={[styles.quarter, styles.yellow, { opacity: this.state.opacity[3] }]}></View>
-          </VrButton>
+          <View style={styles.blackCircle}>
+          {[0, 1, 2, 3].map(x => {
+            return(
+              
+              <VrButton onClick={() => this.handlePress(x)} onButtonRelease={() => {console.log('please work')}}>
+                <View style={[styles.quarter, styles[this.state.colorCode[x]], { opacity: this.state.opacity[x] }]}></View>
+              </VrButton>
+            )
+          })}
+          </View>
+          {this.state.solved && <View style={styles.display} />}
         </View>}
       </View>
     )
@@ -92,56 +59,60 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // borderColor: "#639dda",
     // borderWidth: 2,
-    height: 200,
-    width: 200
+    height: 600,
+    width: 600
   },
   blackCircle: {
     backgroundColor: "#262626",
     borderColor: "#131313",
     borderWidth: 2,
-    height: 185,
-    width: 185,
-    borderRadius: 50,
+    height: 510,
+    width: 510,
+    borderRadius: 130,
     flexWrap: 'wrap',
   },
+  display: {
+  },
   quarter: {
-    height: 90,
-    width: 90,
-    opacity: 0.3
+    height: 255,
+    width: 255,
   },
   green: {
     position: 'absolute',
     backgroundColor: 'lime',
-    borderTopLeftRadius: 200,
+    borderTopLeftRadius:170,
     transform: [
-      { translate: [5, -5, 0] }
+      { translate: [10, -10, 0] }
     ]
   },
   red: {
     position: 'absolute',
     backgroundColor: 'red',
-    borderTopRightRadius: 200,
+    borderTopRightRadius: 170
+    ,
     transform: [
-      { translate: [90, -5, 0] }
+      { translate: [240, -10, 0] }
     ]
   },
   blue: {
     position: 'absolute',
     backgroundColor: 'rgba(23,69,255,1)',
-    borderBottomLeftRadius: 200,
+    borderBottomLeftRadius: 170
+    ,
     transform: [
-      { translate: [5, -90, 0] }
+      { translate: [10, -240, 0] }
     ]
   },
   yellow: {
     position: 'absolute',
     backgroundColor: '#FFFF33',
-    borderBottomRightRadius: 200,
+    borderBottomRightRadius: 170
+    ,
     transform: [
-      { translate: [90, -90, 0] }
+      { translate: [240, -240, 0] }
     ]
   },
 
 });
 
-export default SimonFixed;
+export default SimonDynamic;
