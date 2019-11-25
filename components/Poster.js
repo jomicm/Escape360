@@ -1,16 +1,15 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
-import dataStore from '../index';
-import { phoneNumBasement } from '../consts/puzzleAnswers';
+import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class Poster extends Component {
   state = {
-    show: true
+    show: false,
   }
 
   _onPosterClick = (show) => {
-    console.log('From Poster method')
-    dataStore.emit('posterClick', phoneNumBasement);
+    const phoneNumBasement = getPuzzleAnswers().phoneNumBasement;
+    dataStore.emit('globalListener', {name: 'basementPoster', action:'click', content: phoneNumBasement});
   }
   _onRopeClick = (show) => {
     this.setState({show: false})
@@ -20,9 +19,20 @@ class Poster extends Component {
     this.setState({show: true})
   }
   componentWillMount() {
-    console.log('Mounting!');
+    
+    // this.setState({ phoneNumBasement })
+    // console.log('puzzleAnswers! >>>>>>>>>>> ', phoneNumBasement);
+
+    console.log('Mounting from poster.js!');
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
+  }
+  componentDidMount() {
+    componentsMgmt.basementPoster.state = this.state;
+    componentsMgmt.basementPoster.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.basementPoster.state = this.state;
+    }
   }
   render() {
   return (

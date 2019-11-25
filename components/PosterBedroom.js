@@ -1,8 +1,6 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
-import dataStore from '../index';
-import { phoneNumBedroom } from '../consts/puzzleAnswers';
-
+import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class PosterBedroom extends Component {
   state = {
@@ -10,8 +8,8 @@ class PosterBedroom extends Component {
   }
 
   _onPosterBedroomClick = (show) => {
-    console.log('From Poster method')
-    dataStore.emit('posterClick', phoneNumBedroom)
+    const phoneNumBedroom = getPuzzleAnswers().phoneNumBedroom;
+    dataStore.emit('globalListener', {name: 'bedroomPoster', action:'click', content: phoneNumBedroom});
   }
   _onRopeClick = (show) => {
     this.setState({show: true})
@@ -24,6 +22,13 @@ class PosterBedroom extends Component {
     console.log('Mounting!');
     dataStore.addListener('ropeClick', this._onRopeClick);
     dataStore.addListener('holeClick', this._onHoleClick);
+  }
+  componentDidMount() {
+    componentsMgmt.bedroomPoster.state = this.state;
+    componentsMgmt.bedroomPoster.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.bedroomPoster.state = this.state;
+    }
   }
   render() {
   return (

@@ -1,18 +1,19 @@
 import React, { useState, Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, VrButton } from 'react-360';
-import dataStore from '../index';
+import { dataStore, componentsMgmt } from '../index';
 
 class BedroomSafe extends Component {
   state = {
     show: false,
     image: ['safe_closed.png', 'safe_opened.png'],
     index: 0,
-    showItems: true
+    showItems: false,
+    available: true,
   }
 
   _onBedroomSafeClick = (show) => {
-    dataStore.emit('bedroomSafeClick', show)
-
+    // dataStore.emit('bedroomSafeClick', show)
+    if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
   _onRopeClick = (show) => {
     this.setState({show: true})
@@ -26,6 +27,7 @@ class BedroomSafe extends Component {
   }
   _onBedroomGetSafeItems = (show) => {
     this.setState({showItems: false})
+    
   }
   componentWillMount() {
     console.log('Mounting!');
@@ -33,6 +35,13 @@ class BedroomSafe extends Component {
     dataStore.addListener('holeClick', this._onHoleClick);
     dataStore.addListener('correctBedroomSafeCode', this._onCorrectBedroomSafeCode);
     dataStore.addListener('bedroomGetSafeItems', this._onBedroomGetSafeItems);
+  }
+  componentDidMount() {
+    componentsMgmt.bedroomSafe.state = this.state;
+    componentsMgmt.bedroomSafe.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.bedroomSafe.state = this.state;
+    }
   }
   render() {
   return (

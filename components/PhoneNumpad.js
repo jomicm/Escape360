@@ -1,14 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from 'react-360';
 import Back from './Back'
-import dataStore from '../index';
-import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
+// import { dataStore, puzzleAnswers } from '../index';
+// import dataStore from '../index';
+import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
+
+
+// import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
+
+// const { phoneNum, phoneCode } = puzzleAnswers;
 const { AudioModule } = NativeModules;
 
 
-
-
-export default class Numbers extends Component {
+export default class PhoneNumpad extends Component {
   state = {
     code: Array(10).fill('-'),
     codeNumbers: [],
@@ -18,7 +22,7 @@ export default class Numbers extends Component {
   }
   createPhoneCode = (num) => {
     let first = 500;
-    phoneCode.map((x, ix) => {
+    getPuzzleAnswers().phoneCode.map((x, ix) => {
       setTimeout(() => {
         for (let i = 0; i < x; i++) {
           setTimeout(() => {
@@ -33,7 +37,7 @@ export default class Numbers extends Component {
       }, first);
       first += (500 * x) + 700;
     });
-    console.log('pC', phoneCode.join(''))
+    console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
   setCode = (c) => {
     console.log('c', c);
@@ -43,19 +47,17 @@ export default class Numbers extends Component {
     if (codeNumbers.length === this.state.len) codeNumbers = [];
     this.setState({ codeNumbers });
   }
-  _onPhoneClick = (show) => {
-    // dataStore.emit('ropeClick', show)
-    console.log('this is numbers')
-    this.setState({show: true})
-  }
+  // _onPhoneClick = (show) => {
+  //   // dataStore.emit('ropeClick', show)
+  //   console.log('this is numbers')
+  //   this.setState({show: true})
+  // }
   _onActionButton = sender => {
     if (sender === 'call') {
-      if (this.state.codeNumbers.join('') === phoneNum) {
+      console.log('this.state.codeNumbers.join', this.state.codeNumbers.join(''));
+      console.log('getPuzzleAnswers().phoneNum', getPuzzleAnswers().phoneNum);
+      if (this.state.codeNumbers.join('') === getPuzzleAnswers().phoneNum) {
         this.createPhoneCode();
-        // console.log('winner')
-        //   setTimeout(() => {
-        //     this.setState({show: false});
-        //   }, 2000);
       } else {
         console.log('wrong answer motherfuckeeeeeer')
       }
@@ -64,9 +66,20 @@ export default class Numbers extends Component {
       this.setState({codeNumbers: []})
     }
   }
+  onHandleClick = () => {
+    this.setState({show: false})
+    dataStore.emit('globalListener', {name: 'phoneNumpad', action:'click'});
+  }
   componentWillMount() {
     console.log('Mounting numbers!');
     dataStore.addListener('phoneClick', this._onPhoneClick);
+  }
+  componentDidMount() {
+    componentsMgmt.phoneNumpad.state = this.state;
+    componentsMgmt.phoneNumpad.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.phoneNumpad.state = this.state;
+    }
   }
   render() {
     if (this.state.show) {
@@ -84,7 +97,7 @@ export default class Numbers extends Component {
                   </VrButton>
               ))}
             </View>
-            <Back onClick={() => this.setState({show: false})}/>
+            <Back onClick={this.onHandleClick}/>
         </View>
       )
     } else {
@@ -99,13 +112,12 @@ const NumRow = (props) => {
     props.setCode(ix + init);
     AudioModule.playOneShot({ source: asset('menu-click.wav'), volume: 1 });
   }
-
   return (
     <View style={{display:'flex', flexDirection:'row', padding:5}}>
       {nums.map((n, ix) => 
-          <VrButton key={ix} style={styles.text} onClick={() => handleClick(ix, props.initial)}>
-            <Text style={styles.textSize}>{ix + props.initial}</Text>
-          </VrButton>
+        <VrButton key={ix} style={styles.text} onClick={() => handleClick(ix, props.initial)}>
+          <Text style={styles.textSize}>{ix + props.initial}</Text>
+        </VrButton>
       )}
     </View>
   )
