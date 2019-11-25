@@ -50,6 +50,7 @@ const onServerCommandReceived = comm => {
       } 
       initialRoomState(comm.serCommText.id);
       puzzleAnswers = comm.serCommText.puzzleAnswers;
+      console.log('########', puzzleAnswers);
       break;
     case 'shareState':
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
@@ -66,7 +67,7 @@ const onMessageHandler = e => {
   // setMessages([...messages, res]);
 };
 
-const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 
