@@ -26,7 +26,11 @@ console.log('room', room);
       environment: ''
     }
   }
-  Object.keys(componentsMgmt).map(c => componentsMgmt[c].setState('show', false))
+  console.log('componentsMgmt', componentsMgmt);
+  Object.keys(componentsMgmt).map(c => {
+    console.log('c', c);
+    componentsMgmt[c].setState('show', false)
+  });
   Environment.setBackgroundImage(asset(rooms[room].environment), {format: '2D', transition: 1000});
   setTimeout(() => {
     rooms[room].components.map(room => componentsMgmt[room].setState('show', true))

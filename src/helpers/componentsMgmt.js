@@ -5,6 +5,7 @@ import changeRoom from './roomMgmt';
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
   const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor'];
+  // abstractArtFixed
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
 

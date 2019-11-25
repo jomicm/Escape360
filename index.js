@@ -74,44 +74,44 @@ setTimeout(() => {
 }, 500);
 
 // The root react component of the subtitle surface
-class Rooms extends React.Component {
-  state = {
-    rightNumber: 8005551234,
-    index: 0,
-    show: false,
-    ws: null,
-    gameId: '4242'
-  };
-  render() {
-    return (
-      <View style={styles.subtitle}>
-      </View>
-    );
-  }
-};
+// class Rooms extends React.Component {
+//   state = {
+//     rightNumber: 8005551234,
+//     index: 0,
+//     show: false,
+//     ws: null,
+//     gameId: '4242'
+//   };
+//   render() {
+//     return (
+//       <View style={styles.subtitle}>
+//       </View>
+//     );
+//   }
+// };
 
-const styles = StyleSheet.create({
-  panel: {
-    // Fill the entire surface
-    width: 1000,
-    height: 600,
-    backgroundColor: "rgba(55, 155, 155, 0.5)",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  greetingBox: {
-    padding: 20,
-    backgroundColor: "#000000",
-    borderColor: "#639dda",
-    borderWidth: 2
-  },
-  greeting: {
-    fontSize: 30
-  },
-  subtitle: {
-    backgroundColor: "rgba(0, 0, 0, 0.9)",
-  }
-});
+// const styles = StyleSheet.create({
+//   panel: {
+//     // Fill the entire surface
+//     width: 1000,
+//     height: 600,
+//     backgroundColor: "rgba(55, 155, 155, 0.5)",
+//     justifyContent: "center",
+//     alignItems: "center"
+//   },
+//   greetingBox: {
+//     padding: 20,
+//     backgroundColor: "#000000",
+//     borderColor: "#639dda",
+//     borderWidth: 2
+//   },
+//   greeting: {
+//     fontSize: 30
+//   },
+//   subtitle: {
+//     backgroundColor: "rgba(0, 0, 0, 0.9)",
+//   }
+// });
 
 AppRegistry.registerComponent("Rope", () => Rope);
 AppRegistry.registerComponent("Poster", () => Poster);
