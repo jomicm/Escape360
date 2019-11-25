@@ -57,12 +57,20 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bedroomSafe.setState('available', false);
       break;
     case 'abstractArtDynamic':
+      components.bigAbstractArt.setState('isDynamic', true);
       components.bigAbstractArt.setState('show', true);
       components.inventory.setState('show', false);
       components.bigAbstractArt.setState('coords', getPuzzleAnswers().puzzleAbstractArt);
       break;
     // BATHROOM COMPONENTS
-    case 'abstractArtDynamic':
+    case 'abstractArtFixed':
+        components.bigAbstractArt.setState('isDynamic', false);
+        components.bigAbstractArt.setState('show', true);
+        components.inventory.setState('show', false);
+        components.bigAbstractArt.setState('coords', getPuzzleAnswers().puzzleAbstractArt);
+      break;
+    case 'abstractArtSolved':
+      components.abstractArtFixed.setState('solved', true);
       break;
     // GENERAL COMPONENTS
     case 'changeEnvironment':

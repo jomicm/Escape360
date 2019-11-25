@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { asset, View, VrButton, StyleSheet, NativeModules } from 'react-360'
+import { asset, View, VrButton, StyleSheet, NativeModules, Text, Image } from 'react-360'
 const { AudioModule } = NativeModules;
 import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtFixed extends Component {
   state = {
-    show: true
+    show: true,
+    solved: false
   }
   componentDidMount() {
     componentsMgmt.abstractArtFixed.state = this.state;
@@ -16,7 +17,8 @@ export default class AbstractArtFixed extends Component {
   }
   _onGoBackDoorClick = (show) => {
     // dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
-    console.log('From Abstract Art!!!');
+    console.log('From Abstract Art Fixed!!!');
+    dataStore.emit('globalListener', {name: 'abstractArtFixed', action:'click'});
   }
 
   render() {
@@ -24,6 +26,7 @@ export default class AbstractArtFixed extends Component {
       <View style={{backgroundColor:'rgba(255,255,255,0.0)'}}>
         {this.state.show && <VrButton onClick={this._onGoBackDoorClick}>
           <View style={styles.container}/>
+          {this.state.solved && <Image style={{width:130, height:180, left:40, top:-130}} source={asset('safe_closed.png')}/>}
         </VrButton>}
       </View>
     )

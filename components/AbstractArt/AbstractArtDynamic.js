@@ -15,7 +15,6 @@ export default class AbstractArtDynamic extends Component {
     }
   }
   _onClick = (show) => {
-    // dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
     console.log('From Abstract Art Dynamic!!!');
     dataStore.emit('globalListener', {name: 'abstractArtDynamic', action:'click'});
   }

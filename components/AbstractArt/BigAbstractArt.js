@@ -1,97 +1,201 @@
-"use strict";
-
 import React, { Component } from "react";
-import { asset, StyleSheet, Text, View, Image, VrButton } from "react-360";
-import { dataStore, componentsMgmt, registerComponent, getPuzzleAnswers } from '../../index';
+import { asset, StyleSheet, Text, View, Image, VrButton, NativeModules } from "react-360";
+import {
+  dataStore,
+  componentsMgmt,
+  registerComponent,
+  getPuzzleAnswers
+} from "../../index";
+const { AudioModule } = NativeModules;
 
 class BigPoster extends Component {
   state = {
     coords: [],
-    fixedMessage: 'DO NOT CALL',
-    message: 'sdsdsadsasadsd',
+    solveCoords: Array(25).fill(-1),
     show: false,
+    isDynamic: false,
+    selectedColor: 0,
+    opacity: [0.9, 0.5, 0.5, 0.5],
+    colors: [
+      "rgba(255,255,255,",
+      "rgba(255,0,0,",
+      "rgba(0,255,0,",
+      "rgba(0,0,255,"
+    ]
   };
 
   handleClick = () => {
-    this.setState({show: false});
+    if(!this.state.isDynamic) this.setState({show: false});
     // dataStore.emit('globalListener', {name: 'bigPoster', action:'click'});
   };
-  componentWillMount() {
+  handlePaletteClick = c => {
+    console.log("c", c);
+    this.setState({ selectedColor: c });
+    const opacity = [0.5, 0.5, 0.5, 0.5];
+    opacity[c] = 0.9;
+    this.setState({ opacity });
+  };
+  setCoords = async(ix, val) => {
+    console.log('From SET COORDS>', ix, val);
+    const solveCoords = [...this.state.solveCoords];
+    solveCoords[ix] = val - 1;
+    await this.setState({solveCoords})
+    console.log('FROM SET COORDS SOLVER>', this.state.solveCoords.join(''));
+    console.log('FROM SET COORDS SOLVER ORIGINAL>', this.state.coords.join(''));
+    if (this.state.solveCoords.join('') === this.state.coords.join('')) {
+      console.log('YOU WON!!!!!!!!!');
+      dataStore.emit('globalListener', {name: 'abstractArtSolved', action:'solved'});
+      //abstractArtSolved
+      AudioModule.playOneShot({ source: asset("safe_opens.wav"), volume: 1 });
+    }
     
-    // setTimeout(() => this.setState({coords: getPuzzleAnswers().puzzleAbstractArt}), 500);
   }
   componentDidMount() {
-    console.log('>>>>>>>>>>> componentsMgmt', componentsMgmt);
     componentsMgmt.bigAbstractArt.state = this.state;
-    componentsMgmt.bigAbstractArt.setState = async(key, val) => { 
-      await this.setState({[key]: val});
+    componentsMgmt.bigAbstractArt.setState = async (key, val) => {
+      await this.setState({ [key]: val });
       componentsMgmt.bigAbstractArt.state = this.state;
-    }
+    };
   }
   render() {
     return (
-      <View> 
+      <View>
         {this.state.show && (
-        <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
-          <VrButton onClick={this.handleClick}>
-            <Image
-              style={[
-                styles.poster,
-                {
-                  width: this.props.height * 0.25,
-                  height: this.props.height * 0.3
-                }
-              ]}
-              source={asset("poster.png")}
-            />
-            {/* <Text style={styles.text}>{this.state.message}</Text> */}
-            <Board width={5} height={5} coords={this.state.coords}/>
-          </VrButton>
-        </View>
-      )}
+          <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
+            <Text> {this.state.isDynamic ? "This is Dynamic view" : "This is static View"}</Text>
+            {this.state.isDynamic && (
+              <View>
+                <VrButton onClick={() => this.setState({show: false})}>
+                  <Text>Close</Text>
+                </VrButton>
+                <ColorPalette colors={this.state.colors} opacity={this.state.opacity} onPaletteClick={this.handlePaletteClick}/>
+              </View>
+            )}
+            <VrButton onClick={this.handleClick}>
+              <Image style={[styles.poster, { width: 350, height: 350 }]} source={asset("art.jpg")}/>
+              <Board
+                isDynamic={this.state.isDynamic}
+                width={5}
+                height={5}
+                coords={this.state.coords}
+                setCoords={this.setCoords}
+                selectedColor={this.state.selectedColor}
+                colors={this.state.colors}
+                opacity={this.state.opacity}
+              />
+            </VrButton>
+          </View>
+        )}
       </View>
     );
   }
 }
 
-function Tile(props) {
-  const index = props.len * props.start + props.id;
-  const backColor = ['white', 'red', 'blue', 'yellow'];
-  const val = props.coords[index];
-  return (
-    <View style={[styles.tile, {backgroundColor:backColor[val + 1]}]}>
-      {/* <Text>{props.len * props.start + props.id}</Text> */}
-      <Text>{val}</Text>
-    </View>
-  )
+class ColorPalette extends Component {
+  render() {
+    const backColor = [];
+    this.props.colors.map((c, ix) => backColor.push(`${c}${this.props.opacity[ix]})`));
+    return (
+      <View style={styles.row}>
+        {backColor.map((c, ix) => (
+          <VrButton key={"palette" + c} onClick={() => this.props.onPaletteClick(ix)}>
+            <View style={{ width: 50, height: 50, backgroundColor: c }}></View>
+          </VrButton>
+        ))}
+      </View>
+    );
+  }
 }
-function Row(props) {
-  const _len = Array(props.width).fill(0);
-  return (
-    <View style={styles.row}>
-      {_len.map((t, ix) => <Tile coords={props.coords} start={props.start} len={props.len} id={ix} key={'tile' + ix} text={'XXX'}/>)}
-    </View>
-  )
+
+class Tile extends Component {
+  render() {
+    const colors = this.props.colors.map((c, ix) => `${c}${this.props.opacity[ix]})`);
+    const index = this.props.len * this.props.start + this.props.id;
+    const symbol = ["", "X", "O", "+"];
+    if (!this.props.isDynamic) {
+      return (
+        <View style={[styles.tile, { backgroundColor: colors[this.props.coords[index] + 1] }]}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>{}</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={[styles.tile, { backgroundColor: this.props.selectedColors[index] }]}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>{}</Text>
+        </View>
+      );
+    }
+  }
 }
-function Board(props) {
-  const _len = Array(props.height).fill(0);
-  return(
-    <View style={styles.board}>
-      {_len.map((r, ix) => <Row coords={props.coords} len={props.width} start={ix} key={'row' + ix} width={props.width}/>)}
-    </View>
-  )
+
+class Row extends Component {
+  state = {
+    selectedColors: Array(25).fill(this.props.colors[0] + "0.5)")
+  }
+  _onTileClick = ix => {
+    const index = this.props.len * this.props.start + ix;
+    const selectedColors = [...this.state.selectedColors];
+    selectedColors[index] = this.props.colors[this.props.selectedColor] + "0.5)";
+    this.setState({ selectedColors });
+    this.props.setCoords(index, this.props.selectedColor);
+  };
+  render() {
+    const _len = Array(this.props.width).fill(0);
+    return (
+      <View style={styles.row}>
+        {_len.map((t, ix) => (
+          <VrButton key={"tile" + ix} onClick={() => this._onTileClick(ix)}>
+            <Tile
+              isDynamic={this.props.isDynamic}
+              coords={this.props.coords}
+              start={this.props.start}
+              len={this.props.len}
+              id={ix}
+              selectedColors={this.state.selectedColors}
+              colors={this.props.colors}
+              opacity={this.props.opacity}
+            />
+          </VrButton>
+        ))}
+      </View>
+    );
+  }
+}
+
+class Board extends Component {
+  render() {
+    const _len = Array(this.props.height).fill(0);
+    return (
+      <View style={styles.board}>
+        {_len.map((r, ix) => (
+          <Row
+            isDynamic={this.props.isDynamic}
+            coords={this.props.coords}
+            setCoords={this.props.setCoords}
+            len={this.props.width}
+            start={ix}
+            key={"row" + ix}
+            width={this.props.width}
+            selectedColor={this.props.selectedColor}
+            colors={this.props.colors}
+            opacity={this.props.opacity}
+          />
+        ))}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    top:180,
+    top: 180,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#639dda",
     borderWidth: 2
   },
   poster: {
-    left: 0,
+    left: 0
     // top: 50
   },
   text: {
@@ -101,18 +205,18 @@ const styles = StyleSheet.create({
     top: -400
   },
   board: {
-    top: -500,
-    left: 100,
+    top: -350,
+    left: 0
   },
   row: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   tile: {
     width: 70,
     height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'white',
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "white",
     borderWidth: 2
   }
 });
