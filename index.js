@@ -19,7 +19,8 @@ import BigPoster from "./components/BigPoster";
 import Numbers from './components/Numbers';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
-import useSocket from './src/hooks/useWebSocket'
+import useSocket from './src/hooks/useWebSocket';
+import SimonFixed from './components/SimonFixed';
 
 const dataStore = new EventEmitter();
 
@@ -118,5 +119,6 @@ AppRegistry.registerComponent("Numbers", () => Numbers);
 AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
+AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 
 export default dataStore
