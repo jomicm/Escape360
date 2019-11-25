@@ -1,11 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, View } from 'react-360';
-import { dataStore, getPuzzleAnswers } from '../index';
+import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class SimonFixed extends Component {
   state = {
-    show: true,
+    show: false,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 }
+  }
+
+  componentDidMount = () => {
+    componentsMgmt.simonFixed.state = this.state;
+    componentsMgmt.simonFixed.setState = async(key, val) => { 
+      await this.setState({[key]: val});
+      componentsMgmt.simonFixed.state = this.state;
+    }
   }
 
   onClick = () => {
@@ -13,7 +21,7 @@ class SimonFixed extends Component {
     const simonCode = getPuzzleAnswers().simonCode;
     let simonCopy = [...simonCode];
     console.log(simonCopy)
-    let opacity = {...this.state.opacity}
+    let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {
       if (!this.state.show) return;
       if (simonCopy.length === 0) simonCopy = simonCode;
@@ -21,7 +29,6 @@ class SimonFixed extends Component {
         if (simonCopy[0] === 4) {
           console.log('special');
           Object.keys(opacity).map(o => {
-            // opacity = {...opacity, o: 1 }
             opacity = {...this.state.opacity};
             opacity[o] = 1;
             this.setState({opacity})
@@ -34,7 +41,7 @@ class SimonFixed extends Component {
               this.setState({opacity})
             });
             console.log(opacity);
-          }, 500);
+          }, 700);
         } else {
           console.log('index', simonCopy[0]);
           console.log('original op', opacity[simonCopy[0]]);
@@ -43,38 +50,36 @@ class SimonFixed extends Component {
           this.setState({opacity});
           console.log('change op to 1', opacity[simonCopy[0]]);
           setTimeout(() => {
-            // opacity[simonCopy[0]] = 0.3
             opacity = {...this.state.opacity }
 
             Object.keys(opacity).map(o => {
-              // opacity = {...opacity, o: 0.3 }
               opacity[o] = 0.3
               this.setState({opacity})
             });
-            // opacity = {...opacity, [simonCopy[0]]: 0.3 }
-            // this.setState({opacity});
             console.log('change op back to 0.3', opacity)
             console.log(simonCopy);
-          }, 500);
+          }, 700);
         }
         simonCopy = simonCopy.splice(1, simonCopy.length);
         runSimon(opacity)
-      }, 1000);
+      }, 1400);
     }
     runSimon(opacity)
-
   }
+
   render() {
 
     return (
-      <View style={styles.container}>
-        <VrButton onClick={this.onClick}>
-          <View style={styles.blackCircle}></View>
-          <View style={[styles.quarter, styles.green, { opacity: this.state.opacity[0] }]}></View>
-          <View style={[styles.quarter, styles.red, { opacity: this.state.opacity[1] }]}></View>
-          <View style={[styles.quarter, styles.blue, { opacity: this.state.opacity[2] }]}></View>
-          <View style={[styles.quarter, styles.yellow, { opacity: this.state.opacity[3] }]}></View>
-        </VrButton>
+      <View>
+        {this.state.show && <View style={styles.container}>
+          <VrButton onClick={this.onClick}>
+            <View style={styles.blackCircle}></View>
+            <View style={[styles.quarter, styles.green, { opacity: this.state.opacity[0] }]}></View>
+            <View style={[styles.quarter, styles.red, { opacity: this.state.opacity[1] }]}></View>
+            <View style={[styles.quarter, styles.blue, { opacity: this.state.opacity[2] }]}></View>
+            <View style={[styles.quarter, styles.yellow, { opacity: this.state.opacity[3] }]}></View>
+          </VrButton>
+        </View>}
       </View>
     )
   }
@@ -93,14 +98,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#262626",
     borderColor: "#131313",
     borderWidth: 2,
-    height: 200,
-    width: 200,
-    borderRadius: 100,
+    height: 185,
+    width: 185,
+    borderRadius: 50,
     flexWrap: 'wrap',
   },
   quarter: {
-    height: 70,
-    width: 70,
+    height: 90,
+    width: 90,
     opacity: 0.3
   },
   green: {
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lime',
     borderTopLeftRadius: 200,
     transform: [
-      { translate: [-40, 40, 0] }
+      { translate: [5, -5, 0] }
     ]
   },
   red: {
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     borderTopRightRadius: 200,
     transform: [
-      { translate: [40, 40, 0] }
+      { translate: [90, -5, 0] }
     ]
   },
   blue: {
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(23,69,255,1)',
     borderBottomLeftRadius: 200,
     transform: [
-      { translate: [-40, -40, 0] }
+      { translate: [5, -90, 0] }
     ]
   },
   yellow: {
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFF33',
     borderBottomRightRadius: 200,
     transform: [
-      { translate: [40, -40, 0] }
+      { translate: [90, -90, 0] }
     ]
   },
 
