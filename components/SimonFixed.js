@@ -16,7 +16,7 @@ class SimonFixed extends Component {
     let opacity = {...this.state.opacity}
     const runSimon = (opacity) => {
       if (!this.state.show) return;
-      if (simonCopy.length === 0) simonCopy = simonCode;
+      if (simonCopy.length === 0) simonCopy = [...simonCode];
       setTimeout(() => {
         if (simonCopy[0] === 4) {
           console.log('special');
@@ -31,7 +31,8 @@ class SimonFixed extends Component {
               this.setState({opacity})
             });
             console.log(opacity);
-          }, 1500);
+          }, 1000);
+          simonCopy = simonCopy.splice(1, simonCopy.length);
         } else {
           console.log('index', simonCopy[0]);
           console.log('original op', opacity[simonCopy[0]]);
@@ -42,7 +43,7 @@ class SimonFixed extends Component {
             opacity[simonCopy[0]] = 0.3
             this.setState({opacity});
             console.log('change op back to 0.3', opacity[simonCopy[0]])
-          }, 1500);
+          }, 1000);
           simonCopy = simonCopy.splice(1, simonCopy.length);
         }
         runSimon(opacity)
