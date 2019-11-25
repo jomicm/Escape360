@@ -21,32 +21,45 @@ class SimonFixed extends Component {
         if (simonCopy[0] === 4) {
           console.log('special');
           Object.keys(opacity).map(o => {
-            opacity[o] = 1
+            // opacity = {...opacity, o: 1 }
+            opacity = {...this.state.opacity};
+            opacity[o] = 1;
             this.setState({opacity})
           });
           console.log(opacity)
           setTimeout(() => {
+            opacity = {...this.state.opacity }
             Object.keys(opacity).map(o => {
               opacity[o] = 0.3
               this.setState({opacity})
             });
             console.log(opacity);
-          }, 1500);
+          }, 500);
         } else {
           console.log('index', simonCopy[0]);
           console.log('original op', opacity[simonCopy[0]]);
+          opacity = {...this.state.opacity }
           opacity[simonCopy[0]] = 1
           this.setState({opacity});
-          console.log('change op to 1', opacity[simonCopy[0]])
+          console.log('change op to 1', opacity[simonCopy[0]]);
           setTimeout(() => {
-            opacity[simonCopy[0]] = 0.3
-            this.setState({opacity});
-            console.log('change op back to 0.3', opacity[simonCopy[0]])
-          }, 1500);
-          simonCopy = simonCopy.splice(1, simonCopy.length);
+            // opacity[simonCopy[0]] = 0.3
+            opacity = {...this.state.opacity }
+
+            Object.keys(opacity).map(o => {
+              // opacity = {...opacity, o: 0.3 }
+              opacity[o] = 0.3
+              this.setState({opacity})
+            });
+            // opacity = {...opacity, [simonCopy[0]]: 0.3 }
+            // this.setState({opacity});
+            console.log('change op back to 0.3', opacity)
+            console.log(simonCopy);
+          }, 500);
         }
+        simonCopy = simonCopy.splice(1, simonCopy.length);
         runSimon(opacity)
-      }, 3000);
+      }, 1000);
     }
     runSimon(opacity)
 
