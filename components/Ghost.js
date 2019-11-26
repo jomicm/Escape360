@@ -43,7 +43,7 @@ export default class Ghost extends Component {
           <View style={[styles.children, {flex: 2}]}>
             {this.state.isClicked && <View>
               <Image style={styles.image} source={asset('chatbox.png')}/>
-              <Text style={styles.text}>{this.ghostMessage}</Text>
+              {/* <Text style={styles.text}>{this.ghostMessage()}</Text> */}
             </View>}
           </View>
         </View>}

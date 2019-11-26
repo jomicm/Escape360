@@ -1,4 +1,5 @@
 import changeRoom from './roomMgmt';
+import SimonFixed from '../../components/SimonFixed';
 
 // State changes of all components of the game
 
@@ -78,6 +79,9 @@ const _componentsMgmt = (dataStore, ws) => {
       break;
     case 'changeEnvironment':
         changeRoom(content);
+        if (content === 'livingroom') {
+          components.simonFixed.state.startFunction();
+        }
         break;
     case 'all':
       components[content.name].setState(content.key, content.value);
