@@ -4,7 +4,7 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class SimonFixed extends Component {
   state = {
-    show: false,
+    show: true,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
     // simonCode: []
   }
@@ -19,9 +19,9 @@ class SimonFixed extends Component {
 
   onClick = async() => {
     // simonCode = [0, 1, 2, 3, 4, 4]
-    console.log('@@@@@@@@@@@@@@@@', getPuzzleAnswers())
     let getPuzzleAnswer = {...getPuzzleAnswers()}
     let simonCode = [...getPuzzleAnswer.simonCode];
+    dataStore.emit('globalListener', {name: 'simonAnswers', content: simonCode.slice(0, 10)})
     let simonCopy = [...simonCode];
     let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {

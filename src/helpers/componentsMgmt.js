@@ -73,6 +73,9 @@ const _componentsMgmt = (dataStore, ws) => {
     // case 'livingroomDoor':
     //     changeRoom('livingroom');
     //     break;
+    case 'simonAnswers':
+      components.simonDynamic.setState('simonCode', content)
+      break;
     case 'changeEnvironment':
         changeRoom(content);
         break;

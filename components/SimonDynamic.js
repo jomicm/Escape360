@@ -6,12 +6,14 @@ class SimonDynamic extends Component {
   state = {
     show: true,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
-    simonCode: [],
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
-    solved: false
+    simonCode: [],
+    playerGuess: [],
+    solved: false,
+
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     componentsMgmt.simonDynamic.state = this.state;
     componentsMgmt.simonDynamic.setState = async(key, val) => { 
       await this.setState({[key]: val});
@@ -20,6 +22,8 @@ class SimonDynamic extends Component {
   }
   
   handlePress = (id) => {
+    // let simonCode = getPuzzleAnswers().simonCode;
+    // this.setState({simonCode});
     // let opacity = {...this.state.opacity}
     // opacity[id] = 1;
     this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 1}}));
@@ -27,8 +31,18 @@ class SimonDynamic extends Component {
       // opacity[id] = 0.3;
       // this.setState({opacity});
       this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 0.3}}));
-    }, 200)
-    console.log('onreleasseee...uuugh id===>', id)
+    }, 200);
+    // let playerGuess = []
+    if (id !== this.state.playerGuess[this.state.playerGuess.length - 1]) {
+      this.state.playerGuess.push(id)
+    }
+    if (this.state.playerGuess.length === this.state.simonCode.length) {
+      console.log('got the right length')
+      if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
+        console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
+      }
+    }
+    console.log('adivinaaaa===>', this.state.playerGuess)
   }
 
   render() {
@@ -40,7 +54,7 @@ class SimonDynamic extends Component {
           {[0, 1, 2, 3].map(x => {
             return(
               
-              <VrButton onClick={() => this.handlePress(x)} onButtonRelease={() => {console.log('please work')}}>
+              <VrButton onClick={() => this.handlePress(x)} onButtonRelease={() => {console.log('please work \n----------------------\n')}}>
                 <View style={[styles.quarter, styles[this.state.colorCode[x]], { opacity: this.state.opacity[x] }]}></View>
               </VrButton>
             )
