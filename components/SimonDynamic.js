@@ -9,8 +9,7 @@ class SimonDynamic extends Component {
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
     simonCode: [],
     playerGuess: [],
-    solved: false,
-
+    solved: true,
   }
 
   componentDidMount = async () => {
@@ -50,7 +49,9 @@ class SimonDynamic extends Component {
             )
           })}
           </View>
-          {this.state.solved && <View style={styles.display} />}
+          {this.state.solved && <View style={styles.display}>
+            <Text style={styles.code}>1 2 3 4</Text>
+          </View>}
         </View>}
       </View>
     )
@@ -61,8 +62,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    // borderColor: "#639dda",
-    // borderWidth: 2,
     height: 600,
     width: 600
   },
@@ -76,6 +75,17 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   display: {
+    position: 'absolute',
+    borderRadius: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#262626",
+    borderColor: "#181818",
+    height: 250,
+    width: 250
+  },
+  code: {
+    fontSize: 50,
   },
   quarter: {
     height: 255,
