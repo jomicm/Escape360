@@ -32,6 +32,9 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bigBomb.setState('show', true);
       components.inventory.setState('show', false);
       break;
+    case 'bombTimer':
+      sendCommand('bomb', 'isRunning', true)
+      break;
     case 'bigBomb':
       components.inventory.setState('show', true);
       break;

@@ -75,10 +75,10 @@ export default class BigBomb extends Component {
     this.setState({show: false})
     dataStore.emit('globalListener', {name: 'phoneNumpad', action:'click'});
   }
-  componentWillMount() {
-    console.log('Mounting numbers!');
-    dataStore.addListener('phoneClick', this._onPhoneClick);
-  }
+  // componentWillMount() {
+  //   console.log('Mounting numbers!');
+  //   dataStore.addListener('phoneClick', this._onPhoneClick);
+  // }
   componentDidMount() {
     componentsMgmt.bigBomb.state = this.state;
     componentsMgmt.bigBomb.setState = async(key, val) => { 
