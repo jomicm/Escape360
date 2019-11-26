@@ -34,9 +34,7 @@ class SimonFixed extends Component {
     let simonCopy = [...simonCode];
     let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {
-      console.log('this is running simon!!!!!!\n\n\n\nokayy!')
       if (!this.state.show) return;
-      console.log('@@@@@@@@@@@@@@@@@this may not work\n\n\nplease')
       if (simonCopy.length === 0) {
         simonCopy = [...simonCode]
       }

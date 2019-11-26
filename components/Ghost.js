@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-360';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
+import { isAbsolute } from 'path';
 
 
 export default class Ghost extends Component {
@@ -43,7 +44,7 @@ export default class Ghost extends Component {
           <View style={[styles.children, {flex: 2}]}>
             {this.state.isClicked && <View>
               <Image style={styles.image} source={asset('chatbox.png')}/>
-              {/* <Text style={styles.text}>{this.ghostMessage()}</Text> */}
+              <Text style={styles.text}>{this.ghostMessage()}</Text>
             </View>}
           </View>
         </View>}
@@ -61,24 +62,29 @@ const styles = StyleSheet.create({
     height: 350,
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'stretch',
   },
   children: {
-    // borderColor: "#639dda",
-    // borderWidth: 2,
+    borderColor: "#639dda",
+    borderWidth: 2,
     flex: 1.5,
 
   },
   button: {
-    height: 350,
+    height: 310,
+    width: 100,
     borderColor: "red",
     borderWidth: 2,
+    alignSelf: 'flex-end'
   },
   image: {
-    width: 125,
-    height: 80,
+    width: 200,
+    height: 130,
     transform: [{scaleX: -1}],
   },
   text: {
-    fontSize: 50
+    
+    fontSize: 15,
+    top: -10
   }
 })
