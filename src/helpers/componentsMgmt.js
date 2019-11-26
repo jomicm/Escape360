@@ -67,12 +67,6 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bedroomSafe.setState('showItems', true);
       components.bedroomSafe.setState('available', false);
       break;
-    // case 'bathroomDoor':
-    //   changeRoom('bathroom');
-    //   break;
-    // case 'livingroomDoor':
-    //     changeRoom('livingroom');
-    //     break;
     case 'simonAnswers':
       components.simonDynamic.setState('simonCode', content.simonCode);
       sendCommand('simonDynamic', 'simonCode', content.simonCode);

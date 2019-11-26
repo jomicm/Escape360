@@ -18,9 +18,14 @@ export default class PhoneNumpad extends Component {
     codeNumbers: [],
     lastRow: ['call', 'clear'],
     len: 11,
-    show: false
+    show: false,
+    isRunning: false,
   }
   createPhoneCode = (num) => {
+    if (this.state.isRunning) {
+      return;
+    }
+    this.setState({isRunning: true})
     let first = 500;
     getPuzzleAnswers().phoneCode.map((x, ix) => {
       setTimeout(() => {

@@ -4,7 +4,7 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class SimonDynamic extends Component {
   state = {
-    show: true,
+    show: false,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
     simonCode: [],
@@ -28,8 +28,6 @@ class SimonDynamic extends Component {
     }, 200);
     if (id !== this.state.playerGuess[this.state.playerGuess.length - 1]) {
       this.state.playerGuess.push(id)
-      console.log('playerguess', this.state.playerGuess)
-      console.log('simoncode', this.state.simonCode)
     }
     if (this.state.playerGuess.length === this.state.simonCode.length) {
       if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
