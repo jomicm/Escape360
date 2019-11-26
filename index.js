@@ -26,6 +26,8 @@ import SimonDynamic from './components/SimonDynamic';
 import BathroomDoor from './components/BathroomDoor';
 import NextRoomDoor from './components/NextRoomDoor';
 import GoBackDoor from './components/GoBackDoor';
+import Bomb from './components/Bomb';
+import BigBomb from './components/BigBomb';
 import useSocket from './src/hooks/useWebSocket';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -132,5 +134,7 @@ AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);
 AppRegistry.registerComponent('GoBackDoor', () => GoBackDoor);
+AppRegistry.registerComponent('Bomb', () => Bomb);
+AppRegistry.registerComponent('BigBomb', () => BigBomb);
 
  export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

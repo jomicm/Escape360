@@ -4,7 +4,8 @@ module.exports = (width, height) => {
       { name: 'BigPoster', props: { width, height, message: 'Some msg' }, radius: 3.4 },
       { name: 'PhoneNumpad', props: { width, height }, radius: 3.4 },
       { name: 'SafeKeypad', props: { width, height }, radius: 3.4 },
-      { name: 'Inventory', props: { width, height }, radius: 8 }
+      { name: 'BigBomb', props: { width, height }, radius: 3.4 },
+      { name: 'Inventory', props: { width, height }, radius: 8 },
     ],
     general: [
       { name: 'bedroomSafeSurface', root:'BedroomSafe', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.4, -0.45, 0.06], radius: 5 },
@@ -17,7 +18,8 @@ module.exports = (width, height) => {
       { name: 'myLivingroomDoorSurface', root:'NextRoomDoor', props: { component: 'livingroomDoor', selectedItem: 'bathroomKey', room: 'livingroom' }, size: { width: 300, height: 160 }, angle: [-Math.PI / 2 - 0.85, -0.05, 0], radius: 0 },
       { name: 'myGoBackDoorSurface', root:'GoBackDoor', props: { component: 'goBackDoor', room: 'bedroom' }, size: { width: 300, height: 180 }, angle: [-Math.PI + 0.8, -0.25, 0], radius: 0 },
       { name: 'mySimonFixedSurface', root: 'SimonFixed', size: { width: 200, height: 200 }, angle: [-0.452, 0.035, 0], radius: 0},
-      { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 600, height: 600 }, angle: [-0.39 - Math.PI, 0.12, 0], radius: 0}
+      { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 600, height: 600 }, angle: [-0.39 - Math.PI, 0.12, 0], radius: 0},
+      { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0}
     ]
   };
 };

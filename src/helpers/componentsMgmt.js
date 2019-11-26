@@ -4,7 +4,7 @@ import changeRoom from './roomMgmt';
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'simonFixed', 'simonDynamic'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'simonFixed', 'simonDynamic', 'bomb', 'bigBomb'];
   // abstractArtFixed
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
@@ -28,7 +28,13 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
       components.inventory.setState('show', false);
       break;
-
+    case 'bomb':
+      components.bigBomb.setState('show', true);
+      components.inventory.setState('show', false);
+      break;
+    case 'bigBomb':
+      components.inventory.setState('show', true);
+      break;
     // BEDROOM COMPONENTS
     case 'bedroomPoster':
       components.bigPoster.setState('show', true);

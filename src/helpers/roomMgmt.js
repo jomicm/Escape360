@@ -6,7 +6,7 @@ console.log('room', room);
 
   const rooms = {
     basement: {
-      components: ['inventory', 'basementPoster', 'rope'],
+      components: ['inventory', 'basementPoster', 'rope', 'bomb'],
       environment: '360_basement.jpg'
     },
     bedroom: {
