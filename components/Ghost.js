@@ -8,7 +8,6 @@ import {
   StyleSheet
 } from 'react-360';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
-import { isAbsolute } from 'path';
 
 
 export default class Ghost extends Component {
@@ -16,7 +15,8 @@ export default class Ghost extends Component {
   state = {
     show: true,
     isClicked: true,
-    
+    message: 'tic tic tic',
+    bombCode: '1 2 3 4'
   }
 
   componentDidMount = () => {
@@ -27,11 +27,12 @@ export default class Ghost extends Component {
   }
 
   handleOnClick = () => {
-    console.log('BOOOOOOOO from Casper the ghost!!');
+    let message = this.state.bombCode;
+    this.setState({message});
   }
 
   ghostMessage = () => {
-    return 'BOOOOOOOO from Casper the ghost!!';
+    return this.state.message;
   }
 
   render = () => {
@@ -42,7 +43,7 @@ export default class Ghost extends Component {
             <VrButton onClick={this.handleOnClick}><View style={styles.button}></View></VrButton>
           </View>
           <View style={[styles.children, {flex: 2}]}>
-            {this.state.isClicked && <View>
+            {this.state.isClicked && <View style={styles.imageContainer}>
               <Image style={styles.image} source={asset('chatbox.png')}/>
               <Text style={styles.text}>{this.ghostMessage()}</Text>
             </View>}
@@ -58,33 +59,37 @@ export default class Ghost extends Component {
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: 'rgba(59, 198, 140, 0.5)',
-    width: 250,
-    height: 350,
+    width: 320,
+    height: 400,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
   },
   children: {
-    borderColor: "#639dda",
-    borderWidth: 2,
-    flex: 1.5,
+    // borderColor: "#639dda",
+    // borderWidth: 2,
+    flex: 1,
 
   },
   button: {
     height: 310,
     width: 100,
-    borderColor: "red",
-    borderWidth: 2,
-    alignSelf: 'flex-end'
+    top: 75,
+    // borderColor: "red",
+    // borderWidth: 2,
+    alignSelf: 'flex-end',
   },
   image: {
     width: 200,
     height: 130,
     transform: [{scaleX: -1}],
+    // backgroundColor: 'rgba(255, 255, 255, 0.3)'
+
   },
   text: {
-    
-    fontSize: 15,
-    top: -10
+    position: 'absolute',
+    fontSize: 35,
+    fontWeight: 'bold',
+    transform: [{translate: [28, -28, -9]}],
   }
 })
