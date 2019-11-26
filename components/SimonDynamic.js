@@ -22,27 +22,18 @@ class SimonDynamic extends Component {
   }
   
   handlePress = (id) => {
-    // let simonCode = getPuzzleAnswers().simonCode;
-    // this.setState({simonCode});
-    // let opacity = {...this.state.opacity}
-    // opacity[id] = 1;
     this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 1}}));
     setTimeout(() => {
-      // opacity[id] = 0.3;
-      // this.setState({opacity});
       this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 0.3}}));
     }, 200);
-    // let playerGuess = []
     if (id !== this.state.playerGuess[this.state.playerGuess.length - 1]) {
       this.state.playerGuess.push(id)
     }
     if (this.state.playerGuess.length === this.state.simonCode.length) {
-      console.log('got the right length')
       if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
         console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
       }
     }
-    console.log('adivinaaaa===>', this.state.playerGuess)
   }
 
   render() {
@@ -53,8 +44,7 @@ class SimonDynamic extends Component {
           <View style={styles.blackCircle}>
           {[0, 1, 2, 3].map(x => {
             return(
-              
-              <VrButton onClick={() => this.handlePress(x)} onButtonRelease={() => {console.log('please work \n----------------------\n')}}>
+              <VrButton onClick={() => this.handlePress(x)} onButtonRelease={() => {}}>
                 <View style={[styles.quarter, styles[this.state.colorCode[x]], { opacity: this.state.opacity[x] }]}></View>
               </VrButton>
             )
