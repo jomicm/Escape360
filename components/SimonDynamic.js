@@ -13,7 +13,7 @@ class SimonDynamic extends Component {
     bombCode: 'holder',
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     componentsMgmt.simonDynamic.state = this.state;
     componentsMgmt.simonDynamic.setState = async(key, val) => { 
       await this.setState({[key]: val});
