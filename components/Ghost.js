@@ -13,8 +13,7 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 export default class Ghost extends Component {
 
   state = {
-    show: true,
-    isClicked: true,
+    show: false,
     message: 'tic tic tic',
     bombCode: '1 2 3 4'
   }
@@ -43,10 +42,10 @@ export default class Ghost extends Component {
             <VrButton onClick={this.handleOnClick}><View style={styles.button}></View></VrButton>
           </View>
           <View style={[styles.children, {flex: 2}]}>
-            {this.state.isClicked && <View style={styles.imageContainer}>
+            <View style={styles.imageContainer}>
               <Image style={styles.image} source={asset('chatbox.png')}/>
               <Text style={styles.text}>{this.ghostMessage()}</Text>
-            </View>}
+            </View>
           </View>
         </View>}
       </View>

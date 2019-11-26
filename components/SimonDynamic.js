@@ -10,7 +10,7 @@ class SimonDynamic extends Component {
     simonCode: [],
     playerGuess: [],
     solved: false,
-    bombCode: 'holder',
+    message: 'BOOOO!!!',
   }
 
   componentDidMount = () => {
@@ -34,9 +34,17 @@ class SimonDynamic extends Component {
         console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
         this.setState({solved: true})
         dataStore.emit('globalListener', {name: 'simonSolved', content: true});
-
       } else {
-        this.setState({playerGuess: []})
+        this.setState({playerGuess: []});
+        [0, 1, 2, 3].map(x => {
+          this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
+        });
+        setTimeout(() => {
+            [0, 1, 2, 3].map(x => {
+              this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+            });
+        },200)
+
       }
     }
   }
@@ -56,7 +64,7 @@ class SimonDynamic extends Component {
           })}
           </View>
           {this.state.solved && <View style={styles.display}>
-            <Text style={styles.code}>{this.state.bombCode}</Text>
+            <Text style={styles.code}>{this.state.message}</Text>
           </View>}
         </View>}
       </View>

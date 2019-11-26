@@ -71,11 +71,13 @@ const _componentsMgmt = (dataStore, ws) => {
     case 'simonAnswers':
       components.simonDynamic.setState('simonCode', content.simonCode);
       sendCommand('simonDynamic', 'simonCode', content.simonCode);
-      components.simonDynamic.setState('bombCode', content.bombCode);
-      sendCommand('simonDynamic', 'bombCode', content.bombCode);
+      components.ghost.setState('bombCode', content.bombCode);
+      sendCommand('ghost', 'bombCode', content.bombCode);
       break;
     case 'simonSolved':
       sendCommand('simonDynamic', 'solved', content);
+      sendCommand('ghost', 'show', content);
+      components.ghost.setState('show', content);
       break;
     case 'changeEnvironment':
         changeRoom(content);
