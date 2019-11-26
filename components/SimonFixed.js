@@ -21,7 +21,9 @@ class SimonFixed extends Component {
     // simonCode = [0, 1, 2, 3, 4, 4]
     let getPuzzleAnswer = {...getPuzzleAnswers()}
     let simonCode = [...getPuzzleAnswer.simonCode];
-    dataStore.emit('globalListener', {name: 'simonAnswers', content: simonCode.slice(0, 10)})
+    // dataStore.emit('globalListener', {name: 'all', content: {name: 'simonAnswers', key: 'simonCode', value: 'simonCode.slice(0, 10)'}})
+    // dataStore.emit('globalListener', {name: 'all', content: {name: 'simonAnswers', key: 'bombCode', value: 'getPuzzleAnswer.bombCode.join("")'}})
+    dataStore.emit('globalListener', {name: 'simonAnswers', content: {simonCode: simonCode.slice(0, 10), bombCode: getPuzzleAnswer.bombCode.join('')}})
     let simonCopy = [...simonCode];
     let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {

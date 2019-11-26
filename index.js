@@ -68,7 +68,7 @@ const onMessageHandler = e => {
   // setMessages([...messages, res]);
 };
 
-const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 

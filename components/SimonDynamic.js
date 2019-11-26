@@ -9,7 +9,8 @@ class SimonDynamic extends Component {
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
     simonCode: [],
     playerGuess: [],
-    solved: true,
+    solved: false,
+    bombCode: 'holder',
   }
 
   componentDidMount = async () => {
@@ -27,10 +28,17 @@ class SimonDynamic extends Component {
     }, 200);
     if (id !== this.state.playerGuess[this.state.playerGuess.length - 1]) {
       this.state.playerGuess.push(id)
+      console.log('playerguess', this.state.playerGuess)
+      console.log('simoncode', this.state.simonCode)
     }
     if (this.state.playerGuess.length === this.state.simonCode.length) {
       if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
         console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
+        this.setState({solved: true})
+        dataStore.emit('globalListener', {name: 'simonSolved', content: true});
+
+      } else {
+        this.setState({playerGuess: []})
       }
     }
   }
@@ -50,7 +58,7 @@ class SimonDynamic extends Component {
           })}
           </View>
           {this.state.solved && <View style={styles.display}>
-            <Text style={styles.code}>1 2 3 4</Text>
+            <Text style={styles.code}>{this.state.bombCode}</Text>
           </View>}
         </View>}
       </View>

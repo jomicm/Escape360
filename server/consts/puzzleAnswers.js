@@ -13,7 +13,7 @@ const getSimonCode = (max) => {
     }
   });
   return newRes;
-}
+};
 
 const puzzleAnswers = () => {
   return {
@@ -22,7 +22,8 @@ const puzzleAnswers = () => {
     phoneNumBedroom: `(###) ### - ${getPhoneNum.join('').slice(3, 7)}`,
     phoneCode: getCode(4),
     simonCode: [...getSimonCode(10), 4, 4, 4],
-  }
+    bombCode: getCode(4, 10, 0),
+  };
 };
 
 module.exports = puzzleAnswers;
