@@ -20,8 +20,8 @@ class BedroomSafe extends Component {
   // }
 
   // _onHoleClick = (show) => {
-  //   this.setState({show: false})
-  // }
+
+l  // }
   // _onCorrectBedroomSafeCode = (show) => {
   //   this.setState({index: 1})
   // }
