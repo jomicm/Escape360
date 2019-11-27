@@ -26,6 +26,7 @@ import Bomb from './components/Bomb';
 import SimonFixed from './components/SimonFixed';
 import SimonDynamic from './components/SimonDynamic';
 import Ghost from './components/Ghost';
+import BlackHole from './components/BlackHole';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
@@ -97,5 +98,6 @@ AppRegistry.registerComponent('Bomb', () => Bomb);
 AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('Ghost', () => Ghost);
+AppRegistry.registerComponent('BlackHole', () => BlackHole);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
