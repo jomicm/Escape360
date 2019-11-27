@@ -3,8 +3,6 @@ import { asset, View, VrButton, StyleSheet, NativeModules, Image } from 'react-3
 const { AudioModule } = NativeModules;
 import { dataStore, componentsMgmt } from '../../index';
 
-42
-
 export default class AbstractArtDynamic extends Component {
   state = {
     show: false
