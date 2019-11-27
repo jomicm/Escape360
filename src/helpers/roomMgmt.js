@@ -23,7 +23,7 @@ console.log('room', room);
     },
     freedom: {
       components: ['inventory', ],
-      environment: '360_world.jpg'
+      environment: '360_world.png'
     }
   }
   // console.log('componentsMgmt', componentsMgmt);

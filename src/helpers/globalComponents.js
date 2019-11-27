@@ -25,8 +25,8 @@ module.exports = (width, height) => {
       { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 600, height: 600 }, angle: [-0.39 - Math.PI, 0.12, 0], radius: 0},
       { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0},
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
-      { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
+      // { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
     ],
-    initialEnvironment: '360_basement.png',
+    initialEnvironment: '360_basement.jpg',
   };
 };

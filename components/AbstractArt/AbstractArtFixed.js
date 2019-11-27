@@ -5,7 +5,7 @@ import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtFixed extends Component {
   state = {
-    show: false,
+    show: true,
     solved: false,
     safe_closed: true,
     safe_image: ['safe_wall_close.png', 'safe_wall_open.png'],

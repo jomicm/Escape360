@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton, NativeModules } from "react-360";
 import { dataStore, componentsMgmt } from "../../index";
+import Back from '../Back'
 const { AudioModule } = NativeModules;
+
 
 class BigPoster extends Component {
   state = {
@@ -9,9 +11,10 @@ class BigPoster extends Component {
     coordsAnswer: [],
     solveCoords: Array(25).fill(-1),
     show: false,
-    isDynamic: true,
+    isDynamic: false,
     selectedColor: 0,
     opacity: [0.825, 0.5, 0.5, 0.5],
+    paletteOpacity: [0.9, 0.3, 0.3, 0.3],
     colors: [
       "rgba(255,255,255,",
       "rgba(255,0,0,",
@@ -22,14 +25,14 @@ class BigPoster extends Component {
   };
 
   handleClick = () => {
-    if(!this.state.isDynamic) this.setState({show: false});
-    dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
+    // if(!this.state.isDynamic) this.setState({show: false});
+    // dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
   };
   handlePaletteClick = c => {
     this.setState({ selectedColor: c });
-    const opacity = [0.5, 0.5, 0.5, 0.5];
-    opacity[c] = 0.9;
-    this.setState({ opacity });
+    const paletteOpacity = [0.3, 0.3, 0.3, 0.3];
+    paletteOpacity[c] = 0.9;
+    this.setState({ paletteOpacity });
   };
   setCoords = async(ix, val) => {
     const solveCoords = [...this.state.solveCoords];
@@ -51,19 +54,20 @@ class BigPoster extends Component {
   render() {
     const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}];
     return (
-      <View style={{backgroundColor: 'rgba(0, 0, 0, 1)'}}>
+      <View style={{backgroundColor: 'rgba(0, 0, 0, 0.5 )'}} onCliclk={() => console.log('dssdada')}>
         {this.state.show && (
           <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
-            <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-              <Text style={{fontWeight: 'bold', fontSize: 40}}>{'<'}</Text>
-            </VrButton>
+            <Back onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}/>
+            {/* <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
+              <Text style={{fontWeight: 'bold', fontSize: 40}}>{'< Back'}</Text>
+            </VrButton> */}
             {this.state.isDynamic && (
               <View>
-                <ColorPalette style={{margin: 200, padding:15}} colors={this.state.colors} opacity={this.state.opacity} onPaletteClick={this.handlePaletteClick}/>
+                <ColorPalette style={{margin: 200, padding:15}} colors={this.state.colors} opacity={this.state.paletteOpacity} onPaletteClick={this.handlePaletteClick}/>
               </View>
             )}
             <VrButton onClick={this.handleClick}>
-              <Image style={[styles.poster, this.state.isDynamic ? transformations[this.state.transformation] : {}]} source={asset("art.jpg")}/>
+              <Image style={[styles.poster, {backgroundColor: 'rgba(0, 0, 0, 0.5)'}, this.state.isDynamic ? transformations[this.state.transformation] : {}]} source={asset("art.jpg")}/>
               <Board
                 isDynamic={this.state.isDynamic}
                 width={5}
@@ -93,7 +97,7 @@ class ColorPalette extends Component {
         </VrButton> */}
         {backColor.map((c, ix) => (
           <VrButton key={"palette" + c} onClick={() => this.props.onPaletteClick(ix)}>
-            <View style={{ width: 50, height: 50, backgroundColor: c, marginHorizontal:10, marginBottom: 20 }}></View>
+            <View style={{ width: 50, height: 50, backgroundColor: c, marginHorizontal:10, marginBottom: 20, borderRadius: 10 }}></View>
           </VrButton>
         ))}
       </View>
@@ -220,7 +224,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    width: 50,
+    width: 150,
     height: 50,
     borderRadius: 10
   }
