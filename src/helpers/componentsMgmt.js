@@ -33,7 +33,10 @@ const _componentsMgmt = (dataStore, ws) => {
       components.inventory.setState('show', false);
       break;
     case 'bombTimer':
-      sendCommand('bomb', 'isRunning', true)
+      // sendCommand('bomb', 'isRunning', true)
+      // sendCommand('bomb', 'bombTime', content)
+      components.bomb.state.startTimer(content);
+      sendCommand('startTimer', content, true);
       break;
     case 'bigBomb':
       components.inventory.setState('show', true);
@@ -89,7 +92,11 @@ const _componentsMgmt = (dataStore, ws) => {
         changeRoom(content);
         break;
     case 'all':
-      components[content.name].setState(content.key, content.value);
+      if (content.name === 'startTimer') {
+        components.bomb.state.startTimer(content.key);
+      } else {
+        components[content.name].setState(content.key, content.value);
+      }
       break;
     }
   });

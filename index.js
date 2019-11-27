@@ -50,6 +50,7 @@ const onServerCommandReceived = comm => {
       }
       if (comm.serCommText.id === 1) { 
         Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
+        dataStore.emit('globalListener', {name: 'bombTimer', content: {time: 1800000}});
       } 
       initialRoomState(comm.serCommText.id);
       puzzleAnswers = comm.serCommText.puzzleAnswers;
