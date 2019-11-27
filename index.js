@@ -23,7 +23,6 @@ import BigAbstractArt from './components/AbstractArt/BigAbstractArt';
 import MirrorCode from './components/AbstractArt/MirrorCode';
 
 import Bomb from './components/Bomb';
-import BigBomb from './components/BigBomb';
 import SimonFixed from './components/SimonFixed';
 import SimonDynamic from './components/SimonDynamic';
 import Ghost from './components/Ghost';
@@ -66,7 +65,8 @@ const onMessageHandler = e => {
   }
 };
 
-const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
+// const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://192.168.0.1:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
@@ -93,7 +93,6 @@ AppRegistry.registerComponent('AbstractArtDynamic', () => AbstractArtDynamic);
 AppRegistry.registerComponent('BigAbstractArt', () => BigAbstractArt);
 AppRegistry.registerComponent('MirrorCode', () => MirrorCode);
 AppRegistry.registerComponent('Bomb', () => Bomb);
-AppRegistry.registerComponent('BigBomb', () => BigBomb);
 AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('Ghost', () => Ghost);

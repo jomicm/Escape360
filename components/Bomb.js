@@ -11,11 +11,19 @@ class Bomb extends Component {
     bombDisplay: '30:00',
     color: 'red',
     // isRunning: false,
-    isPowered: true,
+    isPowered: false,
+    isDefused: false,
+    interval: null,
+    stopTimer: async() => {
+      // this.setState({color:'red'});
+      clearInterval(this.state.interval);
+      await this.setState({color:'red'});
+      console.log('BOMB DISPLAY', this.state.bombDisplay);
+    }
   }
 
   timer = (initTime) => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       let minutes = Math.floor(initTime / 60000).toFixed(0);
       minutes = minutes.length === 1 ? '0' + minutes : minutes
       let seconds = ((initTime / 1000) % 60).toFixed(0);
@@ -44,11 +52,25 @@ class Bomb extends Component {
         //   //silence for 3sec then explode. Endgame;
         // }, 3000)
       }
-    }, 1000)
+    }, 1000);
+    this.setState({interval});
   };
 
   _onBombClick = (show) => {
-    if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
+    if (this.state.isPowered) {
+      dataStore.emit('globalListener', {name: 'safeKeyPadBomb', action:'click', content:'Bomb'});
+    } else {
+      if (componentsMgmt.inventory.state.selectedItem === 'battery') {
+        this.setState({isPowered: true});
+        dataStore.emit('globalListener', {name: 'onItemUsed', action: 'click', content: {item: 'battery', num: 1}});
+        dataStore.emit('globalListener', {name: 'bombIsPowered', action:'click'});
+      } else {
+        AudioModule.playOneShot({
+          source: asset('beep-error.mp3'),
+          volume: 0.8,
+        });
+      }
+    }
   }
   componentDidMount() {
     componentsMgmt.bomb.state = this.state;

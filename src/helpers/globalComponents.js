@@ -5,7 +5,6 @@ module.exports = (width, height) => {
       { name: 'PhoneNumpad', props: { width, height }, radius: 3.4 },
       { name: 'SafeKeypad', props: { width, height }, radius: 3.4 },
       { name: 'BigAbstractArt', props: { width, height }, radius: 3.4 },
-      { name: 'BigBomb', props: { width, height }, radius: 3.4 },
       { name: 'Inventory', props: { width, height }, radius: 8 },
     ],
     general: [

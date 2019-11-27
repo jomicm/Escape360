@@ -32,7 +32,7 @@ const puzzleAnswers = () => {
     phoneCode: getUniqueCode(4, 5, 1),
     simonCode: [...getUniqueCode(10), 4, 4, 4],
     // bombCode: getCode(4, 10, 0),
-    bombCode: getUniqueCode(4, 10, 1),
+    bombCode: getUniqueCode(4, 9, 1),
   };
 };
 
