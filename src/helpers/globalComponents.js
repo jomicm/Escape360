@@ -27,6 +27,6 @@ module.exports = (width, height) => {
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
       { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
     ],
-    initialEnvironment: '360_basement.png',
+    initialEnvironment: '360_living.png',
   };
 };

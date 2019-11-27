@@ -35,7 +35,8 @@ const _componentsMgmt = (dataStore, ws) => {
     "simonFixed",
     "simonDynamic",
     "bomb",
-    "ghost"
+    "ghost",
+    "blackHole"
   ];
   // abstractArtFixed
   const components = {};

@@ -4,10 +4,10 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class SimonDynamic extends Component {
   state = {
-    show: false,
+    show: true,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
-    simonCode: [],
+    simonCode: [0, 1, 2, 3, 1],
     playerGuess: [],
     solved: false,
     message: 'BOOOO!!!',
@@ -21,7 +21,7 @@ class SimonDynamic extends Component {
     }
   }
   
-  handlePress = (id) => {
+  handlePress = async (id) => {
     this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 1}}));
     setTimeout(() => {
       this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 0.3}}));
@@ -36,15 +36,19 @@ class SimonDynamic extends Component {
         dataStore.emit('globalListener', {name: 'simonSolved', content: true});
       } else {
         this.setState({playerGuess: []});
+        console.log('message before =>', this.state.message);
+        await this.setState({message: 'WRONG!!!'});
+        console.log('message AFTER =>', this.state.message);
         [0, 1, 2, 3].map(x => {
           this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
         });
-        setTimeout(() => {
-            [0, 1, 2, 3].map(x => {
-              this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
-            });
-        },200)
-
+        setTimeout(async () => {
+          [0, 1, 2, 3].map(x => {
+            this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+          });
+          await this.setState({message: 'BOOOO!!!'});
+          console.log('message AFTER =>', this.state.message);
+        },600)
       }
     }
   }
@@ -63,7 +67,8 @@ class SimonDynamic extends Component {
             )
           })}
           </View>
-          {this.state.solved && <View style={styles.display}>
+          {/*   */}
+          {(this.state.message === 'WRONG!!!' ? true : false || this.state.solved) && <View style={styles.display}>
             <Text style={styles.code}>{this.state.message}</Text>
           </View>}
         </View>}
