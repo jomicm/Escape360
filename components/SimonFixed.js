@@ -8,7 +8,9 @@ class SimonFixed extends Component {
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
     isRunning: false,
     startFunction: async () => {
-      await this.setState({show: true})
+      console.log('@@@@@@@@@@@@@@@ before', this.state.show)
+      await this.setState({show: true});
+      console.log('@@@@@@@@@@@@@@@ afffffter bud', this.state.show)
       this.simonOnRender()
     }
   }
@@ -22,6 +24,7 @@ class SimonFixed extends Component {
   }
   
   simonOnRender = () => {
+    console.log('you are now on simon rendering function\n\n\n\nepaaaaaaaaaaaaaaaa!!!!!')
     // if (this.state.isRunning) {
     //   return;
     // }
@@ -34,7 +37,9 @@ class SimonFixed extends Component {
     let simonCopy = [...simonCode];
     let opacity = {...this.state.opacity};
     const runSimon = (opacity) => {
+      console.log('simonCopy\n\n\n\nnooooooooooooooooooooooooo recurssionnnnnn', simonCopy);
       if (!this.state.show) return;
+      console.log('simonCopy\n\n\n\nstill in recurssionnnnnn', simonCopy);
       if (simonCopy.length === 0) {
         simonCopy = [...simonCode]
       }

@@ -5,7 +5,7 @@ import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtFixed extends Component {
   state = {
-    show: true,
+    show: false,
     solved: false,
     safe_closed: true,
     safe_image: ['safe_wall_close.png', 'safe_wall_open.png'],
@@ -73,15 +73,19 @@ const styles = StyleSheet.create({
     height: 350
   },
   key: {
-    width: 60,
-    height:30,
-    top: -100,
-    left: 45
+    position: 'absolute',
+    width: 45,
+    height: 45,
+    top: -92,
+    left: 50,
+    transform: [ { rotateZ: '-45deg'}],
+
   },
   battery: {
+    position: 'absolute',
     width: 70,
     height: 55,
-    top: -85,
+    top: -70,
     left: 40,
     transform: [ { rotateZ: '-90deg'}],
   }

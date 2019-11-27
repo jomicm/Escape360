@@ -1,6 +1,6 @@
 module.exports = (componentsMgmt, component, _this) => {
-  console.log('component', component);
-  console.log('componentsMgmt', componentsMgmt);
+  // console.log('component', component);
+  // console.log('componentsMgmt', componentsMgmt);
   componentsMgmt[component].state = _this.state;
   componentsMgmt[component].setState = async(key, val) => {
     try {

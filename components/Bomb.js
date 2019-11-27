@@ -25,7 +25,6 @@ class Bomb extends Component {
         this.setState({color: 'red'})
         initTime -= 1000;
         this.setState({bombDisplay: `${minutes}:${seconds}`})
-        console.log('state>>>>>>>>>', this.state)
         if (this.state.show) {
           AudioModule.playOneShot({
           source: asset('beep-bomb.mp3'),

@@ -4,7 +4,7 @@ import { dataStore, componentsMgmt } from '../../index';
 
 export default class MirrorCode extends Component {
   state = {
-    show: true,
+    show: false,
     mirrorCode: 'XXXX'
   }
   componentDidMount() {

@@ -26,6 +26,6 @@ module.exports = (width, height) => {
       { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0},
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
     ],
-    initialEnvironment: '360_basement.jpg',
+    initialEnvironment: '360_bedroom.jpg',
   };
 };

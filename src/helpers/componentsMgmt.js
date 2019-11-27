@@ -124,7 +124,7 @@ const _componentsMgmt = (dataStore, ws) => {
       break;
     case 'openNextDoorRoom':
       // components.abstractArtFixed.setState('solved', true);
-      sendCommand('bathroomDoor', 'canIGoThrough', true);
+      sendCommand(content, 'canIGoThrough', true);
       break;
     // GENERAL COMPONENTS
     case 'onItemUsed':
@@ -138,12 +138,6 @@ const _componentsMgmt = (dataStore, ws) => {
     case 'puzzleAnswersReceived':
       components.mirrorCode.setState('mirrorCode', content.mirrorCode);
       break;
-      // components.bedroomSafe.setState('index', content);
-      // sendCommand('bedroomSafe', 'index', content);
-      // sendCommand('bedroomSafe', 'available', false);
-      // components.bedroomSafe.setState('showItems', true);
-      // components.bedroomSafe.setState('available', false);
-      // break;
     case 'simonAnswers':
       components.simonDynamic.setState('simonCode', content.simonCode);
       sendCommand('simonDynamic', 'simonCode', content.simonCode);
@@ -155,19 +149,14 @@ const _componentsMgmt = (dataStore, ws) => {
       sendCommand('ghost', 'show', content);
       components.ghost.setState('show', content);
       break;
-    // case 'changeEnvironment':
-    //     changeRoom(content);
-    //     if (content === 'livingroom') {
-    //       components.simonFixed.state.startFunction();
-    //     }
-    //     break;
     case 'changeEnvironment':
-      if (content !== 'basement' && content !== 'freedom') {
-        AudioModule.playOneShot({ source: asset("door_2.wav"), volume: 1 });
-      } else if (content === 'livingroom') {
-        components.simonFixed.state.startFunction();
-      }
       changeRoom(content);
+      if (content !== 'basement' && content !== 'freedom') {
+        // AudioModule.playOneShot({ source: asset("door_2.wav"), volume: 1 });
+        if (content === 'livingroom') {
+          components.simonFixed.state.startFunction();
+        }
+      }
       break;
     case 'all':
       if (content.name === 'startTimer') {
