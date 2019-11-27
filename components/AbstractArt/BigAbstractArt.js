@@ -8,8 +8,8 @@ class BigPoster extends Component {
     coords: [],
     coordsAnswer: [],
     solveCoords: Array(25).fill(-1),
-    show: true,
-    isDynamic: false,
+    show: false,
+    isDynamic: true,
     selectedColor: 0,
     opacity: [0.825, 0.5, 0.5, 0.5],
     colors: [
@@ -51,11 +51,11 @@ class BigPoster extends Component {
   render() {
     const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}];
     return (
-      <View>
+      <View style={{backgroundColor: 'rgba(0, 0, 0, 1)'}}>
         {this.state.show && (
           <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
             <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-              <Text style={{fontWeight: 'bold'}}>{'<'}</Text>
+              <Text style={{fontWeight: 'bold', fontSize: 40}}>{'<'}</Text>
             </VrButton>
             {this.state.isDynamic && (
               <View>
@@ -88,9 +88,9 @@ class ColorPalette extends Component {
     this.props.colors.map((c, ix) => backColor.push(`${c}${this.props.opacity[ix]})`));
     return (
       <View style={styles.row}>
-        <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-          <Text>{'<'}</Text>
-        </VrButton>
+        {/* <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
+          <Text style={{fontWeight: 'bold', fontSize: 40}}>{'<'}</Text>
+        </VrButton> */}
         {backColor.map((c, ix) => (
           <VrButton key={"palette" + c} onClick={() => this.props.onPaletteClick(ix)}>
             <View style={{ width: 50, height: 50, backgroundColor: c, marginHorizontal:10, marginBottom: 20 }}></View>
