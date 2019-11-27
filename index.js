@@ -20,6 +20,7 @@ import GoBackDoor from './components/GoBackDoor';
 import AbstractArtFixed from './components/AbstractArt/AbstractArtFixed';
 import AbstractArtDynamic from './components/AbstractArt/AbstractArtDynamic';
 import BigAbstractArt from './components/AbstractArt/BigAbstractArt';
+import MirrorCode from './components/AbstractArt/MirrorCode';
 
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -36,7 +37,6 @@ const onServerCommandReceived = comm => {
     case 'joined':
       console.log('Comando recibido: joined as: ', comm.serCommText.id);
       if (comm.serCommText.id === -1) {
-        console.log('Largate hijo de puta!')
         Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
         break;
       }
@@ -45,23 +45,23 @@ const onServerCommandReceived = comm => {
       } 
       initialRoomState(comm.serCommText.id);
       puzzleAnswers = comm.serCommText.puzzleAnswers;
+      dataStore.emit("globalListener", { name: "puzzleAnswersReceived", action: "click", content: puzzleAnswers });
       break;
     case 'shareState':
+      console.log('Comando recibido: share state as: ', comm.serCommText.id);
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
       break;
   }
 };
 const onMessageHandler = e => {
-  // console.log('e', JSON.parse(e.data));
   const res = JSON.parse(e.data);
   if (res.serCommName) {
     onServerCommandReceived(res);
   }
-  // console.log('STATE > res ', res);
-  // setMessages([...messages, res]);
 };
 
 const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+// const ws = useSocket('ws://192.168.0.1:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 setTimeout(() => {
@@ -85,5 +85,6 @@ AppRegistry.registerComponent('GoBackDoor', () => GoBackDoor);
 AppRegistry.registerComponent('AbstractArtFixed', () => AbstractArtFixed);
 AppRegistry.registerComponent('AbstractArtDynamic', () => AbstractArtDynamic);
 AppRegistry.registerComponent('BigAbstractArt', () => BigAbstractArt);
+AppRegistry.registerComponent('MirrorCode', () => MirrorCode);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

@@ -10,11 +10,11 @@ console.log('room', room);
       environment: '360_basement.jpg'
     },
     bedroom: {
-      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor'],
+      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic'],
       environment: '360_bedroom.jpg'
     },
     bathroom: {
-      components: ['inventory', 'goBackDoor'],
+      components: ['inventory', 'goBackDoor', 'abstractArtFixed', 'mirrorCode'],
       environment: '360_bathroom.jpg'
     },
     livingroom: {

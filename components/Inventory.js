@@ -19,8 +19,8 @@ class Inventory extends Component {
 
   componentWillMount() {
     console.log('Mounting! inventory.js');
-    dataStore.addListener('bedroomGetSafeItemsToInventory', this._onBedroomGetSafeItemsToInventory);
-    dataStore.addListener('itemUsed', this._onItemUsed);
+    // dataStore.addListener('bedroomGetSafeItemsToInventory', this._onBedroomGetSafeItemsToInventory);
+    // dataStore.addListener('itemUsed', this._onItemUsed);
   }
   componentDidMount() {
     componentsMgmt.inventory.state = this.state;

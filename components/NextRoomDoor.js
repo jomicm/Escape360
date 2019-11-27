@@ -18,6 +18,7 @@ export default class NextRoomDoor extends Component {
   }
   _onNextRoomDoorClick = (show) => {
     console.log('this.props.component>?>>>', this.props.component)
+    console.log('this.props.selectedItem', this.props.selectedItem);
     if (this.state.canIGoThrough) {
       // dataStore.emit('globalListener', {name: this.props.component, action:'click'});
       dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
@@ -25,10 +26,12 @@ export default class NextRoomDoor extends Component {
     } else {
       if (componentsMgmt.inventory.state.selectedItem === this.props.selectedItem) {
         this.setState({canIGoThrough: true});
-        dataStore.emit('itemUsed', this.props.selectedItem);
+        // dataStore.emit('itemUsed', this.props.selectedItem);
+        dataStore.emit('globalListener', {name: 'onItemUsed', action: 'click', content: {item: this.props.selectedItem, num: 1}});
         // dataStore.emit('ropeSet', show);
         // dataStore.emit('globalListener', {name: this.props.component, action:'click'});
         dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
+        dataStore.emit('globalListener', {name: 'openNextDoorRoom', action:'click', content: this.props.component});
 
       } else {
         AudioModule.playOneShot({

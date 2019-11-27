@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { asset, View, VrButton, StyleSheet, NativeModules } from 'react-360'
+import { asset, View, VrButton, StyleSheet, NativeModules, Image } from 'react-360'
 const { AudioModule } = NativeModules;
 import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtDynamic extends Component {
   state = {
-    show: true
+    show: false
   }
   componentDidMount() {
     componentsMgmt.abstractArtDynamic.state = this.state;
@@ -23,7 +23,9 @@ export default class AbstractArtDynamic extends Component {
     return (
       <View style={{backgroundColor:'rgba(255,255,255,0.5)'}}>
         {this.state.show && <VrButton onClick={this._onClick}>
-          <View style={styles.container}/>
+          <View style={styles.container}>
+            <Image style={styles.poster} source={asset("art.jpg")}/>
+          </View>
         </VrButton>}
       </View>
     )
@@ -35,14 +37,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(59, 198, 140, 0.5)',
     top:10,
     width: 400,
-    height: 420,
+    height: 430,
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  poster: {
+    left: 0,
+    width: 400, 
+    height: 500,
     // transform: [
-    //   { perspective: 2500 },
+    //   { perspective: -2500 },
     //   { translateX:  0 },
-    //   { rotateY: '15deg'},
-    //   { rotateX: '0deg'},
+    //   { rotateY: 60},
+      // {translate: [-20, -20, 100]},
+    //   { rotateX: '-55deg'},
     //   { rotateZ: '5deg'},
     // ],
-  }
+  },
 })

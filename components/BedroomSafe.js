@@ -15,27 +15,26 @@ class BedroomSafe extends Component {
     // dataStore.emit('bedroomSafeClick', show)
     if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
-  _onRopeClick = (show) => {
-    this.setState({show: true})
-  }
+  // _onRopeClick = (show) => {
+  //   this.setState({show: true})
+  // }
 
-  _onHoleClick = (show) => {
-    this.setState({show: false})
-  }
-  _onCorrectBedroomSafeCode = (show) => {
-    this.setState({index: 1})
-  }
-  _onBedroomGetSafeItems = (show) => {
-    this.setState({showItems: false})
-    
-  }
-  componentWillMount() {
-    console.log('Mounting!');
-    dataStore.addListener('ropeClick', this._onRopeClick);
-    dataStore.addListener('holeClick', this._onHoleClick);
-    dataStore.addListener('correctBedroomSafeCode', this._onCorrectBedroomSafeCode);
-    dataStore.addListener('bedroomGetSafeItems', this._onBedroomGetSafeItems);
-  }
+  // _onHoleClick = (show) => {
+  //   this.setState({show: false})
+  // }
+  // _onCorrectBedroomSafeCode = (show) => {
+  //   this.setState({index: 1})
+  // }
+  // _onBedroomGetSafeItems = (show) => {
+  //   this.setState({showItems: false})
+  // }
+  // componentWillMount() {
+  //   console.log('Mounting!');
+  //   // dataStore.addListener('ropeClick', this._onRopeClick);
+  //   // dataStore.addListener('holeClick', this._onHoleClick);
+  //   // dataStore.addListener('correctBedroomSafeCode', this._onCorrectBedroomSafeCode);
+  //   // dataStore.addListener('bedroomGetSafeItems', this._onBedroomGetSafeItems);
+  // }
   componentDidMount() {
     componentsMgmt.bedroomSafe.state = this.state;
     componentsMgmt.bedroomSafe.setState = async(key, val) => { 

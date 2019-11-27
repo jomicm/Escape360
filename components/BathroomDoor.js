@@ -23,7 +23,8 @@ export default class BathroomDoor extends Component {
     } else {
       if (componentsMgmt.inventory.state.selectedItem === 'bathroomKey') {
         this.setState({canIGoThrough: true});
-        dataStore.emit('itemUsed', 'bathroomKey');
+        // dataStore.emit('itemUsed', 'bathroomKey');
+        dataStore.emit('globalListener', {name: 'onItemUsed', action: 'click', content: {item: 'bathroomKey', num: 1}});
         // dataStore.emit('ropeSet', show);
         dataStore.emit('globalListener', {name: 'bathroomDoor', action:'click'});
       } else {

@@ -11,41 +11,38 @@ const { AudioModule } = NativeModules;
 class BigPoster extends Component {
   state = {
     coords: [],
+    coordsAnswer: [],
     solveCoords: Array(25).fill(-1),
+    // solveCoords: [],
     show: false,
     isDynamic: false,
     selectedColor: 0,
-    opacity: [0.9, 0.5, 0.5, 0.5],
+    opacity: [0.825, 0.5, 0.5, 0.5],
     colors: [
       "rgba(255,255,255,",
       "rgba(255,0,0,",
       "rgba(0,255,0,",
       "rgba(0,0,255,"
-    ]
+    ],
+    transformation: ''
   };
 
   handleClick = () => {
     if(!this.state.isDynamic) this.setState({show: false});
-    // dataStore.emit('globalListener', {name: 'bigPoster', action:'click'});
+    dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
   };
   handlePaletteClick = c => {
-    console.log("c", c);
     this.setState({ selectedColor: c });
     const opacity = [0.5, 0.5, 0.5, 0.5];
     opacity[c] = 0.9;
     this.setState({ opacity });
   };
   setCoords = async(ix, val) => {
-    console.log('From SET COORDS>', ix, val);
     const solveCoords = [...this.state.solveCoords];
     solveCoords[ix] = val - 1;
     await this.setState({solveCoords})
-    console.log('FROM SET COORDS SOLVER>', this.state.solveCoords.join(''));
-    console.log('FROM SET COORDS SOLVER ORIGINAL>', this.state.coords.join(''));
-    if (this.state.solveCoords.join('') === this.state.coords.join('')) {
-      console.log('YOU WON!!!!!!!!!');
+    if (this.state.solveCoords.join('') === this.state.coordsAnswer.join('')) {
       dataStore.emit('globalListener', {name: 'abstractArtSolved', action:'solved'});
-      //abstractArtSolved
       AudioModule.playOneShot({ source: asset("safe_opens.wav"), volume: 1 });
     }
     
@@ -58,6 +55,9 @@ class BigPoster extends Component {
     };
   }
   render() {
+    const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}];
+    console.log('coooords!!!!!!!!!!!', this.state.coords)
+    // const scale = {saleX: this.state.isDynamic && this.state.transform === 0 ? -1 : 1}
     return (
       <View>
         {this.state.show && (
@@ -65,14 +65,14 @@ class BigPoster extends Component {
             <Text> {this.state.isDynamic ? "This is Dynamic view" : "This is static View"}</Text>
             {this.state.isDynamic && (
               <View>
-                <VrButton onClick={() => this.setState({show: false})}>
+                <VrButton onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
                   <Text>Close</Text>
                 </VrButton>
                 <ColorPalette colors={this.state.colors} opacity={this.state.opacity} onPaletteClick={this.handlePaletteClick}/>
               </View>
             )}
             <VrButton onClick={this.handleClick}>
-              <Image style={[styles.poster, { width: 350, height: 350 }]} source={asset("art.jpg")}/>
+              <Image style={[styles.poster, this.state.isDynamic ? transformations[this.state.transformation] : {}]} source={asset("art.jpg")}/>
               <Board
                 isDynamic={this.state.isDynamic}
                 width={5}
@@ -132,9 +132,9 @@ class Row extends Component {
   state = {
     selectedColors: Array(25).fill(this.props.colors[0] + "0.5)")
   }
-  _onTileClick = ix => {
+  _onTileClick = async ix => {
     const index = this.props.len * this.props.start + ix;
-    const selectedColors = [...this.state.selectedColors];
+    let selectedColors = [...this.state.selectedColors];
     selectedColors[index] = this.props.colors[this.props.selectedColor] + "0.5)";
     this.setState({ selectedColors });
     this.props.setCoords(index, this.props.selectedColor);
@@ -195,7 +195,9 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   poster: {
-    left: 0
+    left: 0,
+    width: 350, 
+    height: 350
     // top: 50
   },
   text: {

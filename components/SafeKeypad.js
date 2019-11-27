@@ -1,19 +1,7 @@
 import React, { Component, Fragment } from "react";
-import {
-  asset,
-  StyleSheet,
-  Image,
-  Text,
-  VrButton,
-  View,
-  NativeModules
-} from "react-360";
+import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from "react-360";
 import Back from "./Back";
-// import { dataStore, puzzleAnswers } from '../index';
-// import dataStore from '../index';
-// import { dataStore } from '../index';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from "../index";
-
 const { AudioModule } = NativeModules;
 
 export default class SafeKeypad extends Component {
@@ -21,28 +9,27 @@ export default class SafeKeypad extends Component {
     code: Array(4).fill("-"),
     codeNumbers: [],
     len: 4,
-    show: false
+    show: false,
+    codeSolved: '',
+    component: '',
   };
   setCode = c => {
     let codeNumbers = [...this.state.codeNumbers];
     codeNumbers.push(c);
     if (codeNumbers.length === this.state.len) {
       console.log("codeNumbers.join()", codeNumbers.join(""));
-      // console.log('phoneCode', phoneCode);
-
-      if (codeNumbers.join("") === getPuzzleAnswers().phoneCode.join("")) {
+      // if (codeNumbers.join("") === getPuzzleAnswers().phoneCode.join("")) {
+      if (codeNumbers.join("") === this.state.codeSolved) {
         console.log("the code is correct");
-        dataStore.emit('globalListener', {name: 'safeKeypad', action:'correctBedroomSafeCode', content:1});
-        
-        // dataStore.emit("correctBedroomSafeCode", true);
-        // dataStore.removeListener('bedroomSafeClick', this._onBedroomSafeClick);
+        // dataStore.emit('globalListener', {name: 'safeKeypad', action:'correctBedroomSafeCode', content:1});
+        dataStore.emit('globalListener', {name: 'safeKeypad', action: this.state.component, content:1});
         AudioModule.playOneShot({ source: asset("safe_opens.wav"), volume: 1 });
         setTimeout(() => {
-          // this.setState({show: false})
-          this.onHandleClick();
+          this.onBackClick();
           setTimeout(() => {
-            dataStore.emit("bedroomGetSafeItems", true);
-            dataStore.emit("bedroomGetSafeItemsToInventory", true);
+            dataStore.emit('globalListener', {name: 'safeKeypadTimeout', action: this.state.component});
+            // dataStore.emit("bedroomGetSafeItems", true);
+            // dataStore.emit("bedroomGetSafeItemsToInventory", true);
           }, 2000);
         }, 900);
       } else {
@@ -51,15 +38,13 @@ export default class SafeKeypad extends Component {
     }
     this.setState({ codeNumbers });
   };
-  _onBedroomSafeClick = show => {
-    // dataStore.emit('ropeClick', show)
-    console.log("this is numbers");
-    this.setState({ show: true });
-  };
-  componentWillMount() {
-    // console.log('Mounting phoneeee!', getPuzzleAnswers().phoneCode);
-    dataStore.addListener("bedroomSafeClick", this._onBedroomSafeClick);
-  }
+  // _onBedroomSafeClick = show => {
+  //   console.log("this is numbers");
+  //   this.setState({ show: true });
+  // };
+  // componentWillMount() {
+  //   // dataStore.addListener("bedroomSafeClick", this._onBedroomSafeClick);
+  // }
   componentDidMount() {
     componentsMgmt.safeKeypad.state = this.state;
     componentsMgmt.safeKeypad.setState = async (key, val) => {
@@ -67,28 +52,17 @@ export default class SafeKeypad extends Component {
       componentsMgmt.safeKeypad.state = this.state;
     };
   }
-  onHandleClick = () => {
+  onBackClick = () => {
     this.setState({ show: false });
     dataStore.emit("globalListener", { name: "phoneNumpad", action: "click" });
   };
   render() {
     if (this.state.show) {
       return (
-        <View
-          style={[
-            styles.container,
-            styles.text,
-            { width: this.props.width, height: this.props.height }
-          ]}
-        >
+        <View style={[styles.container, styles.text,{ width: this.props.width, height: this.props.height }]}>
           <Text style={styles.textSize}>
-            {this.state.code
-              .map((n, ix) =>
-                this.state.codeNumbers[ix] !== undefined
-                  ? this.state.codeNumbers[ix] + " "
-                  : n + " "
-              )
-              .join("")}
+            {this.state.code.map((n, ix) =>
+                this.state.codeNumbers[ix] !== undefined ? this.state.codeNumbers[ix] + " " : n + " ").join("")}
           </Text>
           {[1, 4, 7].map((x, ix) => (
             <NumRow
@@ -98,7 +72,7 @@ export default class SafeKeypad extends Component {
               cols={3}
             />
           ))}
-          <Back onClick={this.onHandleClick} />
+          <Back onClick={this.onBackClick} />
         </View>
       );
     } else {
