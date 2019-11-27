@@ -22,6 +22,11 @@ import AbstractArtDynamic from './components/AbstractArt/AbstractArtDynamic';
 import BigAbstractArt from './components/AbstractArt/BigAbstractArt';
 import MirrorCode from './components/AbstractArt/MirrorCode';
 
+import Bomb from './components/Bomb';
+import BigBomb from './components/BigBomb';
+import SimonFixed from './components/SimonFixed';
+import SimonDynamic from './components/SimonDynamic';
+import Ghost from './components/Ghost';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
 const dataStore = new EventEmitter();
@@ -42,6 +47,7 @@ const onServerCommandReceived = comm => {
       }
       if (comm.serCommText.id === 1) { 
         Environment.setBackgroundImage(asset('360_bedroom.jpg'), {format: '2D', transition: 1000});
+        dataStore.emit('globalListener', {name: 'bombTimer', content: {time: 1800000}});
       } 
       initialRoomState(comm.serCommText.id);
       puzzleAnswers = comm.serCommText.puzzleAnswers;
@@ -82,9 +88,17 @@ AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);
 AppRegistry.registerComponent('GoBackDoor', () => GoBackDoor);
+<<<<<<< HEAD
 AppRegistry.registerComponent('AbstractArtFixed', () => AbstractArtFixed);
 AppRegistry.registerComponent('AbstractArtDynamic', () => AbstractArtDynamic);
 AppRegistry.registerComponent('BigAbstractArt', () => BigAbstractArt);
 AppRegistry.registerComponent('MirrorCode', () => MirrorCode);
+=======
+AppRegistry.registerComponent('Bomb', () => Bomb);
+AppRegistry.registerComponent('BigBomb', () => BigBomb);
+AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
+AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
+AppRegistry.registerComponent('Ghost', () => Ghost);
+>>>>>>> origin/feature/bomba
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

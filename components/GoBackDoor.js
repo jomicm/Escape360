@@ -7,7 +7,7 @@ export default class GoBackDoor extends Component {
   state = {
     show: false
   }
-  componentDidMount() {
+  componentDidMount = () =>{
     componentsMgmt[this.props.component].state = this.state;
     componentsMgmt[this.props.component].setState = async(key, val) => { 
       await this.setState({[key]: val});

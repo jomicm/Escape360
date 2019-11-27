@@ -2,12 +2,13 @@ import changeRoom from './roomMgmt';
 import { dataStore, componentsMgmt, registerComponent, getPuzzleAnswers } from '../../index';
 import { asset, NativeModules } from 'react-360'
 const { AudioModule } = NativeModules;
+import SimonFixed from '../../components/SimonFixed';
 
 // State changes of all components of the game
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'abstractArtFixed', 'abstractArtDynamic', 'bigAbstractArt', 'mirrorCode'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'abstractArtFixed', 'abstractArtDynamic', 'bigAbstractArt', 'mirrorCode', 'simonFixed', 'simonDynamic', 'bomb', 'bigBomb', 'ghost'];
   // abstractArtFixed
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
@@ -26,6 +27,19 @@ const _componentsMgmt = (dataStore, ws) => {
       components.bigPoster.setState('show', true);
       components.bigPoster.setState('message', components.bigPoster.state.fixedMessage + '\n\n' + content);
       components.inventory.setState('show', false);
+      break;
+    case 'bomb':
+      components.bigBomb.setState('show', true);
+      components.inventory.setState('show', false);
+      break;
+    case 'bombTimer':
+      // sendCommand('bomb', 'isRunning', true)
+      // sendCommand('bomb', 'bombTime', content)
+      components.bomb.state.startTimer(content);
+      sendCommand('startTimer', content, true);
+      break;
+    case 'bigBomb':
+      components.inventory.setState('show', true);
       break;
     // BEDROOM COMPONENTS
     case 'bedroomPoster':
@@ -121,17 +135,46 @@ const _componentsMgmt = (dataStore, ws) => {
       inventoryItems[content.item].q -= content.num;
       components.inventory.setState(inventoryItems, inventoryItems);
       break;
-    case 'changeEnvironment':
-      if (content !== 'basement' && content !== 'freedom') {
-        AudioModule.playOneShot({ source: asset("door_2.wav"), volume: 1 });
-      }
-      changeRoom(content);
-      break;
     case 'puzzleAnswersReceived':
       components.mirrorCode.setState('mirrorCode', content.mirrorCode);
       break;
+      // components.bedroomSafe.setState('index', content);
+      // sendCommand('bedroomSafe', 'index', content);
+      // sendCommand('bedroomSafe', 'available', false);
+      // components.bedroomSafe.setState('showItems', true);
+      // components.bedroomSafe.setState('available', false);
+      // break;
+    case 'simonAnswers':
+      components.simonDynamic.setState('simonCode', content.simonCode);
+      sendCommand('simonDynamic', 'simonCode', content.simonCode);
+      components.ghost.setState('bombCode', content.bombCode);
+      sendCommand('ghost', 'bombCode', content.bombCode);
+      break;
+    case 'simonSolved':
+      sendCommand('simonDynamic', 'solved', content);
+      sendCommand('ghost', 'show', content);
+      components.ghost.setState('show', content);
+      break;
+    // case 'changeEnvironment':
+    //     changeRoom(content);
+    //     if (content === 'livingroom') {
+    //       components.simonFixed.state.startFunction();
+    //     }
+    //     break;
+    case 'changeEnvironment':
+      if (content !== 'basement' && content !== 'freedom') {
+        AudioModule.playOneShot({ source: asset("door_2.wav"), volume: 1 });
+      } else if (content === 'livingroom') {
+        components.simonFixed.state.startFunction();
+      }
+      changeRoom(content);
+      break;
     case 'all':
-      components[content.name].setState(content.key, content.value);
+      if (content.name === 'startTimer') {
+        components.bomb.state.startTimer(content.key);
+      } else {
+        components[content.name].setState(content.key, content.value);
+      }
       break;
     }
   });

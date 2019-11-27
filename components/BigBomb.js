@@ -12,7 +12,7 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 const { AudioModule } = NativeModules;
 
 
-export default class PhoneNumpad extends Component {
+export default class BigBomb extends Component {
   state = {
     code: Array(10).fill('-'),
     codeNumbers: [],
@@ -75,15 +75,15 @@ export default class PhoneNumpad extends Component {
     this.setState({show: false})
     dataStore.emit('globalListener', {name: 'phoneNumpad', action:'click'});
   }
-  componentWillMount() {
-    console.log('Mounting numbers!');
-    dataStore.addListener('phoneClick', this._onPhoneClick);
-  }
+  // componentWillMount() {
+  //   console.log('Mounting numbers!');
+  //   dataStore.addListener('phoneClick', this._onPhoneClick);
+  // }
   componentDidMount() {
-    componentsMgmt.phoneNumpad.state = this.state;
-    componentsMgmt.phoneNumpad.setState = async(key, val) => { 
+    componentsMgmt.bigBomb.state = this.state;
+    componentsMgmt.bigBomb.setState = async(key, val) => { 
       await this.setState({[key]: val});
-      componentsMgmt.phoneNumpad.state = this.state;
+      componentsMgmt.bigBomb.state = this.state;
     }
   }
   render() {

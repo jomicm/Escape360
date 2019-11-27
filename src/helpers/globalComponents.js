@@ -4,8 +4,9 @@ module.exports = (width, height) => {
       { name: 'BigPoster', props: { width, height, message: 'Some msg' }, radius: 3.4 },
       { name: 'PhoneNumpad', props: { width, height }, radius: 3.4 },
       { name: 'SafeKeypad', props: { width, height }, radius: 3.4 },
-      { name: 'Inventory', props: { width, height }, radius: 8 },
       { name: 'BigAbstractArt', props: { width, height }, radius: 3.4 },
+      { name: 'BigBomb', props: { width, height }, radius: 3.4 },
+      { name: 'Inventory', props: { width, height }, radius: 8 },
     ],
     general: [
       { name: 'bedroomSafeSurface', root:'BedroomSafe', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.4, -0.45, 0.06], radius: 5 },
@@ -20,6 +21,10 @@ module.exports = (width, height) => {
       { name: 'myAbstractArtFixedSurface', root:'AbstractArtFixed', props: {}, size: { width: 145, height: 200 }, angle: [0.8, 0.15, -0.01], radius: 5 },
       { name: 'myAbstractArtDynamicSurface', root:'AbstractArtDynamic', props: {}, size: { width: 310, height: 325 }, angle: [-.87, .165, 0.0], radius: 5 },
       { name: 'mirrorCodeSurface', root:'MirrorCode', props: {}, size: { width: 200, height: 200 }, angle: [-0.24, 0.22, 0.0], radius: 5 },
+      { name: 'mySimonFixedSurface', root: 'SimonFixed', size: { width: 200, height: 200 }, angle: [-0.452, 0.035, 0], radius: 0},
+      { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 600, height: 600 }, angle: [-0.39 - Math.PI, 0.12, 0], radius: 0},
+      { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0},
+      { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
     ],
     initialEnvironment: '360_bedroom.jpg',
   };
