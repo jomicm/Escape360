@@ -5,7 +5,7 @@ import { dataStore, componentsMgmt } from '../index';
 
 export default class GoBackDoor extends Component {
   state = {
-    show: false
+    show: true,
   }
   componentDidMount = () =>{
     componentsMgmt[this.props.component].state = this.state;
