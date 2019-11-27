@@ -88,17 +88,14 @@ AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);
 AppRegistry.registerComponent('GoBackDoor', () => GoBackDoor);
-<<<<<<< HEAD
 AppRegistry.registerComponent('AbstractArtFixed', () => AbstractArtFixed);
 AppRegistry.registerComponent('AbstractArtDynamic', () => AbstractArtDynamic);
 AppRegistry.registerComponent('BigAbstractArt', () => BigAbstractArt);
 AppRegistry.registerComponent('MirrorCode', () => MirrorCode);
-=======
 AppRegistry.registerComponent('Bomb', () => Bomb);
 AppRegistry.registerComponent('BigBomb', () => BigBomb);
 AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('Ghost', () => Ghost);
->>>>>>> origin/feature/bomba
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
