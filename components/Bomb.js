@@ -6,12 +6,12 @@ const { AudioModule } = NativeModules
 class Bomb extends Component {
   state = {
     show: false,
-    showBattery: false,
     startTimer: (content) => this.timer(content.time),
     // bombTime: 1800000,
     bombDisplay: '30:00',
     color: 'red',
-    isRunning: false
+    // isRunning: false,
+    isPowered: true,
   }
 
   timer = (initTime) => {
@@ -48,7 +48,7 @@ class Bomb extends Component {
   };
 
   _onBombClick = (show) => {
-    
+    if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
   componentDidMount() {
     componentsMgmt.bomb.state = this.state;
@@ -62,7 +62,8 @@ class Bomb extends Component {
     <View>
       {this.state.show && <View><Text style={[styles.timer, {color: this.state.color}]}>{this.state.bombDisplay}</Text>
       <VrButton onClick={() => this._onBombClick(true)}>
-        <Image style={{width:500, height:250, left:0, top:0}} source={asset('bomb_nopower.jpg')}/>
+        <Image style={{width:500, height:250, left:0, top:0}} source={this.state.isPowered ? asset('bomb_power.jpg') : asset('bomb_nopower.jpg')}/>
+        {this.state.isPowered? <Text style={styles.textPwr}>- PWR ON -</Text> : <Text style={styles.textNoPwr}>- PWR OFF -</Text>}
       </VrButton></View>}
     </View>
   )}
@@ -74,7 +75,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 100,
     fontWeight: '500',
-    // color: 'red',
+  },
+  textPwr: {
+    position: 'absolute',
+    top: 170,
+    left: 163,
+    color: '#6FFF00'
+  },
+  textNoPwr: {
+    position: 'absolute',
+    top: 170,
+    left: 163,
+    color: '#333333'
   }
 });
 
