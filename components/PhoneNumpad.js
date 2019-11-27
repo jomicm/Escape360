@@ -9,7 +9,7 @@ export default class PhoneNumpad extends Component {
   state = {
     code: Array(10).fill('-'),
     codeNumbers: [],
-    lastRow: ['call', 'clear'],
+    lastRow: ['call', 'clear', 'delete'],
     len: 11,
     show: false,
     isRunning: false,
@@ -57,9 +57,13 @@ export default class PhoneNumpad extends Component {
       } else {
         console.log('wrong answer motherfuckeeeeeer')
       }
-
     } else if (sender === 'clear') {
       this.setState({codeNumbers: []})
+    } else if (sender === 'delete') {
+      let delCodeNumbers = [...this.state.codeNumbers];
+      delCodeNumbers.splice(-1, 1);
+      console.log(this.state.codeNumbers)
+      this.setState(prevState => ({...prevState, codeNumbers: delCodeNumbers}));
     }
   }
   onHandleClick = () => {
@@ -81,6 +85,7 @@ export default class PhoneNumpad extends Component {
     if (this.state.show) {
       return (
         <View style={[styles.container, styles.text, {width:this.props.width, height: this.props.height}]}>
+          <Back onClick={this.onHandleClick}/>
           <Text style={styles.textSize}>
             { this.state.code.map((n, ix) => this.state.codeNumbers[ix] !== undefined ? this.state.codeNumbers[ix] + ' ' : n + ' ' ).join('')}
           </Text>
@@ -93,7 +98,7 @@ export default class PhoneNumpad extends Component {
                   </VrButton>
               ))}
             </View>
-            <Back onClick={this.onHandleClick}/>
+            {/* <Back onClick={this.onHandleClick}/> */}
         </View>
       )
     } else {
@@ -137,11 +142,11 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   textSize: {
-    fontSize: 50
+    fontSize: 40
   },
   actionButtons: {
     marginTop: 20, 
-    paddingLeft: 150, 
-    paddingRight: 150
+    paddingLeft: 100, 
+    paddingRight: 100
   }
 })
