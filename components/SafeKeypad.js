@@ -15,6 +15,7 @@ export default class SafeKeypad extends Component {
   };
   setCode = c => {
     let codeNumbers = [...this.state.codeNumbers];
+    if (codeNumbers[codeNumbers.length - 1] === c) return;
     codeNumbers.push(c);
     if (codeNumbers.length === this.state.len) {
       console.log("codeNumbers.join()", codeNumbers.join(""));

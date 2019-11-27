@@ -8,7 +8,7 @@ const getUniqueCode = (limit, maxNum = 4, zero = 0) => {
     if (!ix) newRes.push(rand(maxNum, zero));
     else {
       const prev = newRes[ix - 1];
-      let ran = rand(4, 0);
+      let ran = rand(maxNum, zero);
       while (prev === ran) ran = rand(maxNum, zero);
       newRes.push(ran);
     }
