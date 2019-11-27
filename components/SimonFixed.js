@@ -6,7 +6,11 @@ class SimonFixed extends Component {
   state = {
     show: false,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
-    isRunning: false
+    isRunning: false,
+    startFunction: async () => {
+      await this.setState({show: true})
+      this.simonOnRender()
+    }
   }
 
   componentDidMount = () => {
@@ -16,13 +20,12 @@ class SimonFixed extends Component {
       componentsMgmt.simonFixed.state = this.state;
     }
   }
-
-  onClick = async() => {
-    // simonCode = [0, 1, 2, 3, 4, 4]
-    if (this.state.isRunning) {
-      return;
-    }
-    this.setState({isRunning: true})
+  
+  simonOnRender = () => {
+    // if (this.state.isRunning) {
+    //   return;
+    // }
+    // this.setState({isRunning: true})
     let getPuzzleAnswer = {...getPuzzleAnswers()}
     let simonCode = [...getPuzzleAnswer.simonCode];
     // dataStore.emit('globalListener', {name: 'all', content: {name: 'simonAnswers', key: 'simonCode', value: 'simonCode.slice(0, 10)'}})
@@ -69,12 +72,16 @@ class SimonFixed extends Component {
     runSimon(opacity)
   }
 
+  handleClick = () => {
+
+  }
+
   render() {
 
     return (
       <View>
         {this.state.show && <View style={styles.container}>
-          <VrButton onClick={this.onClick}>
+          <VrButton onClick={this.handleClick}>
             <View style={styles.blackCircle}></View>
             <View style={[styles.quarter, styles.green, { opacity: this.state.opacity[0] }]}></View>
             <View style={[styles.quarter, styles.red, { opacity: this.state.opacity[1] }]}></View>

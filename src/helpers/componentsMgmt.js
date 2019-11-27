@@ -1,10 +1,11 @@
 import changeRoom from './roomMgmt';
+import SimonFixed from '../../components/SimonFixed';
 
 // State changes of all components of the game
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log('dataStore', dataStore);
-  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'simonFixed', 'simonDynamic', 'bomb', 'bigBomb'];
+  const componentsArray = ['hole', 'rope', 'basementPoster', 'bedroomPoster', 'bigPoster', 'phone', 'phoneNumpad', 'inventory', 'bedroomSafe', 'safeKeypad', 'bathroomDoor', 'livingroomDoor', 'goBackDoor', 'simonFixed', 'simonDynamic', 'bomb', 'bigBomb', 'ghost'];
   // abstractArtFixed
   const components = {};
   componentsArray.map(c => components[c] = {name: c});
@@ -82,14 +83,19 @@ const _componentsMgmt = (dataStore, ws) => {
     case 'simonAnswers':
       components.simonDynamic.setState('simonCode', content.simonCode);
       sendCommand('simonDynamic', 'simonCode', content.simonCode);
-      components.simonDynamic.setState('bombCode', content.bombCode);
-      sendCommand('simonDynamic', 'bombCode', content.bombCode);
+      components.ghost.setState('bombCode', content.bombCode);
+      sendCommand('ghost', 'bombCode', content.bombCode);
       break;
     case 'simonSolved':
       sendCommand('simonDynamic', 'solved', content);
+      sendCommand('ghost', 'show', content);
+      components.ghost.setState('show', content);
       break;
     case 'changeEnvironment':
         changeRoom(content);
+        if (content === 'livingroom') {
+          components.simonFixed.state.startFunction();
+        }
         break;
     case 'all':
       if (content.name === 'startTimer') {

@@ -21,13 +21,14 @@ import BigPoster from "./components/BigPoster";
 import PhoneNumpad from './components/PhoneNumpad';
 import BedroomSafe from './components/BedroomSafe';
 import SafeKeypad from './components/SafeKeypad';
-import SimonFixed from './components/SimonFixed';
-import SimonDynamic from './components/SimonDynamic';
 import BathroomDoor from './components/BathroomDoor';
 import NextRoomDoor from './components/NextRoomDoor';
 import GoBackDoor from './components/GoBackDoor';
 import Bomb from './components/Bomb';
 import BigBomb from './components/BigBomb';
+import SimonFixed from './components/SimonFixed';
+import SimonDynamic from './components/SimonDynamic';
+import Ghost from './components/Ghost';
 import useSocket from './src/hooks/useWebSocket';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -71,7 +72,7 @@ const onMessageHandler = e => {
   // setMessages([...messages, res]);
 };
 
-const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 
@@ -130,12 +131,13 @@ AppRegistry.registerComponent("PhoneNumpad", () => PhoneNumpad);
 AppRegistry.registerComponent('Rooms', () => Rooms);
 AppRegistry.registerComponent('BedroomSafe', () => BedroomSafe);
 AppRegistry.registerComponent('SafeKeypad', () => SafeKeypad);
-AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
-AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('BathroomDoor', () => BathroomDoor);
 AppRegistry.registerComponent('NextRoomDoor', () => NextRoomDoor);
 AppRegistry.registerComponent('GoBackDoor', () => GoBackDoor);
 AppRegistry.registerComponent('Bomb', () => Bomb);
 AppRegistry.registerComponent('BigBomb', () => BigBomb);
+AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
+AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
+AppRegistry.registerComponent('Ghost', () => Ghost);
 
  export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
