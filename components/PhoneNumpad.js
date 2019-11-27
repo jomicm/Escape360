@@ -1,16 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { asset, StyleSheet, Image, Text, VrButton, View, NativeModules } from 'react-360';
 import Back from './Back'
-// import { dataStore, puzzleAnswers } from '../index';
-// import dataStore from '../index';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
-
-// import { phoneNum, phoneCode } from '../consts/puzzleAnswers';
-
-// const { phoneNum, phoneCode } = puzzleAnswers;
 const { AudioModule } = NativeModules;
-
 
 export default class PhoneNumpad extends Component {
   state = {
@@ -41,22 +34,20 @@ export default class PhoneNumpad extends Component {
         console.log('pause')
       }, first);
       first += (500 * x) + 700;
+      
     });
+    setTimeout(() => this.setState({isRunning: false}), first);
     console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
   setCode = (c) => {
     console.log('c', c);
-
     let codeNumbers = [... this.state.codeNumbers];
+    if (codeNumbers[codeNumbers.length - 1] === c) return;
     codeNumbers.push(c);
     if (codeNumbers.length === this.state.len) codeNumbers = [];
     this.setState({ codeNumbers });
   }
-  // _onPhoneClick = (show) => {
-  //   // dataStore.emit('ropeClick', show)
-  //   console.log('this is numbers')
-  //   this.setState({show: true})
-  // }
+
   _onActionButton = sender => {
     if (sender === 'call') {
       console.log('this.state.codeNumbers.join', this.state.codeNumbers.join(''));
