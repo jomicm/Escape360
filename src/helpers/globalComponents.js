@@ -22,7 +22,12 @@ module.exports = (width, height) => {
       { name: 'myAbstractArtDynamicSurface', root:'AbstractArtDynamic', props: {}, size: { width: 310, height: 325 }, angle: [-.87, .165, 0.0], radius: 5 },
       { name: 'mirrorCodeSurface', root:'MirrorCode', props: {}, size: { width: 200, height: 200 }, angle: [-0.24, 0.22, 0.0], radius: 5 },
       { name: 'mySimonFixedSurface', root: 'SimonFixed', size: { width: 200, height: 200 }, angle: [-0.452, 0.035, 0], radius: 0},
-      { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 600, height: 600 }, angle: [-0.39 - Math.PI, 0.12, 0], radius: 0},
+
+
+      { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 700, height: 700 }, angle: [-0.39 - Math.PI, 0.015, 0], radius: 0},
+
+
+
       { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0},
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
       { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
