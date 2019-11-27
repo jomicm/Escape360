@@ -27,7 +27,7 @@ export default class GoBackDoor extends Component {
       </View>
     )
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
