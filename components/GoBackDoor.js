@@ -5,7 +5,7 @@ import { dataStore, componentsMgmt } from '../index';
 
 export default class GoBackDoor extends Component {
   state = {
-    show: false
+    show: false,
   }
   componentDidMount = () =>{
     componentsMgmt[this.props.component].state = this.state;
@@ -27,7 +27,7 @@ export default class GoBackDoor extends Component {
       </View>
     )
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -14,11 +14,11 @@ console.log('room', room);
       environment: '360_bedroom.jpg'
     },
     bathroom: {
-      components: ['inventory', 'goBackDoor', 'abstractArtFixed', 'mirrorCode'],
+      components: ['inventory', 'backFromBathroom', 'abstractArtFixed', 'mirrorCode'],
       environment: '360_bathroom.jpg'
     },
     livingroom: {
-      components: ['inventory', 'goBackDoor', 'simonFixed', 'simonDynamic'],
+      components: ['inventory', 'backFromLivingroom', 'simonFixed', 'simonDynamic'],
       environment: '360_living.png'
     },
     freedom: {
