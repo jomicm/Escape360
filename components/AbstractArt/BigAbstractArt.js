@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton, NativeModules } from "react-360";
-import {
-  dataStore,
-  componentsMgmt,
-  registerComponent,
-  getPuzzleAnswers
-} from "../../index";
+import { dataStore, componentsMgmt } from "../../index";
 const { AudioModule } = NativeModules;
 
 class BigPoster extends Component {
@@ -13,8 +8,7 @@ class BigPoster extends Component {
     coords: [],
     coordsAnswer: [],
     solveCoords: Array(25).fill(-1),
-    // solveCoords: [],
-    show: false,
+    show: true,
     isDynamic: false,
     selectedColor: 0,
     opacity: [0.825, 0.5, 0.5, 0.5],
@@ -56,19 +50,16 @@ class BigPoster extends Component {
   }
   render() {
     const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}];
-    console.log('coooords!!!!!!!!!!!', this.state.coords)
-    // const scale = {saleX: this.state.isDynamic && this.state.transform === 0 ? -1 : 1}
     return (
       <View>
         {this.state.show && (
           <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
-            <Text> {this.state.isDynamic ? "This is Dynamic view" : "This is static View"}</Text>
+            <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
+              <Text style={{fontWeight: 'bold'}}>{'<'}</Text>
+            </VrButton>
             {this.state.isDynamic && (
               <View>
-                <VrButton onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-                  <Text>Close</Text>
-                </VrButton>
-                <ColorPalette colors={this.state.colors} opacity={this.state.opacity} onPaletteClick={this.handlePaletteClick}/>
+                <ColorPalette style={{margin: 200, padding:15}} colors={this.state.colors} opacity={this.state.opacity} onPaletteClick={this.handlePaletteClick}/>
               </View>
             )}
             <VrButton onClick={this.handleClick}>
@@ -97,9 +88,12 @@ class ColorPalette extends Component {
     this.props.colors.map((c, ix) => backColor.push(`${c}${this.props.opacity[ix]})`));
     return (
       <View style={styles.row}>
+        <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
+          <Text>{'<'}</Text>
+        </VrButton>
         {backColor.map((c, ix) => (
           <VrButton key={"palette" + c} onClick={() => this.props.onPaletteClick(ix)}>
-            <View style={{ width: 50, height: 50, backgroundColor: c }}></View>
+            <View style={{ width: 50, height: 50, backgroundColor: c, marginHorizontal:10, marginBottom: 20 }}></View>
           </VrButton>
         ))}
       </View>
@@ -219,7 +213,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderColor: "white",
-    borderWidth: 2
+    borderWidth: 2,
+  },
+  backButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: 50,
+    height: 50,
+    borderRadius: 10
   }
 });
 
