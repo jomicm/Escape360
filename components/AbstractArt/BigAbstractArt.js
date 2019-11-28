@@ -21,18 +21,29 @@ class BigPoster extends Component {
       "rgba(0,255,0,",
       "rgba(0,0,255,"
     ],
-    transformation: ''
+    images: ['art_0.jpg', 'art_1.jpg', 'art_2.jpg', 'art_3.jpg', 'art_4.jpg'],
+    transformation: 0,
+    zIx: 10,
+    reset: false,
+    selectedColors: Array(25).fill('rgba(255,255,255,0.5)')
   };
 
-  handleClick = () => {
-    // if(!this.state.isDynamic) this.setState({show: false});
-    // dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
-  };
+  // handleClick = () => {
+  //   // if(!this.state.isDynamic) this.setState({show: false});
+  //   // dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
+  // };
+  _setState = (key, val) => {
+    this.setState({[key]: val});
+  }
   handlePaletteClick = c => {
     this.setState({ selectedColor: c });
     const paletteOpacity = [0.3, 0.3, 0.3, 0.3];
     paletteOpacity[c] = 0.9;
     this.setState({ paletteOpacity });
+  };
+  resetBoard = () => {
+    this.setState({solveCoords: Array(25).fill(-1)});
+    this.setState({selectedColors: Array(25).fill('rgba(255,255,255,0.5)')});
   };
   setCoords = async(ix, val) => {
     const solveCoords = [...this.state.solveCoords];
@@ -43,7 +54,7 @@ class BigPoster extends Component {
       AudioModule.playOneShot({ source: asset("safe_opens.wav"), volume: 1 });
     }
     
-  }
+  };
   componentDidMount() {
     componentsMgmt.bigAbstractArt.state = this.state;
     componentsMgmt.bigAbstractArt.setState = async (key, val) => {
@@ -52,33 +63,47 @@ class BigPoster extends Component {
     };
   }
   render() {
-    const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}];
+    // const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}, {transform: [{rotateZ: '0deg'}]}];
+    // console.log('transformations', transformations)
+    // const applyRotation = this.state.isDynamic ? transformations[this.state.transformation] : {transform: [{rotateZ: '0deg'}]};
+    // console.log('#transform',this.state.isDynamic, applyRotation)
+    // const zIx = 1000;
+    // setTimeout(() => this.setState({zIx: -1}), 500);
+    let artSelected = this.state.images[this.state.transformation];
+    artSelected = !this.state.isDynamic ? this.state.images[4] : artSelected;
     return (
-      <View style={{backgroundColor: 'rgba(0, 0, 0, 0.5 )'}} onCliclk={() => console.log('dssdada')}>
+      <View>
         {this.state.show && (
-          <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
+          <View style={[styles.container,{ width: this.props.width, height: this.props.height}, {backgroundColor: 'rgba(1, 0, 0, 0.9)'}]}>
             <Back onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}/>
-            {/* <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-              <Text style={{fontWeight: 'bold', fontSize: 40}}>{'< Back'}</Text>
-            </VrButton> */}
             {this.state.isDynamic && (
               <View>
                 <ColorPalette style={{margin: 200, padding:15}} colors={this.state.colors} opacity={this.state.paletteOpacity} onPaletteClick={this.handlePaletteClick}/>
               </View>
             )}
+
             <VrButton onClick={this.handleClick}>
-              <Image style={[styles.poster, {backgroundColor: 'rgba(0, 0, 0, 0.5)'}, this.state.isDynamic ? transformations[this.state.transformation] : {}]} source={asset("art.jpg")}/>
+              <Image style={[styles.poster]} source={asset(artSelected)}/>
               <Board
                 isDynamic={this.state.isDynamic}
                 width={5}
                 height={5}
                 coords={this.state.coords}
                 setCoords={this.setCoords}
+                resetBoard={this.resetBoard}
                 selectedColor={this.state.selectedColor}
+                selectedColors={this.state.selectedColors}
                 colors={this.state.colors}
                 opacity={this.state.opacity}
+                reset={this.state.reset}
+                _setState={this._setState}
               />
             </VrButton>
+            {this.state.isDynamic && (
+              <VrButton style={{marginBottom:20, top:-330}} onClick={() => this.resetBoard()}>
+                <Image style={{width:50, height:50}} source={asset('reset.png')}/>
+              </VrButton>
+            )}
           </View>
         )}
       </View>
@@ -92,9 +117,6 @@ class ColorPalette extends Component {
     this.props.colors.map((c, ix) => backColor.push(`${c}${this.props.opacity[ix]})`));
     return (
       <View style={styles.row}>
-        {/* <VrButton style={styles.backButton} onClick={() => {this.setState({show: false}); dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});}}>
-          <Text style={{fontWeight: 'bold', fontSize: 40}}>{'<'}</Text>
-        </VrButton> */}
         {backColor.map((c, ix) => (
           <VrButton key={"palette" + c} onClick={() => this.props.onPaletteClick(ix)}>
             <View style={{ width: 50, height: 50, backgroundColor: c, marginHorizontal:10, marginBottom: 20, borderRadius: 10 }}></View>
@@ -110,6 +132,10 @@ class Tile extends Component {
     const colors = this.props.colors.map((c, ix) => `${c}${this.props.opacity[ix]})`);
     const index = this.props.len * this.props.start + this.props.id;
     const symbol = ["", "X", "O", "+"];
+    console.log('COOORDS', this.props.coords);
+    console.log('COoooOOLORSSSSS', colors);
+    console.log('SELECTED  COLORS>>>>>>>>>>.', this.props.selectedColors);
+    // return <View/>
     if (!this.props.isDynamic) {
       return (
         <View style={[styles.tile, { backgroundColor: colors[this.props.coords[index] + 1] }]}>
@@ -128,14 +154,25 @@ class Tile extends Component {
 
 class Row extends Component {
   state = {
-    selectedColors: Array(25).fill(this.props.colors[0] + "0.5)")
+    //selectedColors: Array(25).fill(this.props.colors[0] + "0.5)")
   }
+  // _onTileClick = async ix => {
+  //   const index = this.props.len * this.props.start + ix;
+  //   let selectedColors = [...this.state.selectedColors];
+  //   selectedColors[index] = this.props.colors[this.props.selectedColor] + "0.5)";
+  //   this.setState({ selectedColors });
+  //   this.props.setCoords(index, this.props.selectedColor);
+  // };
   _onTileClick = async ix => {
     const index = this.props.len * this.props.start + ix;
-    let selectedColors = [...this.state.selectedColors];
+    let selectedColors = [...this.props.selectedColors];
     selectedColors[index] = this.props.colors[this.props.selectedColor] + "0.5)";
-    this.setState({ selectedColors });
+    this.props._setState('selectedColors', selectedColors);
     this.props.setCoords(index, this.props.selectedColor);
+  };
+  _onResetClick = () => {
+    this.setState({selectedColor: Array(25).fill(this.props.colors[0] + "0.5)")});
+    this.props.resetBoard();
   };
   render() {
     const _len = Array(this.props.width).fill(0);
@@ -149,7 +186,7 @@ class Row extends Component {
               start={this.props.start}
               len={this.props.len}
               id={ix}
-              selectedColors={this.state.selectedColors}
+              selectedColors={this.props.selectedColors}
               colors={this.props.colors}
               opacity={this.props.opacity}
             />
@@ -163,6 +200,7 @@ class Row extends Component {
 class Board extends Component {
   render() {
     const _len = Array(this.props.height).fill(0);
+    console.log('SELECTED  COLORS FROM BOARD>>>>>>>>>>.', this.props.selectedColors);
     return (
       <View style={styles.board}>
         {_len.map((r, ix) => (
@@ -170,13 +208,17 @@ class Board extends Component {
             isDynamic={this.props.isDynamic}
             coords={this.props.coords}
             setCoords={this.props.setCoords}
+            resetBoard={this.props.resetBoard}
             len={this.props.width}
             start={ix}
             key={"row" + ix}
             width={this.props.width}
             selectedColor={this.props.selectedColor}
+            selectedColors={this.props.selectedColors}
             colors={this.props.colors}
             opacity={this.props.opacity}
+            reset={this.props.reset}
+            _setState={this.props._setState}
           />
         ))}
       </View>
