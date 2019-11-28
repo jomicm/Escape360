@@ -56,6 +56,7 @@ export default class PhoneNumpad extends Component {
         this.createPhoneCode();
       } else {
         console.log('wrong answer motherfuckeeeeeer')
+        AudioModule.playOneShot({ source: asset('wrong_answer.m4a'), volume: 1 });
       }
     } else if (sender === 'clear') {
       this.setState({codeNumbers: []})
@@ -98,7 +99,6 @@ export default class PhoneNumpad extends Component {
                   </VrButton>
               ))}
             </View>
-            {/* <Back onClick={this.onHandleClick}/> */}
         </View>
       )
     } else {

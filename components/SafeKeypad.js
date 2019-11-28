@@ -61,6 +61,7 @@ export default class SafeKeypad extends Component {
     if (this.state.show) {
       return (
         <View style={[styles.container, styles.text,{ width: this.props.width, height: this.props.height }]}>
+          <Back onClick={this.onBackClick} />
           <Text style={styles.textSize}>
             {this.state.code.map((n, ix) =>
                 this.state.codeNumbers[ix] !== undefined ? this.state.codeNumbers[ix] + " " : n + " ").join("")}
@@ -73,7 +74,6 @@ export default class SafeKeypad extends Component {
               cols={3}
             />
           ))}
-          <Back onClick={this.onBackClick} />
         </View>
       );
     } else {

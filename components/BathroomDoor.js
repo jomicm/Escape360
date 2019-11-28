@@ -40,7 +40,9 @@ export default class BathroomDoor extends Component {
     return (
       <View >
         {this.state.show && <VrButton onClick={this._onBathroomDoorClick}>
-          <View style={styles.container}/>
+          <View style={styles.container}>
+            <View style={styles.dot}/>
+          </View>
         </VrButton>}
       </View>
     )

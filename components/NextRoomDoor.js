@@ -7,7 +7,7 @@ import { dataStore, componentsMgmt } from '../index';
 export default class NextRoomDoor extends Component {
   state = {
     show: false,
-    canIGoThrough: false
+    canIGoThrough: false,
   }
   componentDidMount() {
     componentsMgmt[this.props.component].state = this.state;
@@ -17,7 +17,7 @@ export default class NextRoomDoor extends Component {
     }
   }
   _onNextRoomDoorClick = (show) => {
-    console.log('this.props.component>?>>>', this.props.component)
+    console.log('this.props.component>?>>>', this.props.component);
     console.log('this.props.selectedItem', this.props.selectedItem);
     if (this.state.canIGoThrough) {
       dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
@@ -42,7 +42,15 @@ export default class NextRoomDoor extends Component {
     return (
       <View >
         {this.state.show && <VrButton onClick={this._onNextRoomDoorClick}>
-          <View style={styles.container}/>
+          <View style={styles.container}>
+            <View style={[styles.dot, 
+              {right: this.props.room === 'bathroom' ? 94 : 17,
+              top: this.props.room === 'bathroom' ? 49 : 45,
+              height: this.props.room === 'bathroom' ? 8 : 10,
+              width: this.props.room === 'bathroom' ? 8 : 10,
+              backgroundColor: this.state.canIGoThrough === true ? 'green' : 'red'
+              }]}/>
+          </View>
         </VrButton>}
       </View>
     )
@@ -52,8 +60,14 @@ export default class NextRoomDoor extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(59, 198, 140, 0.5)',
+    backgroundColor: 'rgba(59, 198, 140, 0)',
     width: 300,
     height: 800
+  },
+  dot: {
+    position: 'absolute',
+    height: 10,
+    width: 10,
+    borderRadius: 50,
   }
 })
