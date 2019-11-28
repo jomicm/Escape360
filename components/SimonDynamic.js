@@ -21,7 +21,7 @@ class SimonDynamic extends Component {
     }
   }
   
-  handlePress = (id) => {
+  handlePress = async (id) => {
     this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 1}}));
     setTimeout(() => {
       this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [id]: 0.3}}));
@@ -31,22 +31,37 @@ class SimonDynamic extends Component {
     }
     if (this.state.playerGuess.length === this.state.simonCode.length) {
       if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
-        console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
         this.setState({solved: true})
         dataStore.emit('globalListener', {name: 'simonSolved', content: true});
       } else {
         this.setState({playerGuess: []});
-        [0, 1, 2, 3].map(x => {
-          this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
-        });
-        setTimeout(() => {
+        await this.setState({message: 'WRONG!!!'});
+        setTimeout(() => { 
+          [0, 1, 2, 3].map(x => {
+            this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
+          });
+          setTimeout(async () => {
             [0, 1, 2, 3].map(x => {
               this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
             });
-        },200)
-
+            await this.setState({message: 'BOOOO!!!'});
+          },600);
+        }, 201)
       }
     }
+  }
+
+  handleClick = () => {
+    this.setState({playerGuess: []});
+    [0, 1, 2, 3].map(x => {
+      this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
+    });
+    setTimeout(async () => {
+      [0, 1, 2, 3].map(x => {
+        this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+      });
+      await this.setState({message: 'BOOOO!!!'});
+    },600);
   }
 
   render() {
@@ -63,9 +78,14 @@ class SimonDynamic extends Component {
             )
           })}
           </View>
-          {this.state.solved && <View style={styles.display}>
-            <Text style={styles.code}>{this.state.message}</Text>
+          {(this.state.message === 'WRONG!!!' ? true : false || this.state.solved) && <View style={styles.display}>
+            <Text style={[styles.code, {color: this.state.solved ? 'white' : 'red'}]}>{this.state.message}</Text>
           </View>}
+          <View>
+            <VrButton onClick={this.handleClick}>
+              <Image source={asset('reset.png')} style={styles.reset}/>
+            </VrButton>
+          </View>
         </View>}
       </View>
     )
@@ -74,10 +94,20 @@ class SimonDynamic extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    height: 600,
-    width: 600
+    borderColor: "#639dda",
+    borderWidth: 2,
+    height: 700,
+    width: 700,
+    // backgroundColor: 'rgba(35, 133, 200, 0.7)'
+  },
+  reset: {
+    position: 'absolute',
+    left: -320,
+    top: -45,
+    height: 75,
+    width: 75,
   },
   blackCircle: {
     backgroundColor: "#262626",
@@ -85,11 +115,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 510,
     width: 510,
+    top: 10,
     borderRadius: 130,
     flexWrap: 'wrap',
   },
   display: {
     position: 'absolute',
+    top: 140,
     borderRadius: 300,
     justifyContent: "center",
     alignItems: "center",
