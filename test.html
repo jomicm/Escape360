@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <video autoplay></video>
+  <!-- <audio autoplay></audio> -->
+
+  <script>
+    const constraints = {
+      video: true,
+      audio: true
+    };
+
+    const video = document.querySelector('video');
+    // const audio = document.querySelector('audio');
+
+    navigator.mediaDevices.getUserMedia(constraints).
+      then((stream) => {video.srcObject = stream});
+  </script>
+</body>
+</html>
