@@ -14,7 +14,7 @@ function init(bundle, parent, options = {}) {
   });
 
   const r360 = new ReactInstance(bundle, parent, {
-    fullScreen: true,
+    // fullScreen: true,
     frame: () => {
       const cameraQuat = r360.getCameraQuaternion();
       Object.values(fixedComponents).map(fc => fc.recenter(cameraQuat, "all"));
