@@ -2,6 +2,7 @@ import { ReactInstance, Surface } from "react-360-web";
 import componentsInfo from './src/helpers/globalComponents';
 
 function init(bundle, parent, options = {}) {
+  // console.log('AUDIO FROM CLIENT>>>', window.AudioContext);
   const width = window.innerWidth * 2.5;
   const height = window.innerHeight * 2.5;
   const globalComponents = componentsInfo(width, height);

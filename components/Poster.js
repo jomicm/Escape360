@@ -10,14 +10,15 @@ class Poster extends Component {
   _onPosterClick = (show) => {
     const phoneNumBasement = getPuzzleAnswers().phoneNumBasement;
     dataStore.emit('globalListener', {name: 'basementPoster', action:'click', content: phoneNumBasement});
+    // console.log('AUDIOOOOO WINDOW>', window.AudioContext);
   }
-  _onRopeClick = (show) => {
-    this.setState({show: false})
-  }
+  // _onRopeClick = (show) => {
+  //   this.setState({show: false})
+  // }
 
-  _onHoleClick = (show) => {
-    this.setState({show: true})
-  }
+  // _onHoleClick = (show) => {
+  //   this.setState({show: true})
+  // }
   componentWillMount() {
     
     // this.setState({ phoneNumBasement })
