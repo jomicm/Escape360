@@ -4,10 +4,10 @@ import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 class SimonDynamic extends Component {
   state = {
-    show: true,
+    show: false,
     opacity: { 0: 0.3, 1: 0.3, 2: 0.3, 3: 0.3 },
     colorCode: { 0: 'green', 1: 'red', 2: 'blue', 3: 'yellow'},
-    simonCode: [0, 1, 2, 3, 1],
+    simonCode: [],
     playerGuess: [],
     solved: false,
     message: 'BOOOO!!!',
@@ -31,26 +31,37 @@ class SimonDynamic extends Component {
     }
     if (this.state.playerGuess.length === this.state.simonCode.length) {
       if (this.state.playerGuess.join('') === this.state.simonCode.join('')) {
-        console.log('GANASTEEEEEEEEE HIJUEPUUUUTA')
         this.setState({solved: true})
         dataStore.emit('globalListener', {name: 'simonSolved', content: true});
       } else {
         this.setState({playerGuess: []});
-        console.log('message before =>', this.state.message);
         await this.setState({message: 'WRONG!!!'});
-        console.log('message AFTER =>', this.state.message);
-        [0, 1, 2, 3].map(x => {
-          this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
-        });
-        setTimeout(async () => {
+        setTimeout(() => { 
           [0, 1, 2, 3].map(x => {
-            this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+            this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
           });
-          await this.setState({message: 'BOOOO!!!'});
-          console.log('message AFTER =>', this.state.message);
-        },600)
+          setTimeout(async () => {
+            [0, 1, 2, 3].map(x => {
+              this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+            });
+            await this.setState({message: 'BOOOO!!!'});
+          },600);
+        }, 201)
       }
     }
+  }
+
+  handleClick = () => {
+    this.setState({playerGuess: []});
+    [0, 1, 2, 3].map(x => {
+      this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 1}}));
+    });
+    setTimeout(async () => {
+      [0, 1, 2, 3].map(x => {
+        this.setState(prevState => ({...prevState, opacity: { ...prevState.opacity, [x]: 0.3}}));
+      });
+      await this.setState({message: 'BOOOO!!!'});
+    },600);
   }
 
   render() {
@@ -71,7 +82,7 @@ class SimonDynamic extends Component {
             <Text style={[styles.code, {color: this.state.solved ? 'white' : 'red'}]}>{this.state.message}</Text>
           </View>}
           <View>
-            <VrButton>
+            <VrButton onClick={this.handleClick}>
               <Image source={asset('reset.png')} style={styles.reset}/>
             </VrButton>
           </View>
