@@ -5,7 +5,7 @@ import { dataStore, componentsMgmt } from '../../index';
 
 export default class AbstractArtDynamic extends Component {
   state = {
-    show: true
+    show: false
   }
   componentDidMount() {
     componentsMgmt.abstractArtDynamic.state = this.state;

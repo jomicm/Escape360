@@ -4,7 +4,6 @@ import { dataStore, componentsMgmt } from "../../index";
 import Back from '../Back'
 const { AudioModule } = NativeModules;
 
-
 class BigPoster extends Component {
   state = {
     coords: [],
@@ -28,10 +27,6 @@ class BigPoster extends Component {
     selectedColors: Array(25).fill('rgba(255,255,255,0.5)')
   };
 
-  // handleClick = () => {
-  //   // if(!this.state.isDynamic) this.setState({show: false});
-  //   // dataStore.emit('globalListener', {name: 'bigAbstractArt', action:'click'});
-  // };
   _setState = (key, val) => {
     this.setState({[key]: val});
   }
@@ -63,12 +58,6 @@ class BigPoster extends Component {
     };
   }
   render() {
-    // const transformations = [{transform: [{scaleX: -1}]}, {transform: [{rotateZ: '-90deg'}]}, {transform: [{rotateZ: '180deg'}]}, {transform: [{rotateZ: '90deg'}]}, {transform: [{rotateZ: '0deg'}]}];
-    // console.log('transformations', transformations)
-    // const applyRotation = this.state.isDynamic ? transformations[this.state.transformation] : {transform: [{rotateZ: '0deg'}]};
-    // console.log('#transform',this.state.isDynamic, applyRotation)
-    // const zIx = 1000;
-    // setTimeout(() => this.setState({zIx: -1}), 500);
     let artSelected = this.state.images[this.state.transformation];
     artSelected = !this.state.isDynamic ? this.state.images[4] : artSelected;
     return (
@@ -132,10 +121,6 @@ class Tile extends Component {
     const colors = this.props.colors.map((c, ix) => `${c}${this.props.opacity[ix]})`);
     const index = this.props.len * this.props.start + this.props.id;
     const symbol = ["", "X", "O", "+"];
-    console.log('COOORDS', this.props.coords);
-    console.log('COoooOOLORSSSSS', colors);
-    console.log('SELECTED  COLORS>>>>>>>>>>.', this.props.selectedColors);
-    // return <View/>
     if (!this.props.isDynamic) {
       return (
         <View style={[styles.tile, { backgroundColor: colors[this.props.coords[index] + 1] }]}>
@@ -153,16 +138,6 @@ class Tile extends Component {
 }
 
 class Row extends Component {
-  state = {
-    //selectedColors: Array(25).fill(this.props.colors[0] + "0.5)")
-  }
-  // _onTileClick = async ix => {
-  //   const index = this.props.len * this.props.start + ix;
-  //   let selectedColors = [...this.state.selectedColors];
-  //   selectedColors[index] = this.props.colors[this.props.selectedColor] + "0.5)";
-  //   this.setState({ selectedColors });
-  //   this.props.setCoords(index, this.props.selectedColor);
-  // };
   _onTileClick = async ix => {
     const index = this.props.len * this.props.start + ix;
     let selectedColors = [...this.props.selectedColors];
@@ -200,7 +175,6 @@ class Row extends Component {
 class Board extends Component {
   render() {
     const _len = Array(this.props.height).fill(0);
-    console.log('SELECTED  COLORS FROM BOARD>>>>>>>>>>.', this.props.selectedColors);
     return (
       <View style={styles.board}>
         {_len.map((r, ix) => (
@@ -272,5 +246,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// module.exports = BigPoster;
 export default BigPoster;
