@@ -13,6 +13,7 @@ export default class GoBackDoor extends Component {
       await this.setState({[key]: val});
       componentsMgmt[this.props.component].state = this.state;
     }
+    console.log('$$$$$$$$$', this.props.component)
   }
   _onGoBackDoorClick = (show) => {
     dataStore.emit('globalListener', {name: 'changeEnvironment', action:'click', content: this.props.room});
@@ -20,10 +21,17 @@ export default class GoBackDoor extends Component {
 
   render() {
     return (
-      <View >
+      <View>
         {this.state.show && <VrButton onClick={this._onGoBackDoorClick}>
-          <View style={styles.container}/>
-        </VrButton>}
+        <View style={styles.container}>
+            <View style={[styles.dot, 
+              {right: this.props.component === 'backFromBathroom' ? -150 : -155,
+              top: this.props.component === 'backFromBathroom' ? 0 : 50,
+              height: this.props.component === 'backFromBathroom' ? 30 : 7,
+              width: this.props.component === 'backFromBathroom' ? 30 : 7,
+              }]} />
+          </View>
+          </VrButton>}
       </View>
     )
   }
@@ -31,8 +39,12 @@ export default class GoBackDoor extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(59, 198, 140, 0.5)',
+    backgroundColor: 'rgba(59, 198, 140, 0)',
     width: 400,
     height: 320
+  },
+  dot: {
+    backgroundColor: 'green',
+    borderRadius: 40,
   }
 })

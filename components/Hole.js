@@ -15,6 +15,7 @@ class Hole extends Component {
       componentsMgmt.hole.state = this.state;
     }
     if (this.state.show) {
+      console.log("hellooooo can you hear me?")
       setInterval(() => {
         AudioModule.playOneShot({
         source: asset('beep-bomb.mp3'),
