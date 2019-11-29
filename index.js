@@ -27,6 +27,7 @@ import SimonFixed from './components/SimonFixed';
 import SimonDynamic from './components/SimonDynamic';
 import Ghost from './components/Ghost';
 import Banana from './objects/banana';
+// import Babanana from './components/Babanana';
 import Bunny from './objects/bunny';
 // import BlackHole from './components/BlackHole';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
@@ -103,6 +104,7 @@ AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('Ghost', () => Ghost);
 AppRegistry.registerComponent('Banana', () => Banana);
+// AppRegistry.registerComponent('Babanana', () => Babanana);
 AppRegistry.registerComponent('Bunny', () => Bunny);
 // AppRegistry.registerComponent('BlackHole', () => BlackHole);
 

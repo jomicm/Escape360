@@ -37,6 +37,7 @@ const _componentsMgmt = (dataStore, ws) => {
     "bomb",
     "ghost",
     "banana",
+    // "babanana",
     "bunny",
     // "blackHole"
   ];
