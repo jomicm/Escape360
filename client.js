@@ -1,6 +1,5 @@
+import React from 'react';
 import { ReactInstance, Surface, Location } from "react-360-web";
-// import {Environment, NativeModules, staticResourceURL} from 'react-360';
-// const {VideoModule} = NativeModules;
 import componentsInfo from './src/helpers/globalComponents';
 
 function init(bundle, parent, options = {}) {
@@ -14,24 +13,6 @@ function init(bundle, parent, options = {}) {
     fixedComponents[c.name] = new Surface(width, height, Surface.SurfaceShape.Flat);
     fixedComponents[c.name].setRadius(c.radius);
   });
-
-  // // Create a player
-  // VideoModule.createPlayer('myplayer');
-  // // Play a specific video
-  // VideoModule.play('myplayer', {
-  //   source: {url: '/static_assets/video.mp4'}, // provide the path to the video
-  //   stereo: '3DTB', // optionally, supply the format of the video
-  //   loop: false,
-  // });
-  // // Display the background video on the Environment
-  // // Environment.setBackgroundVideo('babanana); // or you can use player._player which is same value
-  // // Or, play in-line on a surface
-  // Environment.setScreen(
-  //   'default', /* screen name */
-  //   'myplayer', /* player unique id */
-  //   'default', /* surface name */
-  //   0, 0, 600, 400 /* relative position on the surface */
-  // );
 
   const r360 = new ReactInstance(bundle, parent, {
     fullScreen: true,
