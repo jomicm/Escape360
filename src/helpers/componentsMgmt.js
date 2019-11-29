@@ -36,6 +36,7 @@ const _componentsMgmt = (dataStore, ws) => {
     "simonDynamic",
     "bomb",
     "ghost",
+    "crowbar"
     // "blackHole"
   ];
   // abstractArtFixed
@@ -138,7 +139,7 @@ const _componentsMgmt = (dataStore, ws) => {
           components.inventory.setState("inventoryItems", {
             ...components.inventory.state.inventoryItems,
             rope: { q: 1, image: "bundle-rope.png", name: "rope" },
-            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+            // bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
           });
         } else if (action === "abstractArtFixed") {
           components.inventory.setState("inventoryItems", {
