@@ -84,6 +84,15 @@ const _componentsMgmt = (dataStore, ws) => {
           crowbar: { q: 1, image: "crowbar.png", name: "crowbar" }
         });
         break;
+      case "chest":
+        sendCommand('chest', 'isOpen', true);
+        setTimeout(() => {
+          components.inventory.setState("inventoryItems", {
+            ...components.inventory.state.inventoryItems,
+            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+          });
+        }, 2000)
+        break;
       case "bedroomPoster":
         components.bigPoster.setState("show", true);
         components.bigPoster.setState(

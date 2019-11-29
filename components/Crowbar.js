@@ -11,7 +11,7 @@ import { dataStore, componentsMgmt } from '../index';
 export default class Crowbar extends Component {
 
   state = {
-    show: true,
+    show: false,
   }
 
   componentDidMount = () => {

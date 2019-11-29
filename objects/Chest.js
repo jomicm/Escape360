@@ -9,22 +9,36 @@ import { componentsMgmt, dataStore } from '../index';
 export default class Chest extends Component {
 
   state = {
+    show: false,
     isOpen: false,
     key: false,
   }
 
   componentDidMount = () => {
+    componentsMgmt.chest.state = this.state;
+    componentsMgmt.chest.setState = async (key, val) => {
+      await this.setState({[key]: val});
+      componentsMgmt.chest.state = this.setState;
+    }
 
   }
 
   handleClick = () => {
-    this.setState({isOpen: true})
-    setTimeout(()=> {
-      this.setState({key: true})
-    }, 400)
-    setTimeout(()=> {
-      this.setState({key: false})
-    }, 2200)
+    if(!this.state.isOpen) {
+      if (componentsMgmt.inventory.state.selectedItem === 'crowbar') {
+        this.setState({isOpen: true});
+        dataStore.emit('globalListener', { name: 'chest', action: 'click'});
+        dataStore.emit('globalListener', {name: 'onItemUsed', action: 'click', content: {item: 'crowbar', num: 1}});
+        setTimeout(()=> {
+          this.setState({key: true})
+        }, 400);
+        setTimeout(()=> {
+          this.setState({key: false})
+        }, 2200);
+      } else {
+        add audio that says "wrong tool, look around"
+      }
+    }
   }
 
   render = () => {
@@ -32,7 +46,7 @@ export default class Chest extends Component {
       // (isZone(props.zone, Zone.Ookei) || isZone(props.zone, Zone.Buzko)) && 
       <View>
         <VrButton onClick={this.handleClick}>
-          <Entity
+          {this.state.show && <Entity
             source={{
               obj: asset(`/chest/chest${this.state.isOpen? '-open' : ''}.obj`),
               mtl: asset('/chest/chest.mtl')
@@ -45,7 +59,7 @@ export default class Chest extends Component {
                 {scale: 0.15}
               ]
             }}
-          />
+          />}
           {/* <AmbientLight intensity={ 0.4 } /> */}
           {this.state.key && <Entity
             source={{
