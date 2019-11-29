@@ -12,7 +12,7 @@ class BigPoster extends Component {
     show: false,
     isDynamic: false,
     selectedColor: 0,
-    opacity: [0.825, 0.5, 0.5, 0.5],
+    opacity: [0.3, 0.3, 0.3, 0.3],
     paletteOpacity: [0.9, 0.3, 0.3, 0.3],
     colors: [
       "rgba(255,255,255,",

@@ -29,6 +29,8 @@ import Ghost from './components/Ghost';
 import Banana from './objects/banana';
 // import Babanana from './components/Babanana';
 import Bunny from './objects/bunny';
+import Crowbar from './components/Crowbar';
+import Chest from './objects/Chest';
 // import BlackHole from './components/BlackHole';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -106,6 +108,8 @@ AppRegistry.registerComponent('Ghost', () => Ghost);
 AppRegistry.registerComponent('Banana', () => Banana);
 // AppRegistry.registerComponent('Babanana', () => Babanana);
 AppRegistry.registerComponent('Bunny', () => Bunny);
+AppRegistry.registerComponent('Crowbar', () => Crowbar);
+AppRegistry.registerComponent('Chest', () => Chest);
 // AppRegistry.registerComponent('BlackHole', () => BlackHole);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

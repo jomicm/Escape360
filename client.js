@@ -33,6 +33,11 @@ function init(bundle, parent, options = {}) {
     new Location([0, -1, 0.5])
   );
 
+  r360.renderToLocation(
+    r360.createRoot('Chest'),
+    new Location([0, -0.5, 1])
+  );
+
   const components = {};
   globalComponents.general.map(c => {
     components[c.name] = new Surface(c.size.width, c.size.height, Surface.SurfaceShape.Flat);

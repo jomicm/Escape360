@@ -39,6 +39,8 @@ const _componentsMgmt = (dataStore, ws) => {
     "banana",
     // "babanana",
     "bunny",
+    "crowbar",
+    "chest"
     // "blackHole"
   ];
   // abstractArtFixed
@@ -78,6 +80,22 @@ const _componentsMgmt = (dataStore, ws) => {
         // sendCommand('bomb', 'color', 'red');
         break;
       // BEDROOM COMPONENTS
+      case "crowbar":
+        sendCommand('crowbar', 'show', false);
+        components.inventory.setState("inventoryItems", {
+          ...components.inventory.state.inventoryItems,
+          crowbar: { q: 1, image: "crowbar.png", name: "crowbar" }
+        });
+        break;
+      case "chest":
+        sendCommand('chest', 'isOpen', true);
+        setTimeout(() => {
+          components.inventory.setState("inventoryItems", {
+            ...components.inventory.state.inventoryItems,
+            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+          });
+        }, 2000)
+        break;
       case "bedroomPoster":
         components.bigPoster.setState("show", true);
         components.bigPoster.setState(
@@ -141,7 +159,7 @@ const _componentsMgmt = (dataStore, ws) => {
           components.inventory.setState("inventoryItems", {
             ...components.inventory.state.inventoryItems,
             rope: { q: 1, image: "bundle-rope.png", name: "rope" },
-            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+            // bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
           });
         } else if (action === "abstractArtFixed") {
           components.inventory.setState("inventoryItems", {

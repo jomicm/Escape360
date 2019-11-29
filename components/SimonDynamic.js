@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
   container: {
     // justifyContent: "center",
     alignItems: "center",
-    borderColor: "#639dda",
-    borderWidth: 2,
+    // borderColor: "#639dda",
+    // borderWidth: 2,
     height: 700,
     width: 700,
     // backgroundColor: 'rgba(35, 133, 200, 0.7)'
