@@ -24,6 +24,7 @@ export default class Crowbar extends Component {
 
   handleClick = () => {
     this.setState({show: false})
+    dataStore.emit('globalListener', { name: 'crowbar', action: 'click'});
   }
 
   render = () => {
