@@ -30,6 +30,9 @@ class Inventory extends Component {
   _onInventoryButton = async(item) => {
     // inventoryViewer.selectedItem = item;
     await this.setState({selectedItem: item});
+    if(item === 'bunny') {
+      dataStore.emit('globalListener', {name: 'bunny', action:'click'});
+    }
     componentsMgmt.inventory.state = this.state;
   }
   // _onBedroomGetSafeItemsToInventory = () => {

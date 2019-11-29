@@ -5,10 +5,8 @@ export default function initialRoomState(player) {
     return;
   }
   const initial = {
-    //  EASY TEST: REMOVE ROPE AT PRODUCTION. DO NOT TOUCH AGAIN.
-    // 0: ['basementPoster', 'rope'],
-    0: ['basementPoster', 'bomb'], 
-    1: ['hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic']
+    0: ['basementPoster', 'bomb', 'bunny'], 
+    1: ['hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic', 'banana', 'bunny']
   }
   initial[player].map(x => componentsMgmt[x].setState('show', true) )
 }

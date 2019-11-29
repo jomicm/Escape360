@@ -1,4 +1,4 @@
-import { ReactInstance, Surface } from "react-360-web";
+import { ReactInstance, Surface, Location } from "react-360-web";
 import componentsInfo from './src/helpers/globalComponents';
 
 function init(bundle, parent, options = {}) {
@@ -21,6 +21,16 @@ function init(bundle, parent, options = {}) {
     },
     ...options
   });
+
+  r360.renderToLocation(
+    r360.createRoot('Banana'),
+    new Location([0, 6, -1.5])
+  );
+
+  r360.renderToLocation(
+    r360.createRoot('Bunny'),
+    new Location([0, -1, 0.5])
+  );
 
   const components = {};
   globalComponents.general.map(c => {

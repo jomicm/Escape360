@@ -36,6 +36,8 @@ const _componentsMgmt = (dataStore, ws) => {
     "simonDynamic",
     "bomb",
     "ghost",
+    "banana",
+    "bunny",
     // "blackHole"
   ];
   // abstractArtFixed
@@ -246,6 +248,9 @@ const _componentsMgmt = (dataStore, ws) => {
         break;
       case "bombIsPowered":
         sendCommand("bomb", "isPowered", true);
+        break;
+      case "bunny":
+        components.bunny.setState("show", true)
         break;
       case "changeEnvironment":
         changeRoom(content);

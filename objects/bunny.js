@@ -6,20 +6,21 @@ import { componentsMgmt } from '../index';
 import {View, AmbientLight, asset, VrButton} from 'react-360';
 import Entity from 'Entity';
 
-class Banana extends Component {
+class Bunny extends Component {
   state = {
-    show: true,
+    show: false,
   }
 
   componentDidMount() {
-    componentsMgmt.banana.state = this.state;
-    componentsMgmt.banana.setState = async(key, val) => { 
+    componentsMgmt.bunny.state = this.state;
+    componentsMgmt.bunny.setState = async(key, val) => { 
       await this.setState({[key]: val});
-      componentsMgmt.banana.state = this.state;
+      componentsMgmt.bunny.state = this.state;
     }
   }
 
-  _onBananaClick = () => {
+  _onBunnyClick = () => {
+    this.setState({show: false})
     console.log('bababababanananaaaaaa')
   }
 
@@ -27,12 +28,13 @@ class Banana extends Component {
   return (
     // (isZone(props.zone, Zone.Ookei) || isZone(props.zone, Zone.Buzko)) && 
     <View>
+    {this.state.show && <View>
       <AmbientLight intensity={ 0.4 } />
-      <VrButton onClick={() => this._onBananaClick()}>
+      <VrButton onClick={() => this._onBunnyClick()}>
         <Entity
           source={{
-            obj: asset('Banana.obj'),
-            mtl: asset('Banana.mtl')
+            obj: asset('Bunny.obj'),
+            mtl: asset('Bunny.mtl')
           }}
           // lit={true}
           style={{
@@ -40,16 +42,14 @@ class Banana extends Component {
               {translate: [2, -1, -2.6]},
               {rotateY: 30},
               {rotateX: -100},
-              {scale: 2}
+              {scale: 0.003}
             ]
           }}
         />
       </VrButton>
+    </View>}
     </View>
   )};
 };
 
-export default Banana;
-// const ConnectedBanana = connect(Banana);
-
-// export default ConnectedBanana;
+export default Bunny;
