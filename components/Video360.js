@@ -67,10 +67,10 @@ class Video360 extends React.Component {
         });
         console.log('FROM PROMISE VIDEO PLAYER>>>>', this.props.src)
         player.play({
-          source: source,
-          // source: {url: asset('video360.mp4').uri},
+          // source: source,
+          source: {url: asset('banana.mp4').uri},
           // source:  this.props.src,
-          muted: true,
+          muted: false,
           autoPlay: false,
         });
     });
