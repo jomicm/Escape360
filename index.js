@@ -26,6 +26,9 @@ import Bomb from './components/Bomb';
 import SimonFixed from './components/SimonFixed';
 import SimonDynamic from './components/SimonDynamic';
 import Ghost from './components/Ghost';
+import Banana from './objects/banana';
+// import Babanana from './components/Babanana';
+import Bunny from './objects/bunny';
 // import BlackHole from './components/BlackHole';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -66,8 +69,8 @@ const onMessageHandler = e => {
   }
 };
 
-// const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
-const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
+// const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 //const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
@@ -100,6 +103,9 @@ AppRegistry.registerComponent('Bomb', () => Bomb);
 AppRegistry.registerComponent('SimonDynamic', () => SimonDynamic);
 AppRegistry.registerComponent('SimonFixed', () => SimonFixed);
 AppRegistry.registerComponent('Ghost', () => Ghost);
+AppRegistry.registerComponent('Banana', () => Banana);
+// AppRegistry.registerComponent('Babanana', () => Babanana);
+AppRegistry.registerComponent('Bunny', () => Bunny);
 // AppRegistry.registerComponent('BlackHole', () => BlackHole);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };
