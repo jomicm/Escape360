@@ -2,7 +2,7 @@
 // import { asset, StyleSheet, Image, Text, VrButton, Video, View, Environment, staticResourceURL } from 'react-360';
 // import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 // import VideoModule from 'VideoModule';
-// // import Environment from 'Environment';
+// // import as * Environment from 'Environment';
 // // import Video360 from './Video360';
 
 
