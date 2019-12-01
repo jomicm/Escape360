@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
 // import r360, { BrowserVideoPlayer, ReactInstance } from 'react-360-web';
-import { asset, AppRegistry, Environment } from "react-360";
+import { asset, AppRegistry, Environment, NativeModules } from "react-360";
 import useSocket from './src/hooks/useWebSocket';
 
 import Poster from "./components/Poster";
@@ -35,6 +35,9 @@ import { _componentsMgmt } from './src/helpers/componentsMgmt';
 import registerComponent from './src/helpers/registerComponent';
 import initialRoomState from './src/helpers/initialPlayerMgmt';
 
+const { GameInfo } = NativeModules;
+
+
 
 const onServerCommandReceived = comm => {  
   console.log('Comando recibido: ', comm);
@@ -58,6 +61,7 @@ const onServerCommandReceived = comm => {
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
       break;
   }
+  //upgradeReq.IncomingMessage.headers.url
 };
 const onMessageHandler = e => {
   const res = JSON.parse(e.data);
@@ -67,7 +71,9 @@ const onMessageHandler = e => {
 };
 
 // const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
-const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+// const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
+console.log('>>>>>>>>>>WS', 'ws://172.46.3.245:8080?clientId=' + GameInfo.clientId + '&gameId=4242');
+const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 //const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)

@@ -25,7 +25,15 @@
     <div class="wrapper" id="container"></div>
     <script src="./client.bundle?platform=vr"></script>
     <script>
+      var params = location.href.split('?')[1].split('&');
+      data = {};
+      for (x in params)
+      {
+      data[params[x].split('=')[0]] = params[x].split('=')[1];
+      }
+      console.log('This is data from URL >>>>>', data);
       // Initialize the React 360 application
+      // sayHello = () => console.log('I said hello from HTML');
       React360.init(
         'index.bundle?platform=vr&dev=true',
         document.getElementById('container'),
@@ -33,6 +41,7 @@
           assetRoot: 'static_assets/',
         }
       );
+      // const sayHi = 'Hi Jenny!'
     </script>
   </body>
 </html>

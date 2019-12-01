@@ -1,8 +1,9 @@
 // import {useEffect, useRef} from 'react';
 
 const useWebSocket = (url, onMessageHandler) => {
+    // const socket = new WebSocket(url);
     const socket = new WebSocket(url);
-    console.log('connected from useSocket');
+    console.log('connected from useSocket', url);
     const onMessageListener = (event) => {
       console.log('event', event);
       // savedMessageHandler.current(event);

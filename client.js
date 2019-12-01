@@ -1,7 +1,17 @@
-import { ReactInstance, Surface } from "react-360-web";
+import { ReactInstance, Surface, Module } from "react-360-web";
 import componentsInfo from './src/helpers/globalComponents';
 
+class GameInfo extends Module {
+  constructor() {
+    super('GameInfo');
+    this.clientId = data.clientId;
+    // this.gameId = data.gameId;
+  }
+}
+
 function init(bundle, parent, options = {}) {
+  // console.log(sayHi);
+  // console.log('datadataid', data);
   // console.log('AUDIO FROM CLIENT>>>', window.AudioContext);
   const width = window.innerWidth * 2.5;
   const height = window.innerHeight * 2.5;
@@ -15,6 +25,9 @@ function init(bundle, parent, options = {}) {
 
   const r360 = new ReactInstance(bundle, parent, {
     // fullScreen: true,
+    nativeModules: [
+      new GameInfo(),
+    ],
     frame: () => {
       const cameraQuat = r360.getCameraQuaternion();
       Object.values(fixedComponents).map(fc => fc.recenter(cameraQuat, "all"));

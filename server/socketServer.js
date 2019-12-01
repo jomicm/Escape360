@@ -11,7 +11,19 @@ const game = {};
 
 console.log('Before connecting');
 wss.on('connection', (client) => {
-  client.id = uuid.v4();
+  console.log('client....UR', client.upgradeReq.url);
+  console.log('client....UR', client.upgradeReq.url.replace('/?',''));
+  let params = client.upgradeReq.url.replace('/?','');
+  params = params.split('&');
+  const paramsObj = {};
+  params.map(p => paramsObj[p.split('=')[0]] = p.split('=')[1]);
+  console.log('params', paramsObj);
+
+  // console.log('client....S', client.Socket);
+  
+
+  // client.id = uuid.v4();
+  client.id = paramsObj.clientId;
   console.log('new connection from:', client.id);
   // console.log(client);
   client.on('message', (message)  => {

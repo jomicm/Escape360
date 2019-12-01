@@ -1,6 +1,7 @@
 import React, { useState, Component, Fragment } from 'react';
-import { asset, StyleSheet, Image, Text, VrButton } from 'react-360';
+import { asset, StyleSheet, Image, Text, VrButton, NativeModules } from 'react-360';
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
+const { GameInfo } = NativeModules;
 
 class Poster extends Component {
   state = {
@@ -10,7 +11,8 @@ class Poster extends Component {
   _onPosterClick = (show) => {
     const phoneNumBasement = getPuzzleAnswers().phoneNumBasement;
     dataStore.emit('globalListener', {name: 'basementPoster', action:'click', content: phoneNumBasement});
-    // console.log('AUDIOOOOO WINDOW>', window.AudioContext);
+    console.log('CONSTANT WINDOW>', GameInfo);
+    // MyModule.mmSayHello();
   }
   // _onRopeClick = (show) => {
   //   this.setState({show: false})
