@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { asset, StyleSheet, Text, View, Image, VrButton } from "react-360";
 import { dataStore, componentsMgmt, registerComponent } from '../index';
+import Back from './Back'
 
 class BigPoster extends Component {
   state = {
@@ -32,16 +33,17 @@ class BigPoster extends Component {
         {this.state.show && (
         <View style={[styles.container,{ width: this.props.width, height: this.props.height }]}>
           <VrButton onClick={this.handleClick}>
-            <Image
+            {/* <Image
               style={[
                 styles.poster,
                 {
-                  width: this.props.height * 0.25,
-                  height: this.props.height * 0.3
+                  width: this.props.height * 0.6,
+                  height: this.props.height * 0.6
                 }
               ]}
               source={asset("poster.png")}
-            />
+            /> */}
+            <Back />
             <Text style={styles.text}>{this.state.message}</Text>
           </VrButton>
         </View>
@@ -55,19 +57,22 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    backgroundColor: 'rgba(245, 222, 179, 0.9)',
     borderColor: "#639dda",
-    borderWidth: 2
+    borderWidth: 0
   },
   poster: {
     left: 0,
-    top: 80
+    top: 0
   },
   text: {
+    justifyContent: "center",
+    alignContent: "center",
+    position: "absolute",
     fontSize: 50,
     color: "black",
     textAlign: "center",
-    top: -400
+    top: 50
   }
 });
 

@@ -15,26 +15,7 @@ class BedroomSafe extends Component {
     // dataStore.emit('bedroomSafeClick', show)
     if (this.state.available) dataStore.emit('globalListener', {name: 'bedroomSafe', action:'click'});
   }
-  // _onRopeClick = (show) => {
-  //   this.setState({show: true})
-  // }
 
-  // _onHoleClick = (show) => {
-
-l  // }
-  // _onCorrectBedroomSafeCode = (show) => {
-  //   this.setState({index: 1})
-  // }
-  // _onBedroomGetSafeItems = (show) => {
-  //   this.setState({showItems: false})
-  // }
-  // componentWillMount() {
-  //   console.log('Mounting!');
-  //   // dataStore.addListener('ropeClick', this._onRopeClick);
-  //   // dataStore.addListener('holeClick', this._onHoleClick);
-  //   // dataStore.addListener('correctBedroomSafeCode', this._onCorrectBedroomSafeCode);
-  //   // dataStore.addListener('bedroomGetSafeItems', this._onBedroomGetSafeItems);
-  // }
   componentDidMount() {
     componentsMgmt.bedroomSafe.state = this.state;
     componentsMgmt.bedroomSafe.setState = async(key, val) => { 
@@ -48,7 +29,7 @@ l  // }
       {this.state.show && <Fragment>
         <Image style={[styles.safe, {width: !this.state.index ? 140 : 230, top: this.state.showItems ? 0 : .1}]} source={asset(this.state.image[this.state.index])}/>
         {(this.state.index === 1 && this.state.showItems) && <Image style={styles.rope} source={asset('bundle-rope.png')}/>}
-        {(this.state.index === 1 && this.state.showItems) && <Image style={styles.key} source={asset('key.webp')}/>} 
+        {/* {(this.state.index === 1 && this.state.showItems) && <Image style={styles.key} source={asset('key.webp')}/>}  */}
       </Fragment>}
     </VrButton>
   )}
@@ -68,12 +49,12 @@ const styles = StyleSheet.create({
     top: -120,
     left: 25
   },
-  key: {
-    width: 45,
-    height:20,
-    top: -110,
-    left: 35
-  }
+  // key: {
+  //   width: 45,
+  //   height:20,
+  //   top: -110,
+  //   left: 35
+  // }
 });
 
 export default BedroomSafe;

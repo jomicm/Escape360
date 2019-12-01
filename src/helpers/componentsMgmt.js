@@ -36,11 +36,20 @@ const _componentsMgmt = (dataStore, ws) => {
     "simonDynamic",
     "bomb",
     "ghost",
+    "banana",
+    // "babanana",
+    "bunny",
+    "crowbar",
+    "chest",
+    "Video360"
     // "blackHole"
   ];
   // abstractArtFixed
   const components = {};
-  componentsArray.map(c => (components[c] = { name: c }));
+  componentsArray.map(c => {
+    console.log('c', c);
+    components[c] = { name: c }
+  });
 
   // Change gameId to be dynamic
   const sendCommand = (name, key, value) => {
@@ -74,7 +83,32 @@ const _componentsMgmt = (dataStore, ws) => {
         sendCommand("startTimer", content, true);
         // sendCommand('bomb', 'color', 'red');
         break;
+      case "crowbar":
+        sendCommand('crowbar', 'show', false);
+        components.inventory.setState("inventoryItems", {
+          ...components.inventory.state.inventoryItems,
+          crowbar: { q: 1, image: "crowbar.png", name: "crowbar" }
+        });
+        break;
+      case "chest":
+        sendCommand('chest', 'isOpen', true);
+        setTimeout(() => {
+          components.inventory.setState("inventoryItems", {
+            ...components.inventory.state.inventoryItems,
+            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+          });
+        }, 2000)
+        break;
       // BEDROOM COMPONENTS
+      case "banana":
+        console.log('baaaaaaaaaaa', components.Video360.state)
+        components.Video360.state.player.play({
+          source: {url: asset('banana.mp4').uri},
+          muted: false,
+          autoPlay: true,
+          })
+        // components.Video360.state.player();
+        break;
       case "bedroomPoster":
         components.bigPoster.setState("show", true);
         components.bigPoster.setState(
@@ -138,7 +172,7 @@ const _componentsMgmt = (dataStore, ws) => {
           components.inventory.setState("inventoryItems", {
             ...components.inventory.state.inventoryItems,
             rope: { q: 1, image: "bundle-rope.png", name: "rope" },
-            bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
+            // bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
           });
         } else if (action === "abstractArtFixed") {
           components.inventory.setState("inventoryItems", {
@@ -246,6 +280,9 @@ const _componentsMgmt = (dataStore, ws) => {
         break;
       case "bombIsPowered":
         sendCommand("bomb", "isPowered", true);
+        break;
+      case "bunny":
+        components.bunny.setState("show", true)
         break;
       case "changeEnvironment":
         changeRoom(content);

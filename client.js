@@ -1,4 +1,5 @@
-import { ReactInstance, Surface, Module } from "react-360-web";
+import React from 'react';
+import { ReactInstance, Surface, Module, Location } from "react-360-web";
 import componentsInfo from './src/helpers/globalComponents';
 
 class GameInfo extends Module {
@@ -34,6 +35,21 @@ function init(bundle, parent, options = {}) {
     },
     ...options
   });
+
+  r360.renderToLocation(
+    r360.createRoot('Banana'),
+    new Location([0, 6, -1.5])
+  );
+
+  r360.renderToLocation(
+    r360.createRoot('Bunny'),
+    new Location([0, -1, 0.5])
+  );
+
+  r360.renderToLocation(
+    r360.createRoot('Chest'),
+    new Location([0, -0.5, 1])
+  );
 
   const components = {};
   globalComponents.general.map(c => {

@@ -10,6 +10,9 @@ module.exports = (width, height) => {
     general: [
       { name: 'bedroomSafeSurface', root:'BedroomSafe', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.4, -0.45, 0.06], radius: 5 },
       { name: 'bedroomPosterSurface', root:'PosterBedroom', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI - 0.58, -0.1, 0], radius: 5 },
+
+      { name: 'babananaSurface', root:'Babanana', props: {}, size: { width: 500, height: 320 }, angle: [Math.PI / 2 + 0.37, 0.1, 0], radius: 5 },
+      
       { name: 'basementPosterSurface', root:'Poster', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.37, -0.2, 0], radius: 5 },
       { name: 'myRopeSurface', root:'Rope', props: {}, size: { width: 300, height: 600 }, angle: [-0.19, -0.27, 0], radius: 0 },
       { name: 'myHoleSurface', root:'Hole', props: {}, size: { width: 500, height: 600 }, angle: [-1.5, -0.9, 0], radius: 0 },
@@ -22,14 +25,10 @@ module.exports = (width, height) => {
       { name: 'myAbstractArtDynamicSurface', root:'AbstractArtDynamic', props: {}, size: { width: 310, height: 325 }, angle: [-.87, .165, 0.0], radius: 5 },
       { name: 'mirrorCodeSurface', root:'MirrorCode', props: {}, size: { width: 200, height: 200 }, angle: [-0.24, 0.22, 0.0], radius: 5 },
       { name: 'mySimonFixedSurface', root: 'SimonFixed', size: { width: 200, height: 200 }, angle: [-0.452, 0.035, 0], radius: 0},
-
-
       { name: 'mySimonDynamicSurface', root: 'SimonDynamic', size: { width: 700, height: 700 }, angle: [-0.39 - Math.PI, 0.015, 0], radius: 0},
-
-
-
       { name: 'myBombSurface', root: 'Bomb', size: { width: 500, height: 500 }, angle: [-0.58 - Math.PI, -0.09, 0], radius: 0},
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
+      { name: 'myCrowbarSurface', root: 'Crowbar', size: { width: 250, height: 250 }, angle: [-Math.PI / 2 + 0.55, -0.56, 0], radius: 5},
       // { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
     ],
     initialEnvironment: '360_basement.jpg',
