@@ -40,12 +40,16 @@ const _componentsMgmt = (dataStore, ws) => {
     // "babanana",
     "bunny",
     "crowbar",
-    "chest"
+    "chest",
+    "Video360"
     // "blackHole"
   ];
   // abstractArtFixed
   const components = {};
-  componentsArray.map(c => (components[c] = { name: c }));
+  componentsArray.map(c => {
+    console.log('c', c);
+    components[c] = { name: c }
+  });
 
   // Change gameId to be dynamic
   const sendCommand = (name, key, value) => {
@@ -79,7 +83,6 @@ const _componentsMgmt = (dataStore, ws) => {
         sendCommand("startTimer", content, true);
         // sendCommand('bomb', 'color', 'red');
         break;
-      // BEDROOM COMPONENTS
       case "crowbar":
         sendCommand('crowbar', 'show', false);
         components.inventory.setState("inventoryItems", {
@@ -95,6 +98,16 @@ const _componentsMgmt = (dataStore, ws) => {
             bathroomKey: { q: 1, image: "key.webp", name: "bathroomKey" }
           });
         }, 2000)
+        break;
+      // BEDROOM COMPONENTS
+      case "banana":
+        console.log('baaaaaaaaaaa', components.Video360.state)
+        components.Video360.state.player.play({
+          source: {url: asset('banana.mp4').uri},
+          muted: false,
+          autoPlay: true,
+          })
+        // components.Video360.state.player();
         break;
       case "bedroomPoster":
         components.bigPoster.setState("show", true);

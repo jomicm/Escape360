@@ -2,13 +2,13 @@ import React, { Component, Fragment } from 'react';
 // import Zone from '../constants/zoneconstants';
 // import {isZone} from '../helpers/zonehelpers';
 // import {connect} from '../store/store';
-import { componentsMgmt } from '../index';
+import { dataStore, componentsMgmt } from '../index';
 import {View, AmbientLight, asset, VrButton} from 'react-360';
 import Entity from 'Entity';
 
 class Banana extends Component {
   state = {
-    show: true,
+    show: false,
   }
 
   componentDidMount() {
@@ -21,6 +21,7 @@ class Banana extends Component {
 
   _onBananaClick = () => {
     console.log('bababababanananaaaaaa')
+    dataStore.emit('globalListener', {name: 'banana', action:'click'});
   }
 
   render(){

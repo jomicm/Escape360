@@ -10,7 +10,9 @@ module.exports = (width, height) => {
     general: [
       { name: 'bedroomSafeSurface', root:'BedroomSafe', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.4, -0.45, 0.06], radius: 5 },
       { name: 'bedroomPosterSurface', root:'PosterBedroom', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI - 0.58, -0.1, 0], radius: 5 },
-      // { name: 'babananaSurface', root:'Babanana', props: {}, size: { width: 600, height: 300 }, angle: [Math.PI - 0.58, -0.1, 0], radius: 5 },
+
+      { name: 'babananaSurface', root:'Babanana', props: {}, size: { width: 500, height: 320 }, angle: [Math.PI / 2 + 0.37, 0.1, 0], radius: 5 },
+      
       { name: 'basementPosterSurface', root:'Poster', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.37, -0.2, 0], radius: 5 },
       { name: 'myRopeSurface', root:'Rope', props: {}, size: { width: 300, height: 600 }, angle: [-0.19, -0.27, 0], radius: 0 },
       { name: 'myHoleSurface', root:'Hole', props: {}, size: { width: 500, height: 600 }, angle: [-1.5, -0.9, 0], radius: 0 },

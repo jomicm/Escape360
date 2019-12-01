@@ -21,7 +21,7 @@ class Bunny extends Component {
 
   _onBunnyClick = () => {
     this.setState({show: false})
-    console.log('bababababanananaaaaaa')
+    console.log('hop hop')
   }
 
   render(){
