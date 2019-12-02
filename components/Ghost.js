@@ -14,8 +14,8 @@ export default class Ghost extends Component {
 
   state = {
     show: false,
-    message: 'tic tic tic',
-    bombCode: '1 2 3 4'
+    message: 'ticticBOOM',
+    bombCode: 'X X X X',
   }
 
   componentDidMount = () => {
