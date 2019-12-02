@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#639dda",
+    // borderColor: "#639dda",
     borderWidth: 2
   },
   backpack: {

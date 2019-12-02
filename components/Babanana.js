@@ -16,11 +16,11 @@ const SCENE_DEF = [
   },
   {
     type: 'photo',
-    title: '2D Street View',
+    title: 'Minion Bananas',
     source: asset('360_world.jpg'),
     screen: {url: asset('banana.mp4').uri},
     next: 0,
-    subtitle: 'This is a 2d video of street view, you can see the traffic.',
+    subtitle: 'BABABA BABA NANA',
   },
 ];
 

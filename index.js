@@ -76,9 +76,9 @@ const onMessageHandler = e => {
 };
 
 // const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
-// const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
-console.log('>>>>>>>>>>WS', 'ws://172.46.3.245:8080?clientId=' + GameInfo.clientId + '&gameId=4242');
-const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
+// const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)&gameId=4242
+console.log('>>>>>>>>>>WS', 'ws://192.168.0.14:8080?clientId=' + GameInfo.clientId + '');
+const ws = useSocket('ws://192.168.0.14:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 //const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)

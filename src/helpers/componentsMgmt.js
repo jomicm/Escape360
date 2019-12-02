@@ -238,7 +238,9 @@ const _componentsMgmt = (dataStore, ws) => {
         break;
       case "abstractArtSolved":
         components.abstractArtFixed.setState("solved", true);
+        components.bigAbstractArt.setState("show", false);
         sendCommand("abstractArtFixed", "solved", true);
+        sendCommand("bigAbstractArt", "show", false);
         break;
       case "openNextDoorRoom":
         // components.abstractArtFixed.setState('solved', true);

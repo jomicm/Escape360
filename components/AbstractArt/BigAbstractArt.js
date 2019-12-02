@@ -45,8 +45,11 @@ class BigPoster extends Component {
     solveCoords[ix] = val - 1;
     await this.setState({solveCoords})
     if (this.state.solveCoords.join('') === this.state.coordsAnswer.join('')) {
-      dataStore.emit('globalListener', {name: 'abstractArtSolved', action:'solved'});
+      // dataStore.emit('globalListener', {name: 'abstractArtSolved', action:'solved'});
       AudioModule.playOneShot({ source: asset("safe_opens.wav"), volume: 1 });
+      setTimeout(() => {
+        dataStore.emit('globalListener', {name: 'abstractArtSolved', action:'solved'});
+      }, 900);
     }
     
   };

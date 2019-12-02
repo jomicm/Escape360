@@ -19,23 +19,28 @@ export default class PhoneNumpad extends Component {
       return;
     }
     this.setState({isRunning: true})
-    let first = 500;
-    getPuzzleAnswers().phoneCode.map((x, ix) => {
-      setTimeout(() => {
-        for (let i = 0; i < x; i++) {
-          setTimeout(() => {
-            AudioModule.playOneShot({
-              source: asset('beep.mp3'),
-              volume: 1,
-            });
-            console.log('x')
-          }, 400 * i);
-        }
-        console.log('pause')
-      }, first);
-      first += (500 * x) + 700;
-      
+    AudioModule.playOneShot({
+      source: asset('ty-safepin.mp3'),
+      volume: 1,
     });
+    setTimeout(() => {
+      let first = 500;
+      getPuzzleAnswers().phoneCode.map((x, ix) => {
+        setTimeout(() => {
+          for (let i = 0; i < x; i++) {
+            setTimeout(() => {
+              AudioModule.playOneShot({
+                source: asset('beep.mp3'),
+                volume: 1,
+              });
+              console.log('x')
+            }, 400 * i);
+          }
+          console.log('pause')
+        }, first);
+        first += (500 * x) + 700;
+      });
+    }, 7500);
     setTimeout(() => this.setState({isRunning: false}), first);
     console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
