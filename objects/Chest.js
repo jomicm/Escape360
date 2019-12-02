@@ -36,7 +36,7 @@ export default class Chest extends Component {
           this.setState({key: false})
         }, 2200);
       } else {
-        add audio that says "wrong tool, look around"
+        // add audio that says "wrong tool, look around"
       }
     }
   }

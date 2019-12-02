@@ -18,7 +18,7 @@ console.log('room', room);
       environment: '360_bathroom.jpg'
     },
     livingroom: {
-      components: ['inventory', 'backFromLivingroom', 'simonFixed', 'simonDynamic'],
+      components: ['inventory', 'backFromLivingroom', 'simonFixed', 'simonDynamic', 'ghost'],
       environment: '360_living.png'
     },
     freedom: {
