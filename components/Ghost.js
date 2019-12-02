@@ -37,7 +37,7 @@ export default class Ghost extends Component {
   render = () => {
     return (
       <View>
-        {this.state.show && <View style={styles.container}>
+        {(this.state.show && this.state.isSolved) && <View style={styles.container}>
           <View style={styles.children}>
             <VrButton onClick={this.handleOnClick}><View style={styles.button}></View></VrButton>
           </View>

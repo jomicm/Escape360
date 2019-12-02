@@ -269,7 +269,9 @@ const _componentsMgmt = (dataStore, ws) => {
       case "simonSolved":
         sendCommand("simonDynamic", "solved", content);
         sendCommand("ghost", "show", content);
+        sendCommand("ghost", "isSolved", content);
         components.ghost.setState("show", content);
+        components.ghost.setState("isSolved", content);
         break;
       // Bomb
       case "safeKeyPadBomb":
