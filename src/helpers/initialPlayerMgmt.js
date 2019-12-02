@@ -6,7 +6,7 @@ export default function initialRoomState(player) {
   }
   const initial = {
     0: ['basementPoster', 'bomb', 'crowbar', 'chest',], 
-    1: ['hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic', 'banana']
+    1: ['hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic']
   }
   initial[player].map(x => componentsMgmt[x].setState('show', true) )
 }

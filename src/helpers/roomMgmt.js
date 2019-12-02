@@ -10,7 +10,7 @@ console.log('room', room);
       environment: '360_basement.jpg'
     },
     bedroom: {
-      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic', 'banana',],
+      components: ['inventory', 'hole', 'bedroomPoster', 'phone', 'bedroomSafe', 'bathroomDoor', 'livingroomDoor', 'abstractArtDynamic'],
       environment: '360_bedroom.jpg'
     },
     bathroom: {
@@ -22,7 +22,7 @@ console.log('room', room);
       environment: '360_living.png'
     },
     freedom: {
-      components: ['inventory', ],
+      components: ['inventory', 'banana'],
       environment: '360_world.jpg'
     }
   }

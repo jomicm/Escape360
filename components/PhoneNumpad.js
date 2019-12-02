@@ -23,8 +23,8 @@ export default class PhoneNumpad extends Component {
       source: asset('ty-safepin.mp3'),
       volume: 1,
     });
+    let first = 500;
     setTimeout(() => {
-      let first = 500;
       getPuzzleAnswers().phoneCode.map((x, ix) => {
         setTimeout(() => {
           for (let i = 0; i < x; i++) {

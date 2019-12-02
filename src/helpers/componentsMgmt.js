@@ -85,6 +85,8 @@ const _componentsMgmt = (dataStore, ws) => {
         break;
       case "crowbar":
         sendCommand('crowbar', 'show', false);
+        sendCommand('crowbar', 'isTaken', true);
+        components.crowbar.setState("isTaken", true);
         components.inventory.setState("inventoryItems", {
           ...components.inventory.state.inventoryItems,
           crowbar: { q: 1, image: "crowbar.png", name: "crowbar" }
@@ -278,6 +280,7 @@ const _componentsMgmt = (dataStore, ws) => {
         components.safeKeypad.setState("component", "bomb");
         components.safeKeypad.setState("codeNumbers", []);
         components.safeKeypad.setState("show", true);
+        components.chest.setState("show", false);
         components.inventory.setState("show", false);
         break;
       case "bombIsPowered":
@@ -307,7 +310,7 @@ const _componentsMgmt = (dataStore, ws) => {
             // components.bomb.setState('bombDisplay', '');
             // components.bomb.setState('bombDisplay', msg);
           }, 800)
-          setTimeout(() => changeRoom("freedom"), 10000);
+          setTimeout(() => changeRoom("freedom"), 5000);
         } else {
           components[content.name].setState(content.key, content.value);
         }

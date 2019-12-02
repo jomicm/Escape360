@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     width: 700,
     height: 300,
     alignItems: 'center',
-    textAlign: 'left'
   },
   mirrorText: {
     textAlign: 'left',
@@ -47,8 +46,7 @@ const styles = StyleSheet.create({
   },
   clueText: {
     fontSize: 50,
-    textAlign: 'left',
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: 'rgba(0, 0, 0, 0.5)',
     transform: [
       {translateY: 10},
       {rotateZ: 4}
