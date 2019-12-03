@@ -283,9 +283,6 @@ const _componentsMgmt = (dataStore, ws) => {
           "codeSolved",
           getPuzzleAnswers().bombCode.join("")
         );
-        console.log('ici!!!!!!', content)
-        // components.outro.setState("bombDisplay", content.time)
-        // sendCommand("outro", "bombDisplay", content.time)
         components.safeKeypad.setState("component", "bomb");
         components.safeKeypad.setState("codeNumbers", []);
         components.safeKeypad.setState("show", true);
@@ -297,6 +294,9 @@ const _componentsMgmt = (dataStore, ws) => {
         break;
       case "bunny":
         components.bunny.setState("show", true)
+        break;
+      case "bombTimeout":
+          setTimeout(() => changeRoom("dead"), 5000);
         break;
       case "changeEnvironment":
         changeRoom(content);

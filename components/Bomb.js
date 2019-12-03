@@ -47,12 +47,14 @@ class Bomb extends Component {
         this.setState({color: 'red'})
         this.setState({bombDisplay: '00:00'})
         componentsMgmt.bomb.state = this.state;
-        setTimeout(() => {
-          this.setState({color: 'black'})
-        }, 700)
         // setTimeout(() => {
-        //   //silence for 3sec then explode. Endgame;
-        // }, 3000)
+        //   this.setState({color: 'black'})
+        // }, 700)
+        setTimeout(() => {
+          //silence for 3sec then explode. Endgame;
+          dataStore.emit('globalListener', {name: 'bombTimeout', action: this.state.component});
+        }, 5000)
+        clearInterval(this.state.interval);
       }
     }, 1000);
     this.setState({interval});

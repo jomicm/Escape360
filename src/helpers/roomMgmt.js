@@ -24,6 +24,10 @@ console.log('room', room);
     freedom: {
       components: ['inventory', 'outro', 'banana'],
       environment: '360_world.jpg'
+    },
+    dead: {
+      components: ['outro'],
+      environment: '360_bathroom.jpg'
     }
   }
   // console.log('componentsMgmt', componentsMgmt);

@@ -7,6 +7,7 @@ export default class Outro extends Component {
   state = {
     show: false,
     bombDisplay: '00:00',
+    success: false,
   }
   componentDidMount() {
     componentsMgmt.outro.state = this.state;
@@ -19,8 +20,9 @@ export default class Outro extends Component {
   render(){
   return (
     <View>
-      { this.state.show && <View><Text style={styles.congrats}>CONGRATULATIONS!</Text>
-      <Text style={styles.message}>You escaped with {this.state.bombDisplay} to spare</Text></View>}
+      { this.state.show && <View>{ this.state.success ? <View><Text style={styles.congrats}>CONGRATULATIONS!</Text>
+      <Text style={styles.message}>You escaped with {this.state.bombDisplay} to spare</Text></View> : <Text style={styles.congrats}>You died</Text> }
+      </View>}
     </View>
   )}
 }
