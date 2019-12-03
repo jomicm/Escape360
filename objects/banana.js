@@ -28,24 +28,26 @@ class Banana extends Component {
   return (
     // (isZone(props.zone, Zone.Ookei) || isZone(props.zone, Zone.Buzko)) && 
     <View>
-      <AmbientLight intensity={ 0.4 } />
-      <VrButton onClick={() => this._onBananaClick()}>
-        <Entity
-          source={{
-            obj: asset('Banana.obj'),
-            mtl: asset('Banana.mtl')
-          }}
-          // lit={true}
-          style={{
-            transform: [
-              {translate: [2, -1, -2.6]},
-              {rotateY: 30},
-              {rotateX: -100},
-              {scale: 2}
-            ]
-          }}
-        />
-      </VrButton>
+      {this.state.show && <View>
+        <AmbientLight intensity={ 0.4 } />
+        <VrButton onClick={() => this._onBananaClick()}>
+          <Entity
+            source={{
+              obj: asset('Banana.obj'),
+              mtl: asset('Banana.mtl')
+            }}
+            // lit={true}
+            style={{
+              transform: [
+                {translate: [2, -1, -2.6]},
+                {rotateY: 30},
+                {rotateX: -100},
+                {scale: 2}
+              ]
+            }}
+          />
+        </VrButton>
+      </View>}
     </View>
   )};
 };

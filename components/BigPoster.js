@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     position: "absolute",
     fontSize: 50,
-    color: "black",
+    color: "white",
     textAlign: "center",
     top: 50
   }

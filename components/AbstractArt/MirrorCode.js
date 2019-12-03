@@ -22,9 +22,9 @@ export default class MirrorCode extends Component {
   render() {
     return (
       <View style={{backgroundColor:'rgba(255,255,255,0.0)'}}>
-        {this.state.show && 
-        <View style={styles.container}>
-            <Text style={styles.mirrorText}>{this.state.mirrorCode}</Text>
+        {this.state.show && <View style={styles.container}>
+          <Text style={styles.clueText}>Art is not always as it seems</Text>
+          <Text style={styles.mirrorText}>{this.state.mirrorCode}</Text>
         </View>}
       </View>
     )
@@ -35,14 +35,21 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(59, 198, 140, 0.0)',
     top:10,
-    width: 200,
-    height: 200,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: 700,
+    height: 300,
+    alignItems: 'center',
   },
   mirrorText: {
+    textAlign: 'left',
     fontSize: 50,
     color: 'rgba(255, 255, 255, 0.4)'
+  },
+  clueText: {
+    fontSize: 50,
+    color: 'rgba(0, 0, 0, 0.5)',
+    transform: [
+      {translateY: 10},
+      {rotateZ: 4}
+    ]
   }
 })

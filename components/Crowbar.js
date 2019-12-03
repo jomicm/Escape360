@@ -12,6 +12,7 @@ export default class Crowbar extends Component {
 
   state = {
     show: false,
+    isTaken: false,
   }
 
   componentDidMount = () => {
@@ -30,7 +31,7 @@ export default class Crowbar extends Component {
   render = () => {
     return (
       <View style={styles.container}>
-        {this.state.show && <VrButton onClick={this.handleClick}>
+        {this.state.show && !this.state.isTaken && <VrButton onClick={this.handleClick}>
           <Image style={styles.image} source={asset('crowbar.png')}/>
         </VrButton>}
       </View>

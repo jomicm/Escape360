@@ -19,26 +19,34 @@ export default class PhoneNumpad extends Component {
       return;
     }
     this.setState({isRunning: true})
-    let first = 500;
-    getPuzzleAnswers().phoneCode.map((x, ix) => {
-      setTimeout(() => {
-        for (let i = 0; i < x; i++) {
-          setTimeout(() => {
-            AudioModule.playOneShot({
-              source: asset('beep.mp3'),
-              volume: 1,
-            });
-            console.log('x')
-          }, 400 * i);
-        }
-        console.log('pause')
-      }, first);
-      first += (500 * x) + 700;
-      
+    AudioModule.playOneShot({
+      source: asset('ty-safepin.mp3'),
+      volume: 1,
     });
-    setTimeout(() => this.setState({isRunning: false}), first);
+    let first = 500;
+    // if (this.state.isRunning) {
+      setTimeout(() => {
+      getPuzzleAnswers().phoneCode.map((x, ix) => {
+        setTimeout(() => {
+          for (let i = 0; i < x; i++) {
+            setTimeout(() => {
+              AudioModule.playOneShot({
+                source: asset('beep.mp3'),
+                volume: 1,
+              });
+              console.log('x')
+            }, 400 * i);
+          }
+          console.log('pause')
+        }, first);
+        first += (500 * x) + 700;
+      });
+    }, 7500);
+    setTimeout(() => this.setState({isRunning: false}), first * 4);
+    console.log(first);
     console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
+
   setCode = (c) => {
     console.log('c', c);
     let codeNumbers = [... this.state.codeNumbers];
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
   },
   actionButtons: {
     marginTop: 20, 
-    paddingLeft: 100, 
-    paddingRight: 100
+    paddingLeft: 40, 
+    paddingRight: 40
   }
 })

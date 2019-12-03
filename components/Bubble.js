@@ -10,12 +10,10 @@ import {
 import { dataStore, getPuzzleAnswers, componentsMgmt } from '../index';
 
 
-export default class Ghost extends Component {
+export default class Bubble extends Component {
 
   state = {
     show: false,
-    message: 'ticticBOOM',
-    bombCode: 'X X X X',
   }
 
   componentDidMount = () => {

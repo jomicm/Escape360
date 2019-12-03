@@ -3,12 +3,13 @@ import React, { Component, Fragment } from 'react';
 // import {isZone} from '../helpers/zonehelpers';
 // import {connect} from '../store/store';
 import { componentsMgmt } from '../index';
-import {View, AmbientLight, asset, VrButton} from 'react-360';
+import {View, AmbientLight, asset, VrButton, Image} from 'react-360';
 import Entity from 'Entity';
 
 class Bunny extends Component {
   state = {
     show: false,
+    // showHeart: true
   }
 
   componentDidMount() {
@@ -20,6 +21,10 @@ class Bunny extends Component {
   }
 
   _onBunnyClick = () => {
+    // this.setState({showHeart: true})
+    // setTimeout(() => {
+    //   this.setState({showHeart: false})
+    // }, 2000)
     this.setState({show: false})
     console.log('hop hop')
   }
@@ -28,6 +33,7 @@ class Bunny extends Component {
   return (
     // (isZone(props.zone, Zone.Ookei) || isZone(props.zone, Zone.Buzko)) && 
     <View>
+      {/* {this.state.showHeart && <Entity style={{width:250, height:250, left:0, top:0}} source={asset('bubblelove.png')} />} */}
     {this.state.show && <View>
       <AmbientLight intensity={ 0.4 } />
       <VrButton onClick={() => this._onBunnyClick()}>

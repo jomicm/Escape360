@@ -32,7 +32,7 @@ export default class NextRoomDoor extends Component {
       } else {
         AudioModule.playOneShot({
           source: asset('beep-error.mp3'),
-          volume: 0.8,
+          volume: 0.5,
         });
       }
     }
