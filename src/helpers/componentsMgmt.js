@@ -8,6 +8,7 @@ import {
 import { asset, NativeModules } from "react-360";
 const { AudioModule } = NativeModules;
 import SimonFixed from "../../components/SimonFixed";
+const { GameInfo } = NativeModules;
 
 // State changes of all components of the game
 
@@ -56,7 +57,8 @@ const _componentsMgmt = (dataStore, ws) => {
     ws.send(
       JSON.stringify({
         commName: "shareState",
-        commText: { gameId: "4242", prop: { name, key, value } }
+        // commText: { gameId: "4242", prop: { name, key, value } }
+        commText: { gameId: GameInfo.gameId, prop: { name, key, value } }
       })
     );
   };

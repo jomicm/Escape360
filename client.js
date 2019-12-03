@@ -6,7 +6,7 @@ class GameInfo extends Module {
   constructor() {
     super('GameInfo');
     this.clientId = data.clientId;
-    // this.gameId = data.gameId;
+    this.gameId = data.gameId;
   }
 }
 

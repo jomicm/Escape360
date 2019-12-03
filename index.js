@@ -78,15 +78,18 @@ const onMessageHandler = e => {
 // const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 console.log('>>>>>>>>>>WS', 'ws://172.46.3.245:8080?clientId=' + GameInfo.clientId + '&gameId=4242');
-const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
+// const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 //const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
-// const ws = useSocket('ws://192.168.0.1:8080', onMessageHandler)
+// const ws = useSocket(`ws://192.168.0.101:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
+const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 setTimeout(() => {
-  ws.send(JSON.stringify( {commName:"join", commText:'4242'}));
+  // ws.send(JSON.stringify( {commName:"join", commText:'4242'}));
+  console.log('GameInfo', GameInfo);
+  ws.send(JSON.stringify( {commName:"join", commText:GameInfo.gameId}));
 }, 500);
 
 AppRegistry.registerComponent("Rope", () => Rope);
