@@ -21,6 +21,7 @@ import AbstractArtFixed from './components/AbstractArt/AbstractArtFixed';
 import AbstractArtDynamic from './components/AbstractArt/AbstractArtDynamic';
 import BigAbstractArt from './components/AbstractArt/BigAbstractArt';
 import MirrorCode from './components/AbstractArt/MirrorCode';
+import Introduction from './components/Introduction';
 
 import Bomb from './components/Bomb';
 import SimonFixed from './components/SimonFixed';
@@ -41,8 +42,6 @@ import registerComponent from './src/helpers/registerComponent';
 import initialRoomState from './src/helpers/initialPlayerMgmt';
 
 const { GameInfo } = NativeModules;
-
-
 
 const onServerCommandReceived = comm => {  
   console.log('Comando recibido: ', comm);
@@ -80,8 +79,9 @@ const onMessageHandler = e => {
 // const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 // const ws = useSocket('ws://172.46.0.135:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 // const ws = useSocket(`ws://192.168.0.101:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
-// const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
-const ws = useSocket(`ws://synergizer360.com/websocket/?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
+console.log('GameInfo', GameInfo);
+const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
+// const ws = useSocket(`ws://synergizer360.com/websocket/?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 setTimeout(() => {
@@ -117,6 +117,7 @@ AppRegistry.registerComponent('Babanana', () => Babanana);
 AppRegistry.registerComponent('Bunny', () => Bunny);
 AppRegistry.registerComponent('Crowbar', () => Crowbar);
 AppRegistry.registerComponent('Chest', () => Chest);
+AppRegistry.registerComponent('Introduction', () => Introduction);
 // AppRegistry.registerComponent('BlackHole', () => BlackHole);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

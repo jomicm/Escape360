@@ -1,0 +1,49 @@
+
+<!-- saved from url=(0057)http://localhost:8081/index.html?clientId=627&gameId=4248 -->
+<html class="gr__localhost"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>TestEscape360</title>
+    <style>
+      .body,
+      .wrapper {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow-y: hidden;
+      }
+      .body {
+        z-index: 1
+      }
+      .wrapper {
+        z-index: 2;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body class="body" data-gr-c-s-loaded="true">
+    <!-- Attachment point for your app -->
+    <div class="wrapper" id="container"><div style="width: 1588px; height: 927px;"><canvas width="1588" height="927" style="width: 1588px; height: 927px;"></canvas></div><div style="bottom: 0px; left: 0px; position: absolute; right: 0px; top: 0px; pointer-events: none; user-select: none;"><a style="background: rgba(0, 0, 0, 0.7); border: 2px solid rgb(255, 255, 255); border-radius: 5px; bottom: 20px; color: rgb(255, 255, 255); cursor: pointer; display: none; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; height: 38px; left: 18px; padding: 0px 10px; pointer-events: initial; position: absolute;"><svg width="38px" height="38px" viewBox="0 0 60 60"><g fill="#ffffff" stroke="none" fill-rule="evenodd"><path d="M17.9,26.2c-2.7,0-4.8,2.1-4.8,4.8s2.1,4.8,4.8,4.8s4.8-2.1,4.8-4.8S20.5,26.2,17.9,26.2z M41.9,12.9H18.1C8.1,12.9,0,21,0,31s8.1,18.1,18.1,18.1H42c10,0,18-8.1,18-18.1S52,12.9,41.9,12.9z M41.9,41.8h-3.6c-4,0-5.5-6.7-8.3-6.7s-4.1,6.7-8.3,6.7h-3.6c-6,0-10.9-4.9-10.9-10.9s4.9-10.9,10.9-10.9H42c6,0,10.9,4.9,10.9,10.9C52.8,37,48,41.8,41.9,41.8zM41.9,26.2c-2.7,0-4.8,2.1-4.8,4.8s2.1,4.8,4.8,4.8c2.7,0,4.8-2.1,4.8-4.8S44.5,26.2,41.9,26.2z"></path></g></svg><span style="display: inline-block; line-height: 38px; margin-left: 10px; vertical-align: top;">View in VR</span></a><div style="background-color: rgba(0, 0, 0, 0.7); border-radius: 100%; height: 30px; margin-top: -20px; padding: 5px; position: absolute; right: 20px; top: 50%; width: 30px;"><svg width="30px" height="30px" viewBox="0 0 60 60" style="cursor: pointer; pointer-events: initial; transform-origin: 50% 50%; transform: rotate(-0.000564831rad);"><g fill="#ffffff" stroke="none" fill-rule="evenodd"><path d="M30,60 C46.5685425,60 60,46.5685425 60,30 C60,13.4314575 46.5685425,0 30,0 C13.4314575,0 0,13.4314575 0,30 C0,46.5685425 13.4314575,60 30,60 Z M30,58 C45.463973,58 58,45.463973 58,30 C58,14.536027 45.463973,2 30,2 C14.536027,2 2,14.536027 2,30 C2,45.463973 14.536027,58 30,58 Z"></path><path d="M42.7174074,12.0460131 C39.1265957,9.49790578 34.7382252,8 30,8 C25.2617748,8 20.8734043,9.49790578 17.2825926,12.0460131 L25.3754882,23.4712775 C26.6812379,22.544693 28.277009,22 30,22 C31.722991,22 33.3187621,22.544693 34.6245118,23.4712775 L42.7174074,12.0460131 Z"></path><path d="M26,30 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"></path></g></svg></div></div></div>
+    <script src="./TestEscape360_files/client.bundle"></script>
+    <script>
+      var params = location.href.split('?')[1].split('&');
+      data = {};
+      for (x in params) {
+        data[params[x].split('=')[0]] = params[x].split('=')[1];
+      }
+      console.log('This is data from URL >>>>>', data);
+      // Initialize the React 360 application
+      // sayHello = () => console.log('I said hello from HTML');
+      React360.init(
+        'index.bundle?platform=vr&dev=true',
+        document.getElementById('container'),
+        {
+          assetRoot: 'static_assets/',
+        }
+      );
+      // const sayHi = 'Hi Jenny!'
+    </script>
+  
+
+
+</body></html>

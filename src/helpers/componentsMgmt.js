@@ -1,20 +1,13 @@
 import changeRoom from "./roomMgmt";
-import {
-  dataStore,
-  componentsMgmt,
-  registerComponent,
-  getPuzzleAnswers
-} from "../../index";
+import { getPuzzleAnswers } from "../../index";
 import { asset, NativeModules } from "react-360";
 const { AudioModule } = NativeModules;
-import SimonFixed from "../../components/SimonFixed";
 const { GameInfo } = NativeModules;
-
-// State changes of all components of the game
 
 const _componentsMgmt = (dataStore, ws) => {
   console.log("dataStore", dataStore);
   const componentsArray = [
+    "introduction",
     "hole",
     "rope",
     "basementPoster",
