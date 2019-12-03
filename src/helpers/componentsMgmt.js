@@ -313,6 +313,8 @@ const _componentsMgmt = (dataStore, ws) => {
         } else if (content.name === "stopTimer") {
           console.log('Stop TIMEEEEEEER>>>>>>>>>>>>>>');
           components.bomb.state.stopTimer();
+          components.outro.setState("success", true)
+          sendCommand("outro", "success", true)
           // const msg = components.bomb.state.bombDisplay;
           setTimeout(() => {
             components.bomb.setState('color','red');

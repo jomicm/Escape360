@@ -23,11 +23,11 @@ console.log('room', room);
     },
     freedom: {
       components: ['inventory', 'outro', 'banana'],
-      environment: '360_world.jpg'
+      environment: '360_LHL.jpg'
     },
     dead: {
       components: ['outro'],
-      environment: '360_bathroom.jpg'
+      environment: '360_dead.jpg'
     }
   }
   // console.log('componentsMgmt', componentsMgmt);

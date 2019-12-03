@@ -21,7 +21,7 @@ export default class Outro extends Component {
   return (
     <View>
       { this.state.show && <View>{ this.state.success ? <View><Text style={styles.congrats}>CONGRATULATIONS!</Text>
-      <Text style={styles.message}>You escaped with {this.state.bombDisplay} to spare</Text></View> : <Text style={styles.congrats}>You died</Text> }
+      <Text style={styles.message}>You escaped with {this.state.bombDisplay} to spare</Text></View> : <Text style={styles.congrats}>Game Over</Text> }
       </View>}
     </View>
   )}
