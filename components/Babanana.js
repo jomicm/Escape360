@@ -52,7 +52,7 @@ export default class Babanana extends React.Component {
 const styles = StyleSheet.create({
   panel: {
     justifyContent: 'center',
-    width: 450,
+    width: 600,
     height: 320,
     justifyContent: 'center',
     alignItems: 'center',

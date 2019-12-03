@@ -35,6 +35,7 @@ export default class Introduction extends Component {
       console.log('AudioModule', AudioModule);
       this.setState({show: true})
       console.log('estas escuchando omeeee????????????????')
+      setTimeout(() => this.setState({show: false}), 55000);
     }, 1000)
     // setTimeout(() => this.setState({ show: false }), 5500);
   };

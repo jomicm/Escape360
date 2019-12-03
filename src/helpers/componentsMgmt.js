@@ -35,7 +35,8 @@ const _componentsMgmt = (dataStore, ws) => {
     "bunny",
     "crowbar",
     "chest",
-    "Video360"
+    "Video360",
+    "outro"
     // "blackHole"
   ];
   // abstractArtFixed
@@ -151,7 +152,10 @@ const _componentsMgmt = (dataStore, ws) => {
             // components.bomb.setState('bombDisplay', '');
             // components.bomb.setState('bombDisplay', msg);
           }, 800)
-          setTimeout(() => changeRoom("freedom"), 10000);
+          setTimeout(() => changeRoom("freedom"), 5000);
+          components.outro.setState("bombDisplay", components.bomb.state.bombDisplay)
+          // components.outro.setState("bombDisplay", components.bomb.state.bombDisplay)
+          sendCommand("outro", "bombDisplay", components.bomb.state.bombDisplay)
           break;
         }
         components[action].setState("index", content);
@@ -286,6 +290,9 @@ const _componentsMgmt = (dataStore, ws) => {
       case "bunny":
         components.bunny.setState("show", true)
         break;
+      case "bombTimeout":
+          setTimeout(() => changeRoom("dead"), 5000);
+        break;
       case "changeEnvironment":
         changeRoom(content);
         if (content !== "basement" && content !== "freedom") {
@@ -301,6 +308,8 @@ const _componentsMgmt = (dataStore, ws) => {
         } else if (content.name === "stopTimer") {
           console.log('Stop TIMEEEEEEER>>>>>>>>>>>>>>');
           components.bomb.state.stopTimer();
+          components.outro.setState("success", true)
+          sendCommand("outro", "success", true)
           // const msg = components.bomb.state.bombDisplay;
           setTimeout(() => {
             components.bomb.setState('color','red');

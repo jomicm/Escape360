@@ -29,10 +29,17 @@ class Bomb extends Component {
       let seconds = ((initTime / 1000) % 60).toFixed(0);
       seconds = seconds.length === 1 ? '0' + seconds : seconds
       
+      if (initTime === 10000) {
+        AudioModule.playOneShot({
+          source: asset('warning-bomba.mp3'),
+          volume: 0.4,
+        })
+      }
       if (initTime >= 1000) {
         this.setState({color: 'red'})
         initTime -= 1000;
         this.setState({bombDisplay: `${minutes}:${seconds}`})
+        componentsMgmt.bomb.state = this.state;
         if (this.state.show) {
           AudioModule.playOneShot({
           source: asset('beep-bomb.mp3'),
@@ -45,12 +52,15 @@ class Bomb extends Component {
       } else {
         this.setState({color: 'red'})
         this.setState({bombDisplay: '00:00'})
-        setTimeout(() => {
-          this.setState({color: 'black'})
-        }, 700)
+        componentsMgmt.bomb.state = this.state;
         // setTimeout(() => {
-        //   //silence for 3sec then explode. Endgame;
-        // }, 3000)
+        //   this.setState({color: 'black'})
+        // }, 700)
+        setTimeout(() => {
+          //silence for 3sec then explode. Endgame;
+          dataStore.emit('globalListener', {name: 'bombTimeout', action: this.state.component});
+        }, 5000)
+        clearInterval(this.state.interval);
       }
     }, 1000);
     this.setState({interval});
@@ -59,6 +69,7 @@ class Bomb extends Component {
   _onBombClick = (show) => {
     if (this.state.isPowered) {
       dataStore.emit('globalListener', {name: 'safeKeyPadBomb', action:'click', content:'Bomb'});
+      // dataStore.emit('globalListener', {name: 'safeKeyPadBomb', action:'click' });
     } else {
       if (componentsMgmt.inventory.state.selectedItem === 'battery') {
         this.setState({isPowered: true});

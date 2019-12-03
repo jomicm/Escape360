@@ -14,18 +14,18 @@ export default class PhoneNumpad extends Component {
     show: false,
     isRunning: false,
   }
-  createPhoneCode = (num) => {
+  createPhoneCode = async (num) => {
     if (this.state.isRunning) {
       return;
     }
     this.setState({isRunning: true})
-    AudioModule.playOneShot({
+    await AudioModule.playOneShot({
       source: asset('ty-safepin.mp3'),
       volume: 1,
     });
-    let first = 500;
     // if (this.state.isRunning) {
       setTimeout(() => {
+      let first = 500;
       getPuzzleAnswers().phoneCode.map((x, ix) => {
         setTimeout(() => {
           for (let i = 0; i < x; i++) {
@@ -41,9 +41,9 @@ export default class PhoneNumpad extends Component {
         }, first);
         first += (500 * x) + 700;
       });
+      setTimeout(() => this.setState({isRunning: false}), first);
+      console.log(first);
     }, 7500);
-    setTimeout(() => this.setState({isRunning: false}), first * 4);
-    console.log(first);
     console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
 

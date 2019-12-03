@@ -10,7 +10,7 @@ module.exports = (width, height) => {
     general: [
       { name: 'bedroomSafeSurface', root:'BedroomSafe', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.4, -0.45, 0.06], radius: 5 },
       { name: 'bedroomPosterSurface', root:'PosterBedroom', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI - 0.58, -0.1, 0], radius: 5 },
-      { name: 'babananaSurface', root:'Babanana', props: {}, size: { width: 500, height: 320 }, angle: [Math.PI / 2 + 0.37, 0.1, 0], radius: 5 },
+      { name: 'babananaSurface', root:'Babanana', props: {}, size: { width: 600, height: 320 }, angle: [Math.PI / 3 + 0.37, 0.02, -0.06], radius: 6.1 },
       { name: 'basementPosterSurface', root:'Poster', props: {}, size: { width: 300, height: 600 }, angle: [Math.PI / 2 - 0.37, -0.2, 0], radius: 5 },
       { name: 'myRopeSurface', root:'Rope', props: {}, size: { width: 300, height: 600 }, angle: [-0.19, -0.27, 0], radius: 0 },
       { name: 'myHoleSurface', root:'Hole', props: {}, size: { width: 500, height: 600 }, angle: [-1.5, -0.9, 0], radius: 0 },
@@ -28,6 +28,7 @@ module.exports = (width, height) => {
       { name: 'myGhostSurface', root: 'Ghost', size: { width: 320, height: 400 }, angle: [-0.75, -0.04, 0], radius: 5},
       { name: 'myCrowbarSurface', root: 'Crowbar', size: { width: 250, height: 250 }, angle: [-Math.PI / 2 + 0.55, -0.56, 0], radius: 5},
       { name: 'introSurface', root: 'Introduction', size: { width: 250, height: 250 }, angle: [0, 0, 0], radius: 5},
+      { name: 'outroSurface', root: 'Outro', size: { width: 1000, height: 600 }, angle: [0, 0, 0], radius: 5},
       // { name: 'myEscapeTheRoomSurface', root:'BlackHole', props: { }, size: { width: 200, height: 200 }, angle: [-Math.PI + 0.75, -0.25, 0], radius: 0 },
     ],
     initialEnvironment: '360_basement.jpg',

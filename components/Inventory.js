@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     // borderColor: "#639dda",
-    borderWidth: 2
+    // borderWidth: 2
   },
   backpack: {
     width: 120,

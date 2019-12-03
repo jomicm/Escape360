@@ -139,9 +139,6 @@ const styles = StyleSheet.create({
   screen: {
     width: 500,
     height: 250,
-    transform: [
-      {rotateY: '100deg'}
-    ]
   }
 });
 

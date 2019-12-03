@@ -22,8 +22,12 @@ console.log('room', room);
       environment: '360_living.png'
     },
     freedom: {
-      components: ['inventory', 'banana'],
-      environment: '360_world.jpg'
+      components: ['inventory', 'outro', 'banana'],
+      environment: '360_LHL.jpg'
+    },
+    dead: {
+      components: ['outro'],
+      environment: '360_dead.jpg'
     }
   }
   // console.log('componentsMgmt', componentsMgmt);
@@ -32,9 +36,5 @@ console.log('room', room);
     componentsMgmt[c].setState('show', false)
   });
   Environment.setBackgroundImage(asset(rooms[room].environment), {format: '2D', transition: 1000});
-  setTimeout(() => {
-    rooms[room].components.map(room => componentsMgmt[room].setState('show', true))
-  }, 1000)
-
-
+  setTimeout(() => { rooms[room].components.map(room => componentsMgmt[room].setState('show', true)) }, 1000);
 }
