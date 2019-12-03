@@ -24,7 +24,8 @@ export default class PhoneNumpad extends Component {
       volume: 1,
     });
     let first = 500;
-    setTimeout(() => {
+    // if (this.state.isRunning) {
+      setTimeout(() => {
       getPuzzleAnswers().phoneCode.map((x, ix) => {
         setTimeout(() => {
           for (let i = 0; i < x; i++) {
@@ -41,9 +42,11 @@ export default class PhoneNumpad extends Component {
         first += (500 * x) + 700;
       });
     }, 7500);
-    setTimeout(() => this.setState({isRunning: false}), first);
+    setTimeout(() => this.setState({isRunning: false}), first * 4);
+    console.log(first);
     console.log('pC', getPuzzleAnswers().phoneCode.join(''))
   }
+
   setCode = (c) => {
     console.log('c', c);
     let codeNumbers = [... this.state.codeNumbers];
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
   },
   actionButtons: {
     marginTop: 20, 
-    paddingLeft: 100, 
-    paddingRight: 100
+    paddingLeft: 40, 
+    paddingRight: 40
   }
 })
