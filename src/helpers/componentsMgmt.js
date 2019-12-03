@@ -41,7 +41,8 @@ const _componentsMgmt = (dataStore, ws) => {
     "bunny",
     "crowbar",
     "chest",
-    "Video360"
+    "Video360",
+    "outro"
     // "blackHole"
   ];
   // abstractArtFixed
@@ -156,7 +157,10 @@ const _componentsMgmt = (dataStore, ws) => {
             // components.bomb.setState('bombDisplay', '');
             // components.bomb.setState('bombDisplay', msg);
           }, 800)
-          setTimeout(() => changeRoom("freedom"), 10000);
+          setTimeout(() => changeRoom("freedom"), 5000);
+          components.outro.setState("bombDisplay", components.bomb.state.bombDisplay)
+          // components.outro.setState("bombDisplay", components.bomb.state.bombDisplay)
+          sendCommand("outro", "bombDisplay", components.bomb.state.bombDisplay)
           break;
         }
         components[action].setState("index", content);
@@ -279,6 +283,9 @@ const _componentsMgmt = (dataStore, ws) => {
           "codeSolved",
           getPuzzleAnswers().bombCode.join("")
         );
+        console.log('ici!!!!!!', content)
+        // components.outro.setState("bombDisplay", content.time)
+        // sendCommand("outro", "bombDisplay", content.time)
         components.safeKeypad.setState("component", "bomb");
         components.safeKeypad.setState("codeNumbers", []);
         components.safeKeypad.setState("show", true);

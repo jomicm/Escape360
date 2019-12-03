@@ -11,8 +11,8 @@ class Bomb extends Component {
     bombDisplay: '30:00',
     color: 'red',
     // isRunning: false,
-    isPowered: false,
-    isDefused: false,
+    isPowered: true,
+    isDefused: true,
     interval: null,
     stopTimer: async() => {
       // this.setState({color:'red'});
@@ -33,6 +33,7 @@ class Bomb extends Component {
         this.setState({color: 'red'})
         initTime -= 1000;
         this.setState({bombDisplay: `${minutes}:${seconds}`})
+        componentsMgmt.bomb.state = this.state;
         if (this.state.show) {
           AudioModule.playOneShot({
           source: asset('beep-bomb.mp3'),
@@ -45,6 +46,7 @@ class Bomb extends Component {
       } else {
         this.setState({color: 'red'})
         this.setState({bombDisplay: '00:00'})
+        componentsMgmt.bomb.state = this.state;
         setTimeout(() => {
           this.setState({color: 'black'})
         }, 700)
@@ -59,6 +61,7 @@ class Bomb extends Component {
   _onBombClick = (show) => {
     if (this.state.isPowered) {
       dataStore.emit('globalListener', {name: 'safeKeyPadBomb', action:'click', content:'Bomb'});
+      // dataStore.emit('globalListener', {name: 'safeKeyPadBomb', action:'click' });
     } else {
       if (componentsMgmt.inventory.state.selectedItem === 'battery') {
         this.setState({isPowered: true});

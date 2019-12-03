@@ -31,6 +31,7 @@ import Babanana from './components/Babanana';
 import Bunny from './objects/bunny';
 import Crowbar from './components/Crowbar';
 import Chest from './objects/Chest';
+import Outro from './components/Outro';
 // import BlackHole from './components/BlackHole';
 let puzzleAnswers;// = {phoneNumBasement:'5564'};
 const getPuzzleAnswers = () => puzzleAnswers;
@@ -82,7 +83,7 @@ const ws = useSocket('ws://172.46.0.135:8080?clientId=' + GameInfo.clientId  + '
 //const ws = useSocket('ws://172.46.0.135:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.3.245:8080', onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
-// const ws = useSocket('ws://192.168.0.1:8080', onMessageHandler)
+// const ws = useSocket('ws://192.168.0.14:8080', onMessageHandler)
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 setTimeout(() => {
@@ -116,6 +117,7 @@ AppRegistry.registerComponent('Babanana', () => Babanana);
 AppRegistry.registerComponent('Bunny', () => Bunny);
 AppRegistry.registerComponent('Crowbar', () => Crowbar);
 AppRegistry.registerComponent('Chest', () => Chest);
+AppRegistry.registerComponent('Outro', () => Outro);
 // AppRegistry.registerComponent('BlackHole', () => BlackHole);
 
 export { dataStore, getPuzzleAnswers, inventoryViewer, componentsMgmt, registerComponent, ws };

@@ -22,7 +22,7 @@ console.log('room', room);
       environment: '360_living.png'
     },
     freedom: {
-      components: ['inventory', 'banana'],
+      components: ['inventory', 'outro', 'banana'],
       environment: '360_world.jpg'
     }
   }
