@@ -13,7 +13,8 @@ console.log('Before connecting');
 wss.on('connection', (client) => {
   console.log('client....UR', client.upgradeReq.url);
   console.log('client....UR', client.upgradeReq.url.replace('/?',''));
-  let params = client.upgradeReq.url.replace('/?','');
+  let params = client.upgradeReq.url.replace('/websocket/?','');
+  // let params = client.upgradeReq.url.replace('/?',''); //works with local host
   params = params.split('&');
   const paramsObj = {};
   params.map(p => paramsObj[p.split('=')[0]] = p.split('=')[1]);
