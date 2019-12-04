@@ -45,10 +45,8 @@ import initialRoomState from './src/helpers/initialPlayerMgmt';
 const { GameInfo } = NativeModules;
 
 const onServerCommandReceived = comm => {  
-  console.log('Comando recibido: ', comm);
   switch (comm.serCommName) {
     case 'joined':
-      console.log('Comando recibido: joined as: ', comm.serCommText.id);
       if (comm.serCommText.id === -1) {
         Environment.setBackgroundImage(asset('360_world.jpg'), {format: '2D', transition: 1000});
         break;
@@ -62,7 +60,6 @@ const onServerCommandReceived = comm => {
       dataStore.emit("globalListener", { name: "puzzleAnswersReceived", action: "click", content: puzzleAnswers });
       break;
     case 'shareState':
-      console.log('Comando recibido: share state as: ', comm.serCommText.id);
       dataStore.emit("globalListener", { name: "all", action: "click", content: comm.serCommText });
       break;
   }
@@ -80,7 +77,7 @@ const onMessageHandler = e => {
 // const ws = useSocket('ws://172.46.3.245:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 // const ws = useSocket('ws://172.46.0.135:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 // const ws = useSocket(`ws://192.168.0.101:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
-console.log('GameInfo', GameInfo);
+// const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 // const ws = useSocket(`ws://synergizer360.com/websocket/?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
@@ -88,8 +85,6 @@ const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameI
 const componentsMgmt = _componentsMgmt(dataStore, ws);
 
 setTimeout(() => {
-  // ws.send(JSON.stringify( {commName:"join", commText:'4242'}));
-  console.log('GameInfo', GameInfo);
   ws.send(JSON.stringify( {commName:"join", commText:GameInfo.gameId}));
 }, 500);
 
