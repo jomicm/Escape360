@@ -6,7 +6,7 @@ const { AudioModule } = NativeModules;
 class Hole extends Component {
   state = {
     show: false,
-    canIGoThrough: false
+    canIGoThrough: true
   }
   componentDidMount() {
     componentsMgmt.hole.state = this.state;

@@ -7,7 +7,7 @@ import { dataStore, componentsMgmt } from '../index';
 export default class NextRoomDoor extends Component {
   state = {
     show: false,
-    canIGoThrough: false,
+    canIGoThrough: true,
   }
   componentDidMount() {
     componentsMgmt[this.props.component].state = this.state;

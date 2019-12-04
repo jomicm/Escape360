@@ -11,8 +11,8 @@ class Bomb extends Component {
     bombDisplay: '30:00',
     color: 'red',
     // isRunning: false,
-    isPowered: false,
-    isDefused: false,
+    isPowered: true,
+    isDefused: true,
     interval: null,
     stopTimer: async() => {
       // this.setState({color:'red'});
@@ -32,7 +32,7 @@ class Bomb extends Component {
       if (initTime === 10000) {
         AudioModule.playOneShot({
           source: asset('warning-bomba.mp3'),
-          volume: 0.4,
+          volume: 0.6,
         })
       }
       if (initTime >= 1000) {

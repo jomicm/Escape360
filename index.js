@@ -78,7 +78,7 @@ const onMessageHandler = e => {
 // const ws = useSocket('ws://172.46.0.135:8080?clientId=' + GameInfo.clientId  + '&gameId=4242', onMessageHandler)
 // const ws = useSocket(`ws://192.168.0.101:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 // const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
-const ws = useSocket(`ws://172.46.3.245:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
+const ws = useSocket(`ws://172.46.0.135:8080?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 // const ws = useSocket(`ws://synergizer360.com/websocket/?clientId=${GameInfo.clientId}&gameId=${GameInfo.gameId}`, onMessageHandler)
 // const ws = useSocket('ws://172.46.1.177:8080', onMessageHandler)
 // const ws = useSocket('ws://192.168.0.14:8080', onMessageHandler)
