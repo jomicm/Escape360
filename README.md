@@ -6,7 +6,7 @@ Deployed at: www.synergizer360.com
 
 ## Game Preview
 
-Click to view video:
+Click to view video:  
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/1DcbCAdyWeY/0.jpg)](http://www.youtube.com/watch?v=1DcbCAdyWeY)
 
 ## Dependencies
