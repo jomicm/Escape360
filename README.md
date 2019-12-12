@@ -2,7 +2,7 @@
 
 An immersive and interactive, multiplayer escape room in a 360° environment, with audio/video communication available for remote play. Players work together to solve puzzles, find clues, and obtain keys and codes to progress to the next stage, defuse the bomb, and escape. Built using React 360, VR compatible.
 
-Deployed at: www.synergizer360.com
+Play: https://synergizer360.com/
 
 ## Game Preview
 
